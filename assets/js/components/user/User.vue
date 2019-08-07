@@ -93,6 +93,11 @@
             $(document).on('submit', '.newsletter-form', e => {
                 e.preventDefault();
                 let formData = new FormData($(e.target)[0]);
+                let $submitButton = $('#appbundle_newsletter_submit');
+
+                $submitButton.append(
+                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
+                );
 
                 $.ajax({
                     type: 'POST',
@@ -105,6 +110,9 @@
                     },
                     error: err => {
                         addAlert(err.responseJSON);
+                    },
+                    complete() {
+                        $submitButton.find('span').remove();
                     }
                 });
             });
@@ -114,6 +122,11 @@
                 e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
+
+                let $submitButton = $('#appbundle_contact_submit');
+                $submitButton.append(
+                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
+                );
 
                 $.ajax({
                     type: 'POST',
@@ -127,6 +140,9 @@
                     },
                     error: err => {
                         addAlert(err.responseJSON);
+                    },
+                    complete() {
+                        $submitButton.find('span').remove();
                     }
                 });
             });
@@ -136,6 +152,11 @@
                 e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
+
+                let $submitButton = $('#appbundle_category_submit');
+                $submitButton.append(
+                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
+                );
 
                 $.ajax({
                     type: 'POST',
@@ -148,6 +169,9 @@
                     },
                     error: err => {
                         addAlert(err.responseJSON);
+                    },
+                    complete() {
+                        $submitButton.find('span').remove();
                     }
                 });
             });
@@ -155,7 +179,8 @@
             // Comment modal in article component
             $(document).on('submit', 'form[name="appbundle_comment"]', e => {
                 e.preventDefault();
-                $(e.target).find('button').append(
+                let $submitButton = $('#appbundle_comment_submit');
+                $submitButton.append(
                     $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
                 );
 
@@ -176,7 +201,7 @@
                     },
                     complete: () => {
                         this.$root.$emit('hide-comment-modal');
-                        $(e.target).find('button > span').remove();
+                        $submitButton.find('span').remove();
                     }
                 });
             });
