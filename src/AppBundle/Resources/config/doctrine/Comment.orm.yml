@@ -1,0 +1,32 @@
+AppBundle\Entity\Comment:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\CommentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        username:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+        comment:
+            type: text
+        date:
+            type: datetimetz
+        published:
+            type: boolean
+        token:
+            type: string
+            length: 255
+            nullable: false
+
+    manyToOne:
+        article:
+            targetEntity: AppBundle\Entity\Article
+            inversedBy: comments

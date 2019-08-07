@@ -1,0 +1,43 @@
+AppBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        username:
+            type: string
+            length: 255
+            nullable: false
+
+        password:
+            type: string
+            length: 255
+            unique: true
+            nullable: false
+
+        isEnabled:
+            type: boolean
+            nullable: false
+
+        isAccountNonExpired:
+            type: boolean
+            nullable: false
+
+        isAccountNonLocked:
+            type: boolean
+            nullable: false
+
+        isCredentialsNonExpired:
+            type: boolean
+            nullable: false
+
+        roles:
+            type: array
+            nullable: false
+
+    lifecycleCallbacks: {  }

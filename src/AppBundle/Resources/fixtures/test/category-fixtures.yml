@@ -1,0 +1,8 @@
+AppBundle\Entity\Category:
+    category_1:
+        category: banane
+        articles: '@article_{1..10}'
+
+    category_2:
+        category: pomme
+        articles: '@article_{11..20}'

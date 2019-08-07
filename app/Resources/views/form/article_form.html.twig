@@ -1,0 +1,28 @@
+<div class="tile">
+    {% form_theme form 'form/fields.html.twig' %}
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.images) }}
+        <div class="article-form-add-button-container">
+            <button type="button" class="button-default w150" id="button-add-image">
+                <i class="fa fa-plus-circle"></i> {{ 'admin.article.form.image.add' | trans }}
+            </button>
+        </div>
+        {{ form_row(form.categories) }}
+        <div class="article-form-add-button-container">
+            <button type="button" class="button-default" id="button-add-category">
+                <i class="fa fa-plus-circle"></i> {{ 'admin.article.form.category.add' | trans }}
+            </button>
+        </div>
+        {% if app.request.get('_route') == 'create_article' %}
+            {{ form_row(form.newsletter) }}
+        {% endif %}
+        {{ form_row(form.file) }}
+        {% if pdf is defined and pdf is not null %}
+           <p>{{ 'article.pdf.delete' | trans }}</p>
+            <button class="button-delete" id="remove-pdf" data-pdf="{{ pdf }}"><i class="fa fa-trash"></i> {{ 'admin.article.form.button.remove' | trans }}</button>
+        {% endif %}
+    {{ form_end(form) }}
+</div>
+
+<script src="{{ asset('build/js/article_form.js') }}"></script>

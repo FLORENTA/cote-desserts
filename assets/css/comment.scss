@@ -1,0 +1,22 @@
+.comments-container {
+  @extend %pointer;
+}
+
+.comment {
+  border-left: 3px solid lightgrey;
+  margin-top: 15px;
+  padding: 0 10px 1px 10px;
+}
+
+#comment_form_container {
+  .tile {
+    position: relative;
+
+    i {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      cursor: pointer;
+    }
+  }
+}

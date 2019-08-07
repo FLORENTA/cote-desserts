@@ -1,0 +1,36 @@
+# https://github.com/fzaninotto/Faker#formatters
+AppBundle\Entity\Statistic:
+    statistic_user_1_navigation_homepage:
+        date: <date_create()>
+        data: /
+        type: navigation
+        bot: 0
+        sessionId: session_1
+
+    statistic_user_1_navigation_contact:
+        date: <date_create()>
+        data: /contact
+        type: navigation
+        bot: 0
+        sessionId: session_1
+
+    statistic_user_2_search_contact:
+        date: <date_create()>
+        data: tart
+        type: search
+        bot: 0
+        sessionId: session_2
+
+    statistic_user_2_navigation_category:
+        date: <date_create()>
+        data: /category
+        type: navigation
+        bot: 0
+        sessionId: session_2
+
+    statistic_bot_navigation_homepage:
+        date: <date_create()>
+        data: /
+        type: navigation
+        bot: 1
+        sessionId: session_3

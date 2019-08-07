@@ -1,0 +1,56 @@
+.btn {
+  @extend %block;
+  @extend %no-border;
+  @extend %pointer;
+  @include padding(7px);
+  color: white;
+  transition: .2s;
+}
+
+.button-default {
+  @extend .btn;
+  background: darkslategray;
+}
+
+.button-default:hover,
+.button-submit:hover{
+  background: slategrey;
+}
+
+.button-submit {
+  @extend .btn;
+  @extend .m10;
+  background: darkslategray;
+}
+
+.button-delete {
+  @extend .btn;
+  background: $dark-red;
+}
+
+.button-delete:hover {
+  background: red;
+}
+
+.article-form-add-button-container {
+  position: relative;
+  height: 30px;
+  margin-bottom: 2em;
+
+  #button-add-image,
+  #button-add-category {
+    margin-top: 2em;
+    position: absolute;
+    right: 0;
+  }
+}
+
+.button-group{
+  margin-top: 5px;
+  @extend %flex;
+  @extend %justify-center;
+}
+
+.button-group button {
+  border-left: 1px solid white;
+}

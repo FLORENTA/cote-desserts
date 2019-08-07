@@ -1,0 +1,59 @@
+#app_user {
+  position: relative;
+  @extend %flex;
+  @extend %column;
+  justify-content: space-between;
+  min-height: 100vh;
+
+  footer{
+    @include width(100%);
+    @include padding(20px 0 10px 0);
+    @extend %border-box;
+    @extend %flex;
+    @extend %align-center;
+    @extend %justify-center;
+    @extend %column;
+    background: $super-dark-grey;
+
+    form {
+      padding: 0;
+      box-shadow: none;
+      background: $super-dark-grey;
+      @extend %margin-auto;
+      @extend %align-center;
+      input[type='email']{
+        border: none;
+        color: $super-dark-grey;
+      }
+
+      .form_row {
+        width: 100%;
+      }
+    }
+
+    #appbundle_newsletter {
+      @extend %flex;
+      @extend %align-center;
+      button {
+        width: 125px;
+      }
+    }
+
+    #legal_mentions {
+      margin-top: 1em;
+      @extend %flex;
+      @extend %justify-center;
+      color: white;
+      font-size: .8em;
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+
+      a:hover{
+        cursor: pointer;
+      }
+    }
+  }
+}

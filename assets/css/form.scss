@@ -1,0 +1,144 @@
+.field {
+  margin: 10px auto;
+}
+
+form {
+  position: relative;
+  $array: 'select', 'input[type="text"]', 'input[type="password"]', 'input[type="email"]', 'input[type="date"]', 'input[type="file"]', textarea;
+
+  @include loopItem($array, 'width', 100%);
+  @include loopItem($array, 'display', 'block');
+  @include loopItem($array, 'padding', 7px);
+  @include loopItem($array, 'color', #76838f);
+  @include loopItem($array, 'border', 'none');
+  @include loopItem($array, 'transition', '.4s');
+  @include loopItem('select', 'border', '1px solid lightgrey');
+  @include loopItem('select', 'margin', '15px auto');
+  @include loopItem('input[type="text"]', 'border-bottom', 1px solid lightgrey);
+  @include loopItem('input[type="password"]', 'border-bottom', 1px solid lightgrey);
+  @include loopItem('input[type="email"]', 'border-bottom', 1px solid lightgrey);
+  @include loopItem('input[type="date"]', 'border-bottom', 1px solid lightgrey);
+  @include loopItem('textarea', 'border', 1px solid lightgrey);
+  @include loopItem('textarea', 'display', 'block');
+  @include loopItem('textarea', 'font-size', '.9em');
+  @include loopItem('textarea', 'margin', '15px 0');
+  @include loopItem('textarea', 'height', '150px');
+  @include loopItem('textarea', 'resize', 'none');
+  @include focused($array, 'border-color', 'dodgerblue');
+
+  label {
+    display: block;
+    padding: 0;
+    margin: 15px 0 0 0;
+    font-size: .9em;
+    font-weight: bold;
+  }
+
+  img{
+    margin: 10px auto;
+    width: 100%;
+  }
+
+  input[type='file'] {
+    color: lightgrey;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  textarea {
+    font-family: 'Open Sans', sans-serif;
+  }
+  list-style: none;
+}
+
+form * {
+  @extend %border-box;
+}
+
+form[name='appbundle_search'] {
+  position: relative;
+  height: 25px;
+  @extend %flex;
+  @extend %justify-center;
+
+  ul {
+    display: block;
+    position: absolute;
+    width: 70%;
+
+    li {
+      height: auto;
+      line-height: inherit;
+      padding: .5em;
+      margin: 0;
+      border: 1px solid #eee;
+      width: 100%;
+      background: #fff;
+      text-align: left;
+    }
+  }
+
+  button {
+    i {
+      color: #fff;
+    }
+  }
+
+  input {
+    border: none;
+    text-indent: 5px;
+    transition: .4s;
+  }
+
+  button {
+    background: transparent;
+    text-align: center;
+    border: none;
+    width: 30px;
+    padding: 0;
+  }
+
+  button:hover{
+    cursor: pointer;
+  }
+}
+
+#newsletter-form-container {
+  width: 30%;
+}
+
+#newsletter-form-container {
+  height: 4em;
+  display: block;
+}
+
+form[name="appbundle_category"] {
+  .form_row:first-child > label {
+    margin-bottom: 1em;
+  }
+}
+
+form[name='appbundle_statistic'] {
+  #appbundle_statistic_bot {
+    margin-top: .5em;
+    @extend %flex;
+    label {
+      margin: 0;
+    }
+
+    input[type='radio'] {
+      margin: 0 .5em;
+    }
+  }
+}
+
+form[name="appbundle_article"] {
+  label {
+    font-weight: bold;
+  }
+  #appbundle_article_newsletter {
+    margin: .5em 0;
+    height: 1.5em;
+    width: 1.5em;
+  }
+}

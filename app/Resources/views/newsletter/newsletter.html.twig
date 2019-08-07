@@ -1,0 +1,86 @@
+<html lang="fr">
+    <head>
+        <style>
+
+            #container {
+                font-family: 'Helvetica', sans-serif;
+                margin: 0 auto;
+                width: 50%;
+                color: #263238;
+                background: #f1f4f5;
+                padding: 20px;
+            }
+            
+            #container * {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+            #container h2, a {
+                text-align: center;
+            }
+
+            .tile {
+                padding: 15px;
+                box-shadow: 0 2px 3px rgb(163,175,183);
+                margin: 20px auto;
+                background: #fff;
+            }
+
+            .tile img {
+                width: 100%;
+            }
+
+            #link {
+                padding: 7px;
+                background: darkslategray;
+                text-decoration: none;
+                display: block;
+                margin: 20px auto;
+                border: none;
+                color: #fff;
+                width: 150px;
+                text-align: center;
+            }
+
+            #link:hover{
+                background: slategray;
+            }
+
+            #unsubscribe {
+                text-decoration: none;
+                display: block;
+                text-align: center;
+            }
+
+            #unsubscribe,
+            #link {
+                font-size: .85em;
+            }
+
+            @media all and (max-width: 1024px) {
+                #container {
+                    width: 95%;
+                }
+
+                #link {
+                    width: 100%;
+                }
+            }
+        </style>
+    </head>
+</html>
+<div id="container">
+    <h2>{{ article.title }}</h2>
+    <div class="tile">
+        {% if src is not null %}
+            <img src="{{ src }}" alt="{{ title }}"/>
+        {% endif %}
+        <p>{{ content|slice(0, 200)|raw }}...</p>
+    </div>
+    <a href="{{ articleUrl }}" target="_blank" id="link">{{ 'newsletter.access_button' | trans }}</a>
+    <a href="{{ unsubscribeUrl }}" id="unsubscribe"> {{ 'newsletter.unsubscribe' | trans }} </a>
+</div>
+
+

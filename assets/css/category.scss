@@ -1,0 +1,9 @@
+.category {
+  @extend %flex;
+  @extend %wrap;
+  margin: 20px auto;
+
+  button {
+    margin: 0 2px;
+  }
+}

@@ -1,0 +1,41 @@
+@mixin height($height) {
+  height: $height;
+}
+
+@mixin width($width) {
+  width: $width;
+}
+
+@mixin widthArticle() {
+  @media all and (min-width: 768px) and (max-width: 1023px) {
+    width: 48%;
+  }
+
+  @media all and (max-width: 767px) {
+    width: 100%;
+  }
+}
+
+@mixin borderRadius($angle) {
+  border-radius: $angle;
+}
+
+@mixin padding($padding) {
+  padding: $padding;
+}
+
+@mixin loopItem($array, $rule, $value) {
+  @each $item in $array {
+    #{$item} {
+      #{$rule}: #{$value};
+    }
+  }
+}
+
+@mixin focused($array, $rule, $value) {
+  @each $item in $array {
+    #{$item}:focus {
+      #{$rule}: #{$value};
+    }
+  }
+}

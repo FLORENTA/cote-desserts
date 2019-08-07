@@ -1,0 +1,10 @@
+AppBundle\Entity\Newsletter:
+    subscriber_1:
+        email: subscriber@gmail.com
+        date: <date_create()>
+        token: <md5(<uniqid()>)>
+
+    subscriber_2:
+        email: subscriber_2@gmail.com
+        date: <date_create()>
+        token: <md5(<uniqid()>)>

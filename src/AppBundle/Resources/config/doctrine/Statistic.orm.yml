@@ -1,0 +1,25 @@
+AppBundle\Entity\Statistic:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\StatisticRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: datetime
+        data:
+            type: string
+            length: 255
+        bot:
+            type: boolean
+        sessionId:
+            type: string
+            nullable: true
+
+    manyToOne:
+        statisticType:
+            targetEntity: AppBundle\Entity\StatisticType

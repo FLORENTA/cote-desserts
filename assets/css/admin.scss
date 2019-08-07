@@ -1,0 +1,21 @@
+#logout:hover{
+  @extend %pointer;
+}
+
+// Create article and edit articles (see admin.vue)
+.category-suggestion {
+  width: 100%;
+  @extend %flex;
+  @extend %wrap;
+  list-style: none;
+  justify-content: flex-start;
+  padding: 0;
+
+  li {
+    border: 1px solid #ccc;
+    background: #eee;
+    padding: .25em;
+    margin: 0 .25em;
+    cursor: pointer;
+  }
+}

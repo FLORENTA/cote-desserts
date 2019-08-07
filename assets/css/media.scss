@@ -1,0 +1,54 @@
+@media all and (max-width: 1024px) {
+  nav ul {
+    position: absolute;
+    top: 50px;
+    left: -80vw;
+    width: 80vw;
+    height: 100vh;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    transition: .4s;
+  }
+
+  nav ul li {
+    width: 100%;
+    text-align: left;
+    text-indent: 15px;
+  }
+
+  .tile{
+    padding: 10px;
+    display: block;
+    margin: 15px auto;
+  }
+
+  #app_user {
+    #newsletter-form-container{
+      flex-direction: column;
+      -webkit-flex-direction: column;
+      width: 95%;
+    }
+  }
+
+  .w95sm {
+    @include width(95%);
+  }
+
+  .button-group {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 10px auto;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+  }
+
+  .button-group button,
+  .button-group a {
+    width: 100%;
+    margin: 5px auto;
+  }
+}

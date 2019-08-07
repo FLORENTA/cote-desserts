@@ -1,0 +1,19 @@
+table {
+  margin: 10px auto;
+
+  img {
+    width: 100%;
+  }
+}
+
+table, thead, th, tr, td {
+  border-top: 1px solid $light-grey;
+  border-bottom: 1px solid $light-grey;
+  border-collapse: collapse;
+  text-align: left;
+  padding: 10px;
+}
+
+th {
+  color: $super-dark-grey;
+}

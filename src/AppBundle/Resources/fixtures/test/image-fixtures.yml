@@ -1,0 +1,15 @@
+# https://github.com/fzaninotto/Faker#formatters
+AppBundle\Entity\Image:
+  image_1 :
+    src: image_1.jpg
+    title: image_1
+    content: A beautiful tart
+    updateAt: null
+    article: '@article_1'
+
+  image_2 :
+    src: image_2.jpg
+    title: image_2
+    content: A beautiful mousse cake
+    updateAt: <date_create()>
+    article: '@article_10'

@@ -1,0 +1,14 @@
+AppBundle\Entity\Legal:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\LegalRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        content:
+            type: text
+    lifecycleCallbacks: {  }

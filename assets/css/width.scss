@@ -1,0 +1,11 @@
+.w100 {
+  @include width(100%);
+}
+
+.w40 {
+  @include width(40%);
+}
+
+.w150 {
+  @include width(150px);
+}

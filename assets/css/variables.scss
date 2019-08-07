@@ -1,0 +1,72 @@
+$purple: rebeccapurple;
+$medium-purple: mediumpurple;
+$super-dark-grey: #21292e;
+$dark-grey: #263238;
+$hovered-grey: #242f35;
+$button-grey: #21292e;
+$light-grey: rgba(163,175,183,.9);
+$dark-red: #b22222;
+
+%block {
+  display: block;
+}
+
+%flex {
+  display: flex;
+  display: -webkit-flex;
+}
+
+%column {
+  flex-direction: column;
+  -webkit-flex-direction: column;
+}
+
+%space-around {
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+}
+
+%justify-center {
+  justify-content: center;
+  -webkit-justify-content: center;
+}
+
+%wrap {
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+}
+
+%align-center{
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+%pointer {
+  cursor: pointer;
+}
+
+%border-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+%no-border {
+  border: none;
+}
+
+%text-center {
+  text-align: center;
+}
+
+%margin-auto {
+  margin: auto;
+}
+
+%no-underline {
+  text-decoration: none;
+}
+
+%max-width {
+  width: 100%;
+}

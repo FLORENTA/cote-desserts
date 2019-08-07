@@ -1,0 +1,25 @@
+AppBundle\Entity\Newsletter:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\NewsletterRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 255
+            nullable: false
+            unique: true
+        token:
+            type: string
+            length: 255
+            nullable: false
+            unique: true
+        date:
+            type: datetimetz
+
+    lifecycleCallbacks: {  }

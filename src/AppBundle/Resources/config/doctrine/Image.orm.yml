@@ -1,0 +1,35 @@
+AppBundle\Entity\Image:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ImageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        src:
+            type: string
+            length: 255
+            nullable: true
+
+        title:
+            type: string
+            length: 255
+            null: false
+
+        content:
+            type: text
+            nullable: true
+
+        updateAt:
+            type: datetime
+            nullable: true
+
+    manyToOne:
+        article:
+            targetEntity: AppBundle\Entity\Article
+            inversedBy: images
+
+    lifecycleCallbacks: {  }

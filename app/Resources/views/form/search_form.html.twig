@@ -1,0 +1,9 @@
+<div id="search-form">
+    {{ form_start(form, {'attr': {'v-on:submit' : 'handleSubmit'}} ) }}
+        {{ form_row(form.search, {'attr' : {'v-on:keyup' : 'handleSubmit'}} ) }}
+        <button type="submit">
+            <i class="fa fa-search"></i>
+        </button>
+    {{ form_end(form) }}
+</div>
+<script src="{{ asset('build/js/search_form.js') }}"></script>

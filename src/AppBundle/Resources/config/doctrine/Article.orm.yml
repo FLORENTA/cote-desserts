@@ -1,0 +1,50 @@
+AppBundle\Entity\Article:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ArticleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        slug:
+            type: string
+            length: 255
+        date:
+            type: datetime
+        newsletter:
+            type: boolean
+            nullable: true
+        pdf:
+            type: string
+            nullable: true
+        token:
+            type: string
+            length: 255
+            nullable: false
+        updateAt:
+            type: datetime
+            nullable: true
+    oneToMany:
+        images:
+            targetEntity: AppBundle\Entity\Image
+            mappedBy: article
+            cascade: ['persist', 'remove']
+            orphanRemoval: true
+
+        comments:
+            targetEntity: AppBundle\Entity\Comment
+            mappedBy: article
+            cascade: ['remove']
+
+    manyToMany:
+        categories:
+            targetEntity: AppBundle\Entity\Category
+            mappedBy: articles
+            cascade: ['persist', 'remove']
+            orphanRemoval: true

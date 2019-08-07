@@ -1,0 +1,5 @@
+php bin/console d:d:d --env=test --force
+php bin/console d:d:c --env=test
+php bin/console d:s:u --force --env=test
+php bin/console hautelook:fixtures:load --env=test --no-interaction
+./vendor/bin/phpunit tests/AppBundle
