@@ -29,7 +29,6 @@ admin.statistics.delete.success: 'Les données ont bien été supprimées.'
 article.access_button: "En savoir plus"
 article.button.comment: "Commenter"
 article.categories: "Catégories associées à l'article :"
-article.comment_modal.form.title: "Commenter %title%"
 article.comments: "Commentaires"
 article.creation.failure: "La création de l'article a échoué"
 article.creation.success: "L'article %title% a bien été créé."

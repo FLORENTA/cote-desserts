@@ -14,9 +14,7 @@
                 <i class="fa fa-plus-circle"></i> {{ 'admin.article.form.category.add' | trans }}
             </button>
         </div>
-        {% if app.request.get('_route') == 'create_article' %}
-            {{ form_row(form.newsletter) }}
-        {% endif %}
+        {{ form_row(form.newsletter) }}
         {{ form_row(form.file) }}
         {% if pdf is defined and pdf is not null %}
            <p>{{ 'article.pdf.delete' | trans }}</p>
