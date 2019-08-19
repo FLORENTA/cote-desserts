@@ -111,9 +111,8 @@ class LoginController extends Controller
     ): JsonResponse
     {
         if (null === ($token = $session->get('token'))) {
-            $logger->critical('Unknown token.', [
-                '_method' => __METHOD__
-            ]);
+            $logger->critical('Unknown token.', ['_method' => __METHOD__]);
+
             return new JsonResponse($translator->trans('login.token.unknown'), JsonResponse::HTTP_BAD_REQUEST);
         }
 

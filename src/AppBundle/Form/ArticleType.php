@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class ArticleType
@@ -23,18 +22,13 @@ class ArticleType extends AbstractType
     /** @var EntityManagerInterface $em */
     private $em;
 
-    /** @var TranslatorInterface $translator */
-    private $translator;
-
     /**
      * ArticleType constructor.
      * @param EntityManagerInterface $em
-     * @param TranslatorInterface $translator
      */
-    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->translator = $translator;
     }
 
     /**

@@ -44,10 +44,7 @@ class ContactController extends Controller
         $contact = $contactManager->getContacts();
 
         if (empty($contact)) {
-            $logger->info(
-                $translator->trans('query.no_contact'),
-                ['_method' => __METHOD__]
-            );
+            $logger->info('No message received.', ['_method' => __METHOD__]);
 
             return new JsonResponse(
                 $translator->trans('query.no_contact'),
@@ -136,10 +133,7 @@ class ContactController extends Controller
             );
         }
 
-        $logger->error(
-            'The form received is not valid',
-            ['_method' => __METHOD__]
-        );
+        $logger->error('The form is not valid', ['_method' => __METHOD__]);
 
         return new JsonResponse(
             $translator->trans('generic.form.invalid'),

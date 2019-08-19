@@ -172,9 +172,9 @@ function userAuthenticated() {
                will result in invalid token message
              */
             if (localStorage.getItem('token') === response) {
-                resolve('Identification réussie.');
+                resolve(Translator.trans('login.authentication.success'));
             } else {
-                reject('Token invalide.');
+                reject(Translator.trans('login.token.invalid'));
             }
         }).fail(err => {
             reject(err.responseJSON)
