@@ -1,24 +1,24 @@
-admin.contact.button.delete: "Supprimer"
-admin.article.create.title: "Créer un article"
-admin.article.edit.title: "Éditer un article"
-admin.article.form.button.remove: "Supprimer"
-admin.article.form.category.add: "Ajouter une catégorie"
-admin.article.form.category.label: "Catégorie"
-admin.article.form.category.placeholder: "Veuillez saisir une catégorie"
-admin.article.form.image.add: "Ajouter une image"
-admin.article.form.image.label: "Image"
-admin.article.form.image.placeholder: "Veuillez saisir du contenu"
-admin.article.form.newsletter.label: "Envoyer une newsletter"
-admin.article.form.pdf.label: "Ajouter un fichier pdf"
-admin.article.form.title: "Titre"
+admin.contact.button.delete: 'Supprimer'
+admin.article.create.title: 'Créer un article'
+admin.article.edit.title: 'Éditer un article'
+admin.article.form.button.remove: 'Supprimer'
+admin.article.form.category.add: 'Ajouter une catégorie'
+admin.article.form.category.label: 'Catégorie'
+admin.article.form.category.placeholder: 'Veuillez saisir une catégorie'
+admin.article.form.image.add: 'Ajouter une image'
+admin.article.form.image.label: 'Image'
+admin.article.form.image.placeholder: 'Veuillez saisir du contenu'
+admin.article.form.newsletter.label: 'Envoyer une newsletter'
+admin.article.form.pdf.label: 'Ajouter un fichier pdf'
+admin.article.form.title: 'Titre'
 admin.homepage.button.delete: 'Supprimer'
-admin.homepage.article.delete.confirm: "Voulez-vous supprimer cet article ?"
+admin.homepage.article.delete.confirm: 'Voulez-vous supprimer cet article ?'
 admin.homepage.button.edit: 'Éditer'
 admin.homepage.button.more_articles: "Plus d'articles"
 admin.homepage.no_article: 'Aucun article'
 admin.newsletter.button.delete : 'Supprimer'
-admin.newsletter.sent_newsletters: "Newsletter(s) envoyée(s) :"
-admin.newsletter.subscribers: "abonné(s)"
+admin.newsletter.sent_newsletters: 'Newsletter(s) envoyée(s) :'
+admin.newsletter.subscribers: 'abonné(s)'
 admin.newsletter.table.head.action : 'Action'
 admin.newsletter.table.head.email : 'Email'
 admin.newsletter.table.head.subscription_date : 'Date de souscription'
@@ -26,97 +26,98 @@ admin.statistics.button.delete: 'Supprimer les statistiques'
 admin.statistics.delete.success: 'Les données ont bien été supprimées.'
 
 # article
-article.access_button: "En savoir plus"
-article.button.comment: "Commenter"
+article.access_button: 'En savoir plus'
+article.button.comment: 'Commenter'
 article.categories: "Catégories associées à l'article :"
-article.comments: "Commentaires"
+article.comments: 'Commentaires'
 article.creation.failure: "La création de l'article a échoué"
 article.creation.success: "L'article %title% a bien été créé."
 article.deletion.failure: "La suppression de l'article a échoué."
 article.deletion.success: "L'article %title% a bien été supprimé."
 article.not_found: "L'article n'existe pas"
-article.pdf.delete: "Supprimer le fichier pdf"
-article.pdf.download: "Télécharger la recette en PDF"
+article.pdf.delete: 'Supprimer le fichier pdf'
+article.pdf.download: 'Télécharger la recette en PDF'
 article.update.failure: "La mise à jour de l'article %title% a échoué."
 article.update.success: "L'article %title% a bien été mis à jour."
 
-category.article_for_categories: "Article(s) pour la/les catégorie(s) :"
-category.form.label: "Veuillez choisir une catégorie"
-category.results: "article(s) trouvé(s)"
-category.title: "Catégories"
+category.article_for_categories: 'Article(s) pour la/les catégorie(s) :'
+category.form.label: 'Veuillez choisir une catégorie'
+category.results: 'article(s) trouvé(s)'
+category.title: 'Catégories'
 
-comment.button.delete: "Supprimer"
-comment.deletion.success: "Le commentaire a bien été supprimé."
+comment.button.delete: 'Supprimer'
+comment.deletion.success: 'Le commentaire a bien été supprimé.'
 comment.deletion.success.logger: "Le commentaire de %email% a bien été supprimé."
 comment.form.username.label: "Nom d'utilisateur"
-comment.form.email.label: "Adresse email"
-comment.form.comment.label: "Commentaire"
+comment.form.email.label: 'Adresse email'
+comment.form.comment.label: 'Commentaire'
 comment.not_found: "Le commentaire n'existe pas"
 comment.publish.success: "Le commentaire %token% a été publié"
 comment.reception.logger: "Nouveau commentaire reçu de : %name%"
 comment.sent.failure: "Une erreur est survenue lors de l'envoi de votre commentaire."
-comment.sent.success: "Votre commentaire a bien été envoyé"
-comment.status.hide: "Masquer"
-comment.status.publish: "Publier"
-comment.title: "Commentaires"
-comment.update.success: "Le commentaire a bien été mis à jour"
+comment.sent.success: 'Votre commentaire a bien été envoyé'
+comment.status.hide: 'Masquer'
+comment.status.publish: 'Publier'
+comment.title: 'Commentaires'
+comment.update.success: 'Le commentaire a bien été mis à jour'
 
-contact.deletion.success: "Le contact a bien été supprimé"
+contact.deletion.success: 'Le contact a bien été supprimé'
 contact.deletion.success.logger: 'Contact with token %token% - %email% - deleted.'
-contact.email.placeholder: "Veuillez saisir votre email"
-contact.message.placeholder: "Veuillez saisir votre message"
+contact.email.placeholder: 'Veuillez saisir votre email'
+contact.message.placeholder: 'Veuillez saisir votre message'
 contact.not_found: "Le contact n'existe pas"
 contact.sent.failure: "Une erreur est survenue lors de l'envoi de votre demande."
-contact.sent.success: "Votre message a bien été envoyé."
-contact.title: "Formulaire de contact"
+contact.sent.success: 'Votre message a bien été envoyé.'
+contact.title: 'Formulaire de contact'
 
 # generic
-generic.error: "Une erreur est survenue."
-generic.form.invalid: "Le formulaire est invalide."
-generic.form.submit: "Envoyer"
-generic.request.invalid: "La requête est invalide."
+generic.error: 'Une erreur est survenue.'
+generic.form.invalid: 'Le formulaire est invalide.'
+generic.form.submit: 'Envoyer'
+generic.request.invalid: 'La requête est invalide.'
 
 homepage.more_articles: "Plus d'article"
 
-html.head.description: "Blog dédié à la pâtisserie"
-html.head.keywords: "recette, dessert, pâtisserie"
-html.head.title: "Côté Desserts"
-html.footer.copyright: "2019 Côté Desserts"
-html.footer.legal_mentions: "Mentions légales"
+html.head.description: 'Blog dédié à la pâtisserie'
+html.head.keywords: 'recette, dessert, pâtisserie'
+html.head.title: 'Côté Desserts'
+html.footer.copyright: '2019 Côté Desserts'
+html.footer.legal_mentions: 'Mentions légales'
 
-legal.title: "Mentions légales"
-legal.content.label: "Mentions légales"
+legal.title: 'Mentions légales'
+legal.content.label: 'Mentions légales'
 legal.creation.success: 'Les mentions légales ont bien été créées'
 legal.update.success: 'Les mentions légales ont bien été mises à jour'
 
-login.authentication.success: "Authentification réussie"
+login.authentication.success: 'Authentification réussie.'
 login.form.unknown_user: "L'utilisateur n'existe pas"
-login.form.password.failure: "Le mot de passe est incorrect"
-login.form.password.label: "Mot de passe"
-login.form.password.placeholder: "Entrez un mot de passe"
+login.form.password.failure: 'Le mot de passe est incorrect'
+login.form.password.label: 'Mot de passe'
+login.form.password.placeholder: 'Mot de passe'
 login.form.username.label:  "Nom d'utilisateur"
-login.form.username.placeholder:  "Entrez un nom d'utilisateur"
+login.form.username.placeholder:  "Nom d'utilisateur"
 login.title: "Accès à l'espace administration"
+login.token.invalid: "Le token n'est pas valide. L'authentification a échoué."
 login.token.unknown: "Le token n'existe pas en session. L'authentification a échoué."
-login.token.local_storage.unknown: "Token inexistant."
+login.token.local_storage.unknown: 'Token inexistant.'
 
-menu.home: Accueil
-menu.categories: Catégories
-menu.contact: Contact
-menu.statistics: Statistiques
+menu.home: 'Accueil'
+menu.categories: 'Catégories'
+menu.contact: 'Contact'
+menu.statistics: 'Statistiques'
 
-newsletter.access_button: "En savoir plus"
+newsletter.access_button: 'En savoir plus'
 newsletter.admin.deletion.success: 'Suppression réussie.'
-newsletter.form.write_email: "Veuillez saisir votre e-mail"
+newsletter.form.write_email: 'Veuillez saisir votre e-mail'
 newsletter.send.failure: "L'envoi de la newsletter pour l'article %title% a échoué."
 newsletter.send.success: "La newsletter de l'article %title% a bien été envoyée."
-newsletter.subject: "Nouvel article publié : "
+newsletter.subject: 'Nouvel article publié : '
 newsletter.subscribe: "Je m'abonne"
-newsletter.subscription.already_registered: "Vous êtes déjà abonné(e)."
-newsletter.subscription.success: "Votre abonnement à la newsletter bien été pris en compte."
+newsletter.subscription.already_registered: 'Vous êtes déjà abonné(e).'
+newsletter.subscription.success: 'Votre abonnement à la newsletter bien été pris en compte.'
 newsletter.subscription.failure: "L'envoi de la confirmation de votre abonnement à la newsletter a échoué."
 newsletter.unsubscribe: 'Me désabonner'
-newsletter.unsubscribe.how_to: "Pour vous désabonner, veuillez cliquer sur le lien ci-dessous :"
+newsletter.unsubscribe.how_to: 'Pour vous désabonner, veuillez cliquer sur le lien ci-dessous :'
 newsletter.unsubscription.failure: 'Vous êtes déja désabonné(e).'
 newsletter.unsubscription.success: 'Votre désabonnement à la newsletter a bien été pris en compte.'
 
@@ -127,37 +128,37 @@ pdf.deletion.success: "Le fichier pdf %pdf% a bien été supprimé."
 
 # query
 query.article.number.failure: "La récupération du nombre d'articles a échoué."
-query.no_article: "Aucun article disponible."
+query.no_article: 'Aucun article disponible.'
 query.no_article_for_id: "Aucun article trouvé pour l'id %id%."
 query.no_category: "Aucune catégorie."
-query.no_comment: "Aucun commentaire."
-query.no_contact: "Aucun message."
-query.no_legal_mentions: "Pas de mentions légales."
-query.no_stats: "Aucun résultat."
-query.no_subscriber: "Aucun abonné."
-query.no_suggestion: "Aucune suggestion"
+query.no_comment: 'Aucun commentaire.'
+query.no_contact: 'Aucun message.'
+query.no_legal_mentions: 'Pas de mentions légales.'
+query.no_stats: 'Aucun résultat.'
+query.no_subscriber: 'Aucun abonné.'
+query.no_suggestion: 'Aucune suggestion'
 
 # search
-search.label: "Veuillez saisir un mot"
+search.label: 'Veuillez saisir un mot'
 search.suggestions: "Suggestion d'articles"
 
 # statistics
 statistics.average_number_of_visited_pages: "Nombre moyen de page(s) visitée(s)"
-statistics.form.bot: "Robot"
-statistics.form.bot.options.no: "Non"
-statistics.form.bot.options.yes: "Oui"
-statistics.form.end_time: "Date de fin"
-statistics.form.start_time: "Date de début"
-statistics.form.type: "Type"
+statistics.form.bot: 'Robot'
+statistics.form.bot.options.no: 'Non'
+statistics.form.bot.options.yes: 'Oui'
+statistics.form.end_time: 'Date de fin'
+statistics.form.start_time: 'Date de début'
+statistics.form.type: 'Type'
 statistics.number_of_articles: "Nombre d'article(s)"
-statistics.number_of_unique_visitors: "Nombre de visiteur(s) unique(s)"
-statistics.number_of_visited_pages: "Nombre de page(s) visitée(s)"
-statistics.title: "Statistiques"
-statistics.table.head.detail: Détail
-statistics.table.head.total: Total
+statistics.number_of_unique_visitors: 'Nombre de visiteur(s) unique(s)'
+statistics.number_of_visited_pages: 'Nombre de page(s) visitée(s)'
+statistics.table.head.detail: 'Détail'
+statistics.table.head.total: 'Total'
+statistics.title: 'Statistiques'
 
-store.request.sending: Envoi en cours.
-store.request.receiving: Réception en cours.
+store.request.sending: 'Envoi en cours.'
+store.request.receiving: 'Réception en cours.'
 
 # subscription
 subscription.title: 'Souscription à la newsletter'

@@ -5,7 +5,6 @@ namespace AppBundle\Service;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Translation\TranslatorInterface;
 use Exception;
 
 /**
@@ -26,27 +25,21 @@ class PdfService
     /** @var LoggerInterface $logger */
     private $logger;
 
-    /** @var TranslatorInterface $translator */
-    private $translator;
-
     /**
      * PdfService constructor.
      * @param RequestStack $request
      * @param FileService $fileService
      * @param LoggerInterface $logger
-     * @param TranslatorInterface $translator
      */
     public function __construct(
         RequestStack $request,
         FileService $fileService,
-        LoggerInterface $logger,
-        TranslatorInterface $translator
+        LoggerInterface $logger
     )
     {
         $this->request = $request->getCurrentRequest();
         $this->fileService = $fileService;
         $this->logger = $logger;
-        $this->translator = $translator;
     }
 
     /**
@@ -58,7 +51,7 @@ class PdfService
         try {
             $this->fileService->removeFile($pdf);
             $this->logger->info(
-                $this->translator->trans('pdf.deletion.success', ['%pdf%' => $pdf]),
+                sprintf('The pdf %s has been successfully removed.', $pdf),
                 ['_method' => __METHOD__]
             );
 

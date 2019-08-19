@@ -37,9 +37,7 @@ class LegalController extends Controller
         $legalMentions = $legalManager->getLegalMentions();
 
         if (null === $legalMentions || empty($legalMentions->getContent())) {
-            $logger->warning('No legal mentions', [
-                '_method' => __METHOD__
-            ]);
+            $logger->warning('No legal mentions', ['_method' => __METHOD__]);
 
             return new JsonResponse(
                 $translator->trans('query.no_legal_mentions'),
