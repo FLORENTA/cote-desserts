@@ -24,15 +24,11 @@ class LoginController extends Controller
 {
     /**
      * @Route("/login/fetch-form", name="fetch_login_form", methods={"GET"})
-     * @param Request $request
      * @param RouterInterface $router
-     * @param TranslatorInterface $translator
      * @return Response|JsonResponse
      */
     public function loginForm(
-        Request $request,
-        RouterInterface $router,
-        TranslatorInterface $translator
+        RouterInterface $router
     ): Response
     {
         $loginModel = new LoginModel();

@@ -3,23 +3,24 @@ import VueRouter from 'vue-router';
 import {Routing} from './../js/routing';
 
 /* Components */
-import User from '../components/user/User';
-import UserHomepage from '../components/user/UserHomepage';
-import UserArticle from '../components/user/UserArticle';
-import UserCategory from '../components/user/UserCategory';
-import UserLegal from '../components/user/UserLegal';
-import UserContact from '../components/user/UserContact';
 import Admin from '../components/admin/Admin';
-import AdminCreateArticle from '../components/admin/AdminCreateArticle';
-import AdminHomepage from '../components/admin/AdminHomepage';
-import AdminEditArticle from '../components/admin/AdminEditArticle';
 import AdminComment from '../components/admin/AdminComment';
-import AdminNewsletter from '../components/admin/AdminNewsletter';
-import AdminStatistic from '../components/admin/AdminStatistic';
+import AdminContact from '../components/admin/AdminContact';
+import AdminCreateArticle from '../components/admin/AdminCreateArticle';
+import AdminEditArticle from '../components/admin/AdminEditArticle';
+import AdminHomepage from '../components/admin/AdminHomepage';
 import AdminLegal from '../components/admin/AdminLegal';
 import AdminLogin from '../components/admin/AdminLogin';
-import AdminContact from '../components/admin/AdminContact';
+import AdminNewsletter from '../components/admin/AdminNewsletter';
+import AdminPassword from "../components/admin/AdminPassword";
+import AdminStatistic from '../components/admin/AdminStatistic';
 import PageNotFound from '../components/PageNotFound';
+import User from '../components/user/User';
+import UserArticle from '../components/user/UserArticle';
+import UserCategory from '../components/user/UserCategory';
+import UserContact from '../components/user/UserContact';
+import UserHomepage from '../components/user/UserHomepage';
+import UserLegal from '../components/user/UserLegal';
 
 Vue.use(VueRouter);
 
@@ -29,11 +30,6 @@ let routes = [
         name: 'home_admin',
         component: Admin,
         children: [
-            {
-                path: 'create',
-                name: 'createArticle',
-                component: AdminCreateArticle,
-            },
             {
                 path: 'articles',
                 name: 'homepageAdmin',
@@ -47,21 +43,6 @@ let routes = [
                 props: true
             },
             {
-                path: 'newsletter',
-                name: 'newsletter',
-                component: AdminNewsletter
-            },
-            {
-                path: 'statistic',
-                name: 'statistic',
-                component: AdminStatistic
-            },
-            {
-                path: 'legal',
-                name: 'admin-legal',
-                component: AdminLegal
-            },
-            {
                 path: 'comments',
                 name: 'comments',
                 component: AdminComment
@@ -72,8 +53,33 @@ let routes = [
                 component: AdminContact
             },
             {
+                path: 'create',
+                name: 'createArticle',
+                component: AdminCreateArticle,
+            },
+            {
+                path: 'legal',
+                name: 'admin-legal',
+                component: AdminLegal
+            },
+            {
                 path: 'logout',
                 name: 'logout'
+            },
+            {
+                path: 'password',
+                name: 'password',
+                component: AdminPassword
+            },
+            {
+                path: 'newsletter',
+                name: 'newsletter',
+                component: AdminNewsletter
+            },
+            {
+                path: 'statistic',
+                name: 'statistic',
+                component: AdminStatistic
             }
         ],
         // all routes above requires authentication
@@ -115,14 +121,14 @@ let routes = [
                 props: true
             },
             {
-                path: '/mentions-legales',
-                name: 'user-legal',
-                component: UserLegal
-            },
-            {
                 path: 'contact',
                 name: 'contact',
                 component: UserContact
+            },
+            {
+                path: '/mentions-legales',
+                name: 'user-legal',
+                component: UserLegal
             },
             {
                 path: '*',
