@@ -28,19 +28,24 @@ class CommentType extends AbstractType
                 'required' => true,
                 'label' => 'comment.form.username.label',
                 'attr' => [
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'placeholder' => 'comment.form.username.placeholder'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'required' => true,
                 'label' => 'comment.form.email.label',
                 'attr' => [
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'placeholder' => 'comment.form.email.placeholder'
                 ]
             ])
             ->add('comment', TextareaType::class, [
                 'required' => true,
-                'label' => 'comment.form.comment.label'
+                'label' => 'comment.form.comment.label',
+                'attr' => [
+                    'placeholder' => 'comment.form.comment.placeholder'
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

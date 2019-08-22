@@ -71,8 +71,11 @@ comment.button.delete: 'Supprimer'
 comment.deletion.success: 'Le commentaire a bien été supprimé.'
 comment.deletion.success.logger: "Le commentaire de %email% a bien été supprimé."
 comment.form.username.label: "Nom d'utilisateur"
+comment.form.username.placeholder: "Veuillez saisir un nom d'utilisateur"
 comment.form.email.label: 'Adresse email'
+comment.form.email.placeholder: 'Veuillez saisir votre adresse email'
 comment.form.comment.label: 'Commentaire'
+comment.form.comment.placeholder: 'Veuillez saisir votre commentaire'
 comment.not_found: "Le commentaire n'existe pas"
 comment.publish.success: "Le commentaire %token% a été publié"
 comment.reception.logger: "Nouveau commentaire reçu de : %name%"
