@@ -3,10 +3,7 @@
         <div class='container w40 w95sm' v-if="article">
             <h2>{{ article.title }}</h2>
             <figure class='tile' v-for="(image, index) in article.images">
-                <img
-                    v-bind:src="'./images/' + image.src"
-                    v-bind:alt='image.title'
-                />
+                <img v-bind:src="'./images/' + image.src" v-bind:alt='image.title' />
                 <a v-bind:style='pdfStyle' v-if="null !== article.pdf && index === 0" v-bind:href="'./images/' + article.pdf"><i class="fa fa-file"></i> {{ t('article.pdf.download') }}</a>
                 <figcaption class="white_space" v-html="image.content"></figcaption>
             </figure>

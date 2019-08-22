@@ -238,6 +238,10 @@
             $(document).on('click', '#close-comment-modal-button', () => {
                 this.$root.$emit('hide-comment-modal');
             });
+
+            $(document).on('contextmenu', 'img', () => {
+                return false;
+            });
         }
     }
 </script>
