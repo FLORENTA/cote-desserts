@@ -76,7 +76,10 @@ class PasswordController extends Controller
             if (!password_verify($passwordModel->getLastPassword(), $user->getPassword())) {
                 $logger->error("Wrong password.", ['_method' => __METHOD__]);
 
-                return new JsonResponse($translator->trans('admin.password.update.failure'), JsonResponse::HTTP_BAD_REQUEST);
+                return new JsonResponse(
+                    $translator->trans('admin.password.form.last_password.check.failure'),
+                    JsonResponse::HTTP_BAD_REQUEST
+                );
             }
 
             /** @var string $newPassword */
@@ -90,9 +93,15 @@ class PasswordController extends Controller
                 return new JsonResponse($translator->trans('admin.password.update.success'), JsonResponse::HTTP_OK);
             }
 
-            return new JsonResponse($translator->trans('admin.password.update.failure'), JsonResponse::HTTP_BAD_REQUEST);
+            return new JsonResponse(
+                $translator->trans('admin.password.form.new_password.matching.failure'),
+                JsonResponse::HTTP_BAD_REQUEST
+            );
         }
 
-        return new JsonResponse($translator->trans('generic.form.invalid'), JsonResponse::HTTP_BAD_REQUEST);
+        return new JsonResponse(
+            $translator->trans('generic.form.invalid'),
+            JsonResponse::HTTP_BAD_REQUEST
+        );
     }
 }

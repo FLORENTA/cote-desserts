@@ -33,12 +33,14 @@ admin.menu.password: Mot de passe
 admin.menu.statistics: Statistiques
 admin.password.form.confirm_new_password.label: 'Confirmer le nouveau mot de passe'
 admin.password.form.confirm_new_password.placeholder: 'Veuillez confirmer le nouveau mot de passe'
-admin.password.form.username.label: "Nom d'utilisateur"
-admin.password.form.username.placeholder: "Veuillez saisir un nom d'utilisateur"
+admin.password.form.last_password.check.failure: "L'ancien mot de passe saisi est invalide"
 admin.password.form.last_password.label: 'Ancient mot de passe'
 admin.password.form.last_password.placeholder: "Veuillez saisir l'ancien mot de passe"
 admin.password.form.new_password.label: 'Nouveau mot de passe'
+admin.password.form.new_password.matching.failure: 'La confirmation du nouveau mot de passe a échoué'
 admin.password.form.new_password.placeholder: 'Veuillez saisir un mot de passe'
+admin.password.form.username.label: "Nom d'utilisateur"
+admin.password.form.username.placeholder: "Veuillez saisir un nom d'utilisateur"
 admin.password.title: 'Changer le mot de passe'
 admin.password.update.failure: 'La mise à jour du mot de passe a échoué.'
 admin.password.update.success: 'Mise à jour du mot de passe réussie.'
