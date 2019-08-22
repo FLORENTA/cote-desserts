@@ -22,6 +22,28 @@ admin.newsletter.subscribers: 'abonné(s)'
 admin.newsletter.table.head.action : 'Action'
 admin.newsletter.table.head.email : 'Email'
 admin.newsletter.table.head.subscription_date : 'Date de souscription'
+admin.menu.article.create: Créer un article
+admin.menu.article.list: Liste des articles
+admin.menu.comments: Commentaires
+admin.menu.contacts: Contacts
+admin.menu.legal: Mentions légales
+admin.menu.logout: Déconnexion
+admin.menu.newsletter: Newsletter
+admin.menu.password: Mot de passe
+admin.menu.statistics: Statistiques
+admin.password.form.confirm_new_password.label: 'Confirmer le nouveau mot de passe'
+admin.password.form.confirm_new_password.placeholder: 'Veuillez confirmer le nouveau mot de passe'
+admin.password.form.last_password.check.failure: "L'ancien mot de passe saisi est invalide"
+admin.password.form.last_password.label: 'Ancient mot de passe'
+admin.password.form.last_password.placeholder: "Veuillez saisir l'ancien mot de passe"
+admin.password.form.new_password.label: 'Nouveau mot de passe'
+admin.password.form.new_password.matching.failure: 'La confirmation du nouveau mot de passe a échoué'
+admin.password.form.new_password.placeholder: 'Veuillez saisir un mot de passe'
+admin.password.form.username.label: "Nom d'utilisateur"
+admin.password.form.username.placeholder: "Veuillez saisir un nom d'utilisateur"
+admin.password.title: 'Changer le mot de passe'
+admin.password.update.failure: 'La mise à jour du mot de passe a échoué.'
+admin.password.update.success: 'Mise à jour du mot de passe réussie.'
 admin.statistics.button.delete: 'Supprimer les statistiques'
 admin.statistics.delete.success: 'Les données ont bien été supprimées.'
 

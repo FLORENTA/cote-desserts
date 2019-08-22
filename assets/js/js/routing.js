@@ -3,6 +3,6 @@ import Routing from '../../../vendor/friendsofsymfony/jsrouting-bundle/Resources
 Routing.setRoutingData(routes);
 export {Routing};
 
-if (window.location.protocol === 'http:') {
-    window.location.href = window.location.href.replace(/http/, 'https');
-}
+// if (window.location.protocol === 'http:') {
+//     window.location.href = window.location.href.replace(/http/, 'https');
+// }

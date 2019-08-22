@@ -5,14 +5,15 @@
                 <font-awesome-icon style="color: #fff;" v-bind:icon="barsIcon" size="lg"/>
             </div>
             <ul id="menu" v-on:click="resetMenu()"> <!-- menu not used in css but in javascript -->
-                <router-link v-bind:to="{name: 'createArticle'}" tag="li">Créer un article</router-link>
-                <router-link v-bind:to="{name: 'homepageAdmin'}" tag="li">Liste des articles</router-link>
-                <router-link v-bind:to="{name: 'comments'}" tag="li">Commentaires</router-link>
-                <router-link v-bind:to="{name: 'newsletter'}" tag="li">Newsletter</router-link>
-                <router-link v-bind:to="{name: 'statistic'}" tag="li">Statistiques</router-link>
-                <router-link v-bind:to="{name: 'contacts'}" tag="li">Contacts</router-link>
-                <router-link v-bind:to="{name: 'admin-legal'}" tag="li">Mentions légales</router-link>
-                <router-link v-bind:to="{name: 'logout'}" tag="li">Déconnexion</router-link>
+                <router-link v-bind:to="{name: 'createArticle'}" tag="li">{{ t('admin.menu.article.create') }}</router-link>
+                <router-link v-bind:to="{name: 'homepageAdmin'}" tag="li">{{ t('admin.menu.article.list') }}</router-link>
+                <router-link v-bind:to="{name: 'comments'}" tag="li">{{ t('admin.menu.comments') }}</router-link>
+                <router-link v-bind:to="{name: 'newsletter'}" tag="li">{{ t('admin.menu.newsletter') }}</router-link>
+                <router-link v-bind:to="{name: 'password'}" tag="li">{{ t('admin.menu.password') }}</router-link>
+                <router-link v-bind:to="{name: 'statistic'}" tag="li">{{ t('admin.menu.statistics') }}</router-link>
+                <router-link v-bind:to="{name: 'contacts'}" tag="li">{{ t('admin.menu.contacts') }}</router-link>
+                <router-link v-bind:to="{name: 'admin-legal'}" tag="li">{{ t('admin.menu.legal') }}</router-link>
+                <router-link v-bind:to="{name: 'logout'}" tag="li">{{ t('admin.menu.logout') }}</router-link>
             </ul>
         </nav>
         <router-view></router-view>
@@ -118,6 +119,33 @@
                         $submitButton.find('span').remove();
                     }
                 });
+            });
+
+            $(document).on('submit', 'form[name="appbundle_password"]', e => {
+                e.preventDefault();
+                let $form = $(e.target)[0];
+                let formData = new FormData($form);
+                let $submitButton = $('#appbundle_password_submit');
+                $submitButton.append(
+                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
+                );
+
+                $.ajax({
+                    type: 'POST',
+                    url: $form.action,
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: response => {
+                        addAlert(response);
+                    },
+                    error: err => {
+                        addAlert(err.responseJSON);
+                    },
+                    complete: () => {
+                        $submitButton.find('span').remove();
+                    }
+                })
             });
 
             $(document).on('click', '#remove-pdf', e => {
