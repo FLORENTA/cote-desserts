@@ -12,49 +12,48 @@ class Comment
 {
     /**
      * @Groups({"article", "comment"})
-     * @var int
+     * @var int $id
      */
     private $id;
 
     /**
      * @Groups({"article", "comment"})
-     * @var string
+     * @var string $username
      */
     private $username;
 
     /**
      * @Groups({"article", "comment"})
-     * @var string
+     * @var string $comment
      */
     private $comment;
 
     /**
      * @Groups({"article", "comment"})
-     * @var DateTime
+     * @var DateTime $date
      */
     private $date;
 
     /**
      * @Groups({"article", "comment"})
-     * @var string
+     * @var string $email
      */
     private $email;
 
     /**
      * @Groups({"article", "comment"})
-     * @var string
+     * @var string $token
      */
     private $token;
 
     /**
-     * @Groups("comment")
-     * @var Article
+     * @var Article|null $article
      */
     private $article;
 
     /**
      * @Groups({"article", "comment"})
-     * @var bool
+     * @var bool $published
      */
     private $published;
 

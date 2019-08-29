@@ -3,10 +3,8 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Article;
-use AppBundle\Entity\Comment;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * CommentRepository
@@ -27,5 +25,22 @@ class CommentRepository extends EntityRepository
             ->orderBy('comment.date', 'DESC');
 
         return $qb->getQuery()->getArrayResult();
+    }
+
+    /**
+     * @param Article $article
+     * @return array
+     */
+    public function getCommentsByArticle(Article $article): array
+    {
+        /** @var QueryBuilder $qb */
+        $qb = $this->createQueryBuilder('comment')
+            ->select('comment.id', 'comment.comment', 'comment.published', 'comment.token', 'article.token as article_token')
+            ->join('comment.article', 'article')
+            ->where('comment.article = :article')
+            ->setParameter('article', $article->getId())
+            ->orderBy('comment.date', 'DESC');
+
+        return $qb->getQuery()->getResult();
     }
 }

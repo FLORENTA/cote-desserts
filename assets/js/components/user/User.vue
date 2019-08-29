@@ -16,9 +16,9 @@
         </nav>
         <router-view></router-view>
         <transition name="fade">
-            <div id="search-results-modal" v-show="displaySearchResultModal">
+            <div id="results-modal" v-show="displayResultModal">
                 <h3 class="text-centered">{{ t('search.suggestions') }}</h3>
-                <p class="lead" id="search-results">Test</p>
+                <p class="lead" id="results"></p>
                 <i class="fa fa-times close-button"></i>
             </div>
         </transition>
@@ -59,7 +59,7 @@
                 newsletter: undefined,
                 newsletterFormValid: false,
                 loading: false,
-                displaySearchResultModal: false
+                displayResultModal: false
             }
         },
 
@@ -217,21 +217,21 @@
                 this.$router.go(0);
             });
 
-            $(window).on('display-search-results-modal', () => {
-                this.displaySearchResultModal = true;
+            $(window).on('display-results-modal', () => {
+                this.displayResultModal = true;
             });
 
             $(window).on('hide-search-results-modal', () => {
-                this.displaySearchResultModal = false;
+                this.displayResultModal = false;
             });
 
             $(document).on('click', '.close-button', () => {
-                this.displaySearchResultModal = false;
+                this.displayResultModal = false;
             });
 
             $(document).on('click', () => {
-                if (this.displaySearchResultModal) {
-                    this.displaySearchResultModal = false;
+                if (this.displayResultModal) {
+                    this.displayResultModal = false;
                 }
             });
 
