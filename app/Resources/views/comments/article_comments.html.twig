@@ -1,0 +1,18 @@
+<div class="container">
+    {% if comments is defined and comments is not empty %}
+        <p><span id="number-of-comments">{{ comments | length }}</span> {{ 'admin.homepage.comments' | trans }}</p>
+        {% for comment in comments %}
+            <section class="article-comment comment">
+                {{ comment.comment }}
+                <div class="button-group">
+                    <button class="{{ comment.published ? 'button-delete' : 'button-default' }} update-comment-status" data-publish="{{ comment.published ? 'true' : 'false' }}" data-token="{{ comment.token }}">
+                        {{ comment.published ? 'comment.status.hide' | trans : 'comment.status.publish' | trans }}
+                    </button>
+                    <button class="button-delete delete-comment" data-token="{{ comment.token }}" data-article-token="{{ comment.article_token }}">{{ 'comment.button.delete' | trans }}</button>
+                </div>
+            </section>
+        {% endfor %}
+    {% else %}
+        <p>{{ 'query.no_comment' | trans }}</p>
+    {% endif %}
+</div>

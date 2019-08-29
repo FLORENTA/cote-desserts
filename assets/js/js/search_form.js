@@ -33,15 +33,15 @@ new Vue({
                                 detail: response.slug
                             }));
                         } else {
-                            let $searchResultsModal = $('#search-results-modal');
+                            let $searchResultsModal = $('#results-modal');
                             $searchResultsModal.find('#search-results').empty().append(response);
-                            $("#search-results").find('li').click(e => {
+                            $("#results").find('li').click(e => {
                                 window.dispatchEvent(new CustomEvent('hide-search-results-modal'));
                                 window.dispatchEvent(new CustomEvent('router-push', {
                                     detail: $(e.target).data('slug')
                                 }));
                             });
-                            window.dispatchEvent(new CustomEvent('display-search-results-modal'));
+                            window.dispatchEvent(new CustomEvent('display-results-modal'));
                         }
                     }
                 });

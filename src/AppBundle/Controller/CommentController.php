@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentType;
+use AppBundle\Manager\ArticleManager;
 use AppBundle\Manager\CommentManager;
 use AppBundle\Service\Serializor;
 use Doctrine\ORM\EntityManagerInterface;
@@ -275,5 +276,50 @@ class CommentController extends Controller
             $translator->trans('comment.update.success'),
             JsonResponse::HTTP_OK
         );
+    }
+
+    /**
+     * @Route("/comments/article/{id}", name="fetch_comments_by_article", methods={"GET"})
+     * @param Serializor $serializor
+     * @param CommentManager $commentManager
+     * @param EntityManagerInterface $entityManager
+     * @param LoggerInterface $logger
+     * @param TranslatorInterface $translator
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function fetchCommentsByArticle(
+        Serializor $serializor,
+        CommentManager $commentManager,
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger,
+        TranslatorInterface $translator,
+        $id
+    ): JsonResponse
+    {
+        /** @var Article|null $article */
+        $article = $entityManager->getRepository(Article::class)->findOneBy([
+            'id' => $id
+        ]);
+
+        if (null === $article) {
+            $logger->error(sprintf('Unknown article for id %s', $id), [
+                '_method' => __METHOD__
+            ]);
+
+            return new JsonResponse($translator->trans('article.not_found'), JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        try {
+            /** @var Comment[] $comments */
+            $comments = $commentManager->getCommentsByArticle($article);
+        } catch (Exception $exception) {
+            $logger->error($exception->getMessage(), ['_method' => __METHOD__]);
+            $comments = [];
+        }
+
+        return new JsonResponse($this->renderView('comments/article_comments.html.twig', [
+                'comments' => $comments
+        ]), JsonResponse::HTTP_OK);
     }
 }

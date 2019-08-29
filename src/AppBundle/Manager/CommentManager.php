@@ -94,4 +94,14 @@ class CommentManager
         $this->em->remove($comment);
         $this->em->flush();
     }
+
+
+    /**
+     * @param Article $article
+     * @return array
+     */
+    public function getCommentsByArticle(Article $article): array
+    {
+        return $this->commentRepository->getCommentsByArticle($article);
+    }
 }

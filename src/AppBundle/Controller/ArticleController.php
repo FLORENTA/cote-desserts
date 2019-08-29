@@ -14,6 +14,7 @@ use AppBundle\Service\NewsletterService;
 use AppBundle\Service\PdfService;
 use AppBundle\Service\Serializor;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use Psr\Log\LoggerInterface;

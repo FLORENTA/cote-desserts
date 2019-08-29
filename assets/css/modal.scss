@@ -1,0 +1,38 @@
+#results-modal {
+  background: #fff;
+  position: absolute;
+  width: 50%;
+  top: 60px;
+  left: 25%;
+  z-index: 3;
+  border: 1px solid #ccc;
+
+  @media all and (max-width: 1024px) {
+    width: 95%;
+    left: 2.5%;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+  }
+
+  #results {
+    list-style: none;
+
+    li {
+      padding: 5px 0;
+      line-height: inherit;
+      margin: 0;
+      text-align: left;
+      text-indent: 5px;
+      cursor: pointer;
+    }
+
+    li:hover{
+      color: dodgerblue;
+    }
+  }
+}

@@ -51,7 +51,8 @@ class ArticleRepository extends EntityRepository
         $connection = $this->_em->getConnection();
 
         $query ="SELECT a.id, a.slug, a.title, a.token,
-                  (SELECT i.src FROM image i WHERE i.article_id = a.id ORDER BY i.id LIMIT 1) as image_src
+                  (SELECT i.src FROM image i WHERE i.article_id = a.id ORDER BY i.id LIMIT 1) as image_src,
+                  (SELECT COUNT(c.id) FROM comment c WHERE c.article_id = a.id) as number_comments
                  FROM article a
                  WHERE a.id <= '$id'
                  ORDER BY a.id DESC
