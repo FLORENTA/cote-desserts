@@ -9,6 +9,7 @@
 <script>
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
+    import Mixins from "../../mixins";
 
     export default {
         name: 'admin-edit-article',
@@ -34,27 +35,10 @@
                         addAlert(err.responseJSON);
                     }
                 });
-            },
-
-            handleSubmit(e) {
-                let formData = new FormData($(e.target)[0]);
-                formData.append('sender', 'create_edit_article');
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/admin/articles/edit/' + this.$route.params.token,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        addAlert(response)
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON)
-                    }
-                })
             }
         },
+
+        mixins: [Mixins],
 
         mounted() {
             $.get(Routing.generate('fetch_edit_article_form', { token : this.$route.params.token }), response => {

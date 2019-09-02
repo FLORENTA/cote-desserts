@@ -76,6 +76,20 @@
             ServerMessage
         },
 
+        methods: {
+            addButtonLoader($button) {
+                if (!$button.hasClass('fa-spinner')) {
+                    $button.append(
+                        $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
+                    );
+                }
+            },
+
+            removeButtonLoader($button) {
+                $button.find('span').remove();
+            }
+        },
+
         mounted() {
             // Get the search form
             $.get(Routing.generate('fetch_search_form'), response => {
@@ -95,9 +109,7 @@
                 let formData = new FormData($(e.target)[0]);
                 let $submitButton = $('#appbundle_newsletter_submit');
 
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
+                this.addButtonLoader($submitButton);
 
                 $.ajax({
                     type: 'POST',
@@ -111,8 +123,8 @@
                     error: err => {
                         addAlert(err.responseJSON);
                     },
-                    complete() {
-                        $submitButton.find('span').remove();
+                    complete: () => {
+                        this.removeButtonLoader($submitButton);
                     }
                 });
             });
@@ -124,9 +136,8 @@
                 let formData = new FormData($form);
 
                 let $submitButton = $('#appbundle_contact_submit');
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
+
+                this.addButtonLoader($submitButton);
 
                 $.ajax({
                     type: 'POST',
@@ -141,8 +152,8 @@
                     error: err => {
                         addAlert(err.responseJSON);
                     },
-                    complete() {
-                        $submitButton.find('span').remove();
+                    complete: () => {
+                        this.removeButtonLoader($submitButton);
                     }
                 });
             });
@@ -154,9 +165,8 @@
                 let formData = new FormData($form);
 
                 let $submitButton = $('#appbundle_category_submit');
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
+
+                this.addButtonLoader($submitButton);
 
                 $.ajax({
                     type: 'POST',
@@ -171,7 +181,7 @@
                         addAlert(err.responseJSON);
                     },
                     complete() {
-                        $submitButton.find('span').remove();
+                        this.removeButtonLoader($submitButton);
                     }
                 });
             });
@@ -180,9 +190,8 @@
             $(document).on('submit', 'form[name="appbundle_comment"]', e => {
                 e.preventDefault();
                 let $submitButton = $('#appbundle_comment_submit');
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
+
+                this.addButtonLoader($submitButton);
 
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
@@ -201,7 +210,7 @@
                     },
                     complete: () => {
                         this.$root.$emit('hide-comment-modal');
-                        $submitButton.find('span').remove();
+                        this.removeButtonLoader($submitButton);
                     }
                 });
             });
@@ -221,7 +230,7 @@
                 this.displayResultModal = true;
             });
 
-            $(window).on('hide-search-results-modal', () => {
+            $(window).on('hide-results-modal', () => {
                 this.displayResultModal = false;
             });
 

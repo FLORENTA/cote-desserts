@@ -22,7 +22,6 @@
 </template>
 
 <script>
-    import Mixins from './../../mixins/index';
     import MenuMixins from './../../mixins/menuMixin';
     import { mapState } from 'vuex';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
@@ -41,7 +40,7 @@
             }
         },
 
-        mixins: [Mixins, MenuMixins],
+        mixins: [MenuMixins],
 
         computed: mapState(['displayMessage', 'message']),
 
@@ -62,95 +61,6 @@
         created() {
             $.get(Routing.generate('fetch_categories'), response => {
                 this.categories = response;
-            });
-        },
-
-        mounted() {
-            // Cannot be put into article_form.js due to event handlers set multiple times
-            // when navigating from page to page
-            $(document).on('keyup', '.input-category', e => {
-                let $target = $(e.target);
-                $target.next('.category-suggestion').remove();
-
-                if ($target.val().length === 0) {
-                    return;
-                }
-
-                let $suggestions = $('<ul class="category-suggestion"></ul>');
-
-                let $matches = $.grep(this.categories, n => {
-                    let $val = $target.val();
-                    return n.slice(0, $val.length) === $val.charAt(0).toUpperCase() + $val.slice(1) && n.length !== $val.length;
-                });
-
-                if ($matches.length > 0) {
-                    $matches.forEach($match => {
-                        let $word = $('<li>'+ $match +'</li>');
-                        $suggestions.append($word);
-                        $word.click(function() {
-                            $suggestions.prev().val($(this).text().trim());
-                            $(this).parent().remove();
-                        });
-                    });
-
-                    $target.after($suggestions);
-                }
-            });
-
-            $(document).on('submit', 'form[name="appbundle_article"]', e => {
-                e.preventDefault();
-                let $form = $(e.target)[0];
-                let $submitButton = $('#appbundle_article_submit');
-                $submitButton.append($("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>"));
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    processData: false,
-                    contentType: false,
-                    data: new FormData($form),
-                    success: response => {
-                        addAlert(response);
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete() {
-                        $submitButton.find('span').remove();
-                    }
-                });
-            });
-
-            $(document).on('submit', 'form[name="appbundle_password"]', e => {
-                e.preventDefault();
-                let $form = $(e.target)[0];
-                let formData = new FormData($form);
-                let $submitButton = $('#appbundle_password_submit');
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: response => {
-                        addAlert(response);
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete: () => {
-                        $submitButton.find('span').remove();
-                    }
-                })
-            });
-
-            $(document).on('click', '#remove-pdf', e => {
-                e.preventDefault();
-                this.$root.$emit('deletePdf', { detail: $(e.currentTarget).data('pdf') });
             });
         }
     }
