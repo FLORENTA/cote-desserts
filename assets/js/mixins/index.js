@@ -39,27 +39,9 @@ const Mixins = {
 
                 $target.after($suggestions);
             }
-        }
-    },
-
-    filters: {
-        formatShortDate(date) {
-            return new Date(date).toLocaleDateString();
         },
 
-        formatFullDate(date) {
-            return 'Le ' + new Date(date).toLocaleString();
-        },
-
-        capitalize(val) {
-            return val.charAt(0).toUpperCase() + val.slice(1);
-        }
-    },
-
-    mounted() {
-        $(document).on('keyup', '.input-category', this.handleInputCategory);
-
-        $(document).on('submit', 'form[name="appbundle_article"]', e => {
+        handleArticleFormSubmission(e) {
             e.preventDefault();
             let $form = $(e.target)[0];
             let $submitButton = $('#appbundle_article_submit');
@@ -81,16 +63,28 @@ const Mixins = {
                     $submitButton.find('span').remove();
                 }
             });
-        });
+        }
+    },
 
+    filters: {
+        formatShortDate(date) {
+            return new Date(date).toLocaleDateString();
+        },
+
+        formatFullDate(date) {
+            return 'Le ' + new Date(date).toLocaleString();
+        },
+
+        capitalize(val) {
+            return val.charAt(0).toUpperCase() + val.slice(1);
+        }
+    },
+
+    mounted() {
         $(document).on('click', '#remove-pdf', e => {
             e.preventDefault();
             this.$root.$emit('deletePdf', { detail: $(e.currentTarget).data('pdf') });
         });
-    },
-
-    beforeDestroy() {
-        $(document).off('keyup', '.input-category', this.handleInputCategory);
     }
 };
 

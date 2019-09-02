@@ -56,6 +56,33 @@
                 });
                 categories = categories.slice(0, -2);
                 this.displayedCategory = categories;
+            },
+
+            handleCategoryFormSubmission(e) {
+                e.preventDefault();
+                let $form = $(e.target)[0];
+                let formData = new FormData($form);
+
+                let $submitButton = $('#appbundle_category_submit');
+
+                this.addButtonLoader($submitButton);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $form.action,
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: response => {
+                        this.$root.$emit('fetch_article_by_category_result', { detail: response} );
+                    },
+                    error: err => {
+                        addAlert(err.responseJSON);
+                    },
+                    complete() {
+                        this.removeButtonLoader($submitButton);
+                    }
+                });
             }
         },
 
@@ -129,6 +156,12 @@
                     this.updateCategories(response.categories);
                 }
             });
+
+            $(document).on('submit', 'form[name="appbundle_category"]', this.handleCategoryFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', 'form[name="appbundle_category"]', this.handleCategoryFormSubmission);
         }
     }
 </script>

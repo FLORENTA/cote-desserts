@@ -87,24 +87,9 @@
 
             removeButtonLoader($button) {
                 $button.find('span').remove();
-            }
-        },
+            },
 
-        mounted() {
-            // Get the search form
-            $.get(Routing.generate('fetch_search_form'), response => {
-                $('#search-form-container').append(response);
-                this.isSearchFormLoaded = true;
-            });
-
-            // Get the newsletter form
-            $.get(Routing.generate('fetch_newsletter_form'), response => {
-                $('#newsletter-form-container').append(response);
-                this.isNewsletterFormLoaded = true;
-            });
-
-            // Handle submission of the newsletter form
-            $(document).on('submit', '.newsletter-form', e => {
+            handleNewsletterFormSubmission(e) {
                 e.preventDefault();
                 let formData = new FormData($(e.target)[0]);
                 let $submitButton = $('#appbundle_newsletter_submit');
@@ -127,93 +112,24 @@
                         this.removeButtonLoader($submitButton);
                     }
                 });
+            }
+        },
+
+        mounted() {
+            // Get the search form
+            $.get(Routing.generate('fetch_search_form'), response => {
+                $('#search-form-container').append(response);
+                this.isSearchFormLoaded = true;
             });
 
-            // Contact component
-            $(document).on('submit', 'form[name="appbundle_contact"]', e => {
-                e.preventDefault();
-                let $form = $(e.target)[0];
-                let formData = new FormData($form);
-
-                let $submitButton = $('#appbundle_contact_submit');
-
-                this.addButtonLoader($submitButton);
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        addAlert(response);
-                        $form.reset();
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete: () => {
-                        this.removeButtonLoader($submitButton);
-                    }
-                });
+            // Get the newsletter form
+            $.get(Routing.generate('fetch_newsletter_form'), response => {
+                $('#newsletter-form-container').append(response);
+                this.isNewsletterFormLoaded = true;
             });
 
-            // Category component
-            $(document).on('submit', 'form[name="appbundle_category"]', e => {
-                e.preventDefault();
-                let $form = $(e.target)[0];
-                let formData = new FormData($form);
-
-                let $submitButton = $('#appbundle_category_submit');
-
-                this.addButtonLoader($submitButton);
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        this.$root.$emit('fetch_article_by_category_result', { detail: response} );
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete() {
-                        this.removeButtonLoader($submitButton);
-                    }
-                });
-            });
-
-            // Comment modal in article component
-            $(document).on('submit', 'form[name="appbundle_comment"]', e => {
-                e.preventDefault();
-                let $submitButton = $('#appbundle_comment_submit');
-
-                this.addButtonLoader($submitButton);
-
-                let $form = $(e.target)[0];
-                let formData = new FormData($form);
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        addAlert(response);
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete: () => {
-                        this.$root.$emit('hide-comment-modal');
-                        this.removeButtonLoader($submitButton);
-                    }
-                });
-            });
+            // Handle submission of the newsletter form
+            $(document).on('submit', '.newsletter-form', this.handleNewsletterFormSubmission);
 
             $(window).on('router-push', e => {
                 this.$router.push({
@@ -244,10 +160,7 @@
                 }
             });
 
-            $(document).on('click', '#close-comment-modal-button', () => {
-                this.$root.$emit('hide-comment-modal');
-            });
-
+            // Prevent right click on image
             $(document).on('contextmenu', 'img', () => {
                 return false;
             });

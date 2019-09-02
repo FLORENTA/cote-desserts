@@ -6,6 +6,7 @@
     import {Routing} from './../../js/routing';
     import Mixins from '../../mixins';
     import {NAVIGATION_TYPE} from "../../js/variables";
+    import {addAlert} from "../../js/alert";
 
     export default {
         name: 'user-contact',
@@ -25,6 +26,36 @@
             });
         },
 
+        methods: {
+            handleContactFormSubmission(e) {
+                e.preventDefault();
+                let $form = $(e.target)[0];
+                let formData = new FormData($form);
+
+                let $submitButton = $('#appbundle_contact_submit');
+
+                this.addButtonLoader($submitButton);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $form.action,
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: response => {
+                        addAlert(response);
+                        $form.reset();
+                    },
+                    error: err => {
+                        addAlert(err.responseJSON);
+                    },
+                    complete: () => {
+                        this.removeButtonLoader($submitButton);
+                    }
+                });
+            }
+        },
+
         mounted() {
             const el = this;
             this.launchSpinnerAnimation();
@@ -34,6 +65,12 @@
                 el.cancelSpinnerAnimation();
                 this.loaded = true;
             });
+
+            $(document).on('submit', 'form[name="appbundle_contact"]', this.handleContactFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', 'form[name="appbundle_contact"]', this.handleContactFormSubmission);
         }
     }
 </script>

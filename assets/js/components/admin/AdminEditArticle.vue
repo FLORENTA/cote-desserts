@@ -49,6 +49,14 @@
             this.$root.$on('deletePdf', e => {
                 this.deletePDF(e.detail);
             });
+
+            $(document).on('keyup', '.input-category', this.handleInputCategory);
+            $(document).on('submit', 'form[name="appbundle_article"]', this.handleArticleFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('keyup', '.input-category', this.handleInputCategory);
+            $(document).off('submit', 'form[name="appbundle_article"]', this.handleArticleFormSubmission);
         }
     }
 </script>

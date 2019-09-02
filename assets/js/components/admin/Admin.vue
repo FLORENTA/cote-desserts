@@ -27,7 +27,6 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import faBars from '@fortawesome/fontawesome-free-solid/faBars';
     import ServerMessage from "./../ServerMessage";
-    import {addAlert} from "../../js/alert";
     import {Routing} from './../../js/routing';
 
     export default {
