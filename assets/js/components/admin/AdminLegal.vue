@@ -20,23 +20,8 @@
             }
         },
 
-        mixins: [Mixins],
-
-        mounted() {
-            // Fetch legal mentions form
-            $.ajax({
-                type: 'GET',
-                url: Routing.generate('fetch_create_legal_form'),
-                success: response => {
-                    $('#legal-form-container').append(response)
-                    this.isLegalMentionsLoaded = true;
-                },
-                error: err => {
-                    addAlert(err.responseJSON);
-                }
-            });
-
-            $(document).on('submit', 'form[name="appbundle_legal"]', e => {
+        methods: {
+            handleLegalFormSubmission(e) {
                 e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
@@ -54,7 +39,30 @@
                         addAlert(err.responseJSON);
                     }
                 });
+            }
+        },
+
+        mixins: [Mixins],
+
+        mounted() {
+            // Fetch legal mentions form
+            $.ajax({
+                type: 'GET',
+                url: Routing.generate('fetch_create_legal_form'),
+                success: response => {
+                    $('#legal-form-container').append(response);
+                    this.isLegalMentionsLoaded = true;
+                },
+                error: err => {
+                    addAlert(err.responseJSON);
+                }
             });
+
+            $(document).on('submit', 'form[name="appbundle_legal"]', this.handleLegalFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', 'form[name="appbundle_legal"]', this.handleLegalFormSubmission);
         }
     }
 </script>

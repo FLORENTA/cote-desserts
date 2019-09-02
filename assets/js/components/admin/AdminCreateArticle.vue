@@ -8,7 +8,7 @@
 
 <script>
     import {Routing} from './../../js/routing';
-    import {addAlert} from "../../js/alert";
+    import Mixins from "../../mixins";
 
     export default {
         name: 'admin-create-article',
@@ -19,32 +19,21 @@
             }
         },
 
-        methods: {
-            handleSubmit(e) {
-                let $form = $(e.target)[0];
-                let formData = new FormData($form);
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        addAlert(response)
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON)
-                    }
-                })
-            }
-        },
+        mixins: [Mixins],
 
         mounted() {
             $.get(Routing.generate('fetch_create_article_form'), response => {
                 $('#create-article-form-container').append(response);
                 this.isCreateArticleFormLoaded = true;
             });
+
+            $(document).on('keyup', '.input-category', this.handleInputCategory);
+            $(document).on('submit', 'form[name="appbundle_article"]', this.handleArticleFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('keyup', '.input-category', this.handleInputCategory);
+            $(document).off('submit', 'form[name="appbundle_article"]', this.handleArticleFormSubmission);
         }
     }
 </script>

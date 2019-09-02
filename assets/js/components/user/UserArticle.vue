@@ -91,7 +91,39 @@
 
             hideForm() {
                 this.showCommentModal = false;
-            }
+            },
+
+            handleCommentFormSubmission(e) {
+                e.preventDefault();
+                let $submitButton = $('#appbundle_comment_submit');
+
+                this.addButtonLoader($submitButton);
+
+                let $form = $(e.target)[0];
+                let formData = new FormData($form);
+
+                $.ajax({
+                    type: 'POST',
+                    url: $form.action,
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: response => {
+                        addAlert(response);
+                    },
+                    error: err => {
+                        addAlert(err.responseJSON);
+                    },
+                    complete: () => {
+                        this.showCommentModal = false;
+                        this.removeButtonLoader($submitButton);
+                    }
+                });
+            },
+
+            hideCommentModal() {
+                this.showCommentModal = false;
+            },
         },
 
         created() {
@@ -125,9 +157,13 @@
         mounted() {
             this.launchSpinnerAnimation();
 
-            this.$root.$on('hide-comment-modal', () => {
-                this.showCommentModal = false;
-            });
+            $(document).on('click', '#close-comment-modal-button', this.hideCommentModal);
+            $(document).on('submit', 'form[name="appbundle_comment"]', this.handleCommentFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', 'form[name="appbundle_comment"]', this.handleCommentFormSubmission);
+            $(document).off('click', '#close-comment-modal-button', this.hideCommentModal);
         }
     }
 </script>

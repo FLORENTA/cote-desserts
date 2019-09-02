@@ -9,6 +9,7 @@
 <script>
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
+    import Mixins from "../../mixins";
 
     export default {
         name: 'admin-edit-article',
@@ -34,27 +35,10 @@
                         addAlert(err.responseJSON);
                     }
                 });
-            },
-
-            handleSubmit(e) {
-                let formData = new FormData($(e.target)[0]);
-                formData.append('sender', 'create_edit_article');
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/admin/articles/edit/' + this.$route.params.token,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        addAlert(response)
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON)
-                    }
-                })
             }
         },
+
+        mixins: [Mixins],
 
         mounted() {
             $.get(Routing.generate('fetch_edit_article_form', { token : this.$route.params.token }), response => {
@@ -65,6 +49,14 @@
             this.$root.$on('deletePdf', e => {
                 this.deletePDF(e.detail);
             });
+
+            $(document).on('keyup', '.input-category', this.handleInputCategory);
+            $(document).on('submit', 'form[name="appbundle_article"]', this.handleArticleFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('keyup', '.input-category', this.handleInputCategory);
+            $(document).off('submit', 'form[name="appbundle_article"]', this.handleArticleFormSubmission);
         }
     }
 </script>

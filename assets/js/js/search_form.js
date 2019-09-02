@@ -9,9 +9,9 @@ new Vue({
     },
     methods: {
         handleSubmit(e) {
+            let $target = $(e.target);
             e.preventDefault();
             clearTimeout(this.timer);
-            let $target = $(e.target);
 
             if ($target[0].nodeName === 'INPUT' && $target.val().length === 0) {
                 return;
@@ -28,15 +28,17 @@ new Vue({
                     contentType: false,
                     processData: false,
                     success: response => {
+                        console.log(response)
                         if (typeof response === 'object') {
                             window.dispatchEvent(new CustomEvent('router-push', {
                                 detail: response.slug
                             }));
                         } else {
                             let $searchResultsModal = $('#results-modal');
-                            $searchResultsModal.find('#search-results').empty().append(response);
+                            console.log($searchResultsModal.find('#results'))
+                            $searchResultsModal.find('#results').empty().append(response);
                             $("#results").find('li').click(e => {
-                                window.dispatchEvent(new CustomEvent('hide-search-results-modal'));
+                                window.dispatchEvent(new CustomEvent('hide-results-modal'));
                                 window.dispatchEvent(new CustomEvent('router-push', {
                                     detail: $(e.target).data('slug')
                                 }));

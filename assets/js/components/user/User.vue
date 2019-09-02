@@ -76,6 +76,45 @@
             ServerMessage
         },
 
+        methods: {
+            addButtonLoader($button) {
+                if (!$button.hasClass('fa-spinner')) {
+                    $button.append(
+                        $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
+                    );
+                }
+            },
+
+            removeButtonLoader($button) {
+                $button.find('span').remove();
+            },
+
+            handleNewsletterFormSubmission(e) {
+                e.preventDefault();
+                let formData = new FormData($(e.target)[0]);
+                let $submitButton = $('#appbundle_newsletter_submit');
+
+                this.addButtonLoader($submitButton);
+
+                $.ajax({
+                    type: 'POST',
+                    url: Routing.generate('newsletter_new'),
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: response => {
+                        addAlert(response);
+                    },
+                    error: err => {
+                        addAlert(err.responseJSON);
+                    },
+                    complete: () => {
+                        this.removeButtonLoader($submitButton);
+                    }
+                });
+            }
+        },
+
         mounted() {
             // Get the search form
             $.get(Routing.generate('fetch_search_form'), response => {
@@ -90,121 +129,7 @@
             });
 
             // Handle submission of the newsletter form
-            $(document).on('submit', '.newsletter-form', e => {
-                e.preventDefault();
-                let formData = new FormData($(e.target)[0]);
-                let $submitButton = $('#appbundle_newsletter_submit');
-
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
-
-                $.ajax({
-                    type: 'POST',
-                    url: Routing.generate('newsletter_new'),
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: response => {
-                        addAlert(response);
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete() {
-                        $submitButton.find('span').remove();
-                    }
-                });
-            });
-
-            // Contact component
-            $(document).on('submit', 'form[name="appbundle_contact"]', e => {
-                e.preventDefault();
-                let $form = $(e.target)[0];
-                let formData = new FormData($form);
-
-                let $submitButton = $('#appbundle_contact_submit');
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        addAlert(response);
-                        $form.reset();
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete() {
-                        $submitButton.find('span').remove();
-                    }
-                });
-            });
-
-            // Category component
-            $(document).on('submit', 'form[name="appbundle_category"]', e => {
-                e.preventDefault();
-                let $form = $(e.target)[0];
-                let formData = new FormData($form);
-
-                let $submitButton = $('#appbundle_category_submit');
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        this.$root.$emit('fetch_article_by_category_result', { detail: response} );
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete() {
-                        $submitButton.find('span').remove();
-                    }
-                });
-            });
-
-            // Comment modal in article component
-            $(document).on('submit', 'form[name="appbundle_comment"]', e => {
-                e.preventDefault();
-                let $submitButton = $('#appbundle_comment_submit');
-                $submitButton.append(
-                    $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                );
-
-                let $form = $(e.target)[0];
-                let formData = new FormData($form);
-
-                $.ajax({
-                    type: 'POST',
-                    url: $form.action,
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    success: response => {
-                        addAlert(response);
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete: () => {
-                        this.$root.$emit('hide-comment-modal');
-                        $submitButton.find('span').remove();
-                    }
-                });
-            });
+            $(document).on('submit', '.newsletter-form', this.handleNewsletterFormSubmission);
 
             $(window).on('router-push', e => {
                 this.$router.push({
@@ -221,7 +146,7 @@
                 this.displayResultModal = true;
             });
 
-            $(window).on('hide-search-results-modal', () => {
+            $(window).on('hide-results-modal', () => {
                 this.displayResultModal = false;
             });
 
@@ -235,10 +160,7 @@
                 }
             });
 
-            $(document).on('click', '#close-comment-modal-button', () => {
-                this.$root.$emit('hide-comment-modal');
-            });
-
+            // Prevent right click on image
             $(document).on('contextmenu', 'img', () => {
                 return false;
             });
