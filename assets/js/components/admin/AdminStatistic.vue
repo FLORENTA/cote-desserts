@@ -67,6 +67,7 @@
             },
 
             handleStatisticsFormSubmission(e) {
+                e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
 
@@ -103,10 +104,11 @@
                 this.isStatisticFormLoaded = true;
             });
 
-            $(document).on('submit', 'form[name="appbundle_statistic"]', e => {
-                e.preventDefault();
-                this.handleStatisticsFormSubmission(e);
-            });
+            $(document).on('submit', 'form[name="appbundle_statistic"]', this.handleStatisticsFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', 'form[name="appbundle_statistic"]', this.handleStatisticsFormSubmission);
         }
     }
 </script>

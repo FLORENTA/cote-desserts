@@ -32,19 +32,8 @@
             }),
         },
 
-        mixins: [Mixins],
-
-        mounted() {
-            $.ajax({
-                type: 'GET',
-                url: Routing.generate('fetch_login_form'),
-                success: response => {
-                    $('#login-container').append(response);
-                    this.isLoginFormLoaded = true;
-                }
-            });
-
-            $(document).on('submit', 'form[name="appbundle_login"]', e => {
+        methods: {
+            handleLoginFormSubmission(e) {
                 e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
@@ -71,7 +60,22 @@
                         addAlert(err.responseJSON);
                     }
                 });
+            }
+        },
+
+        mixins: [Mixins],
+
+        mounted() {
+            $.get(Routing.generate('fetch_login_form'), response => {
+                $('#login-container').append(response);
+                this.isLoginFormLoaded = true;
             });
+
+            $(document).on('submit', 'form[name="appbundle_login"]', this.handleLoginFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', 'form[name="appbundle_login"]', this.handleLoginFormSubmission);
         }
     }
 </script>
