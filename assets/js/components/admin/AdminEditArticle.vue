@@ -22,11 +22,10 @@
         },
 
         methods: {
-            deletePDF(pdf) {
+            deletePDF(e) {
                 $.ajax({
                     type: 'DELETE',
-                    url: Routing.generate('delete_pdf', { pdf: pdf }),
-                    data: {pdf: this.pdf},
+                    url: Routing.generate('delete_pdf', { pdf: $(e.target).data('pdf') }),
                     success: response => {
                         addAlert(response);
                         this.pdf = undefined;
@@ -46,15 +45,13 @@
                 this.isEditArticleFormLoaded = true;
             });
 
-            this.$root.$on('deletePdf', e => {
-                this.deletePDF(e.detail);
-            });
-
+            $(document).on('click', '#remove-pdf', this.deletePDF);
             $(document).on('keyup', '.input-category', this.handleInputCategory);
             $(document).on('submit', 'form[name="appbundle_article"]', this.handleArticleFormSubmission);
         },
 
         beforeDestroy() {
+            $(document).off('click', '#remove-pdf', this.deletePDF);
             $(document).off('keyup', '.input-category', this.handleInputCategory);
             $(document).off('submit', 'form[name="appbundle_article"]', this.handleArticleFormSubmission);
         }

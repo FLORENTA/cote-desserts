@@ -46,16 +46,11 @@
 
         mounted() {
             // Fetch legal mentions form
-            $.ajax({
-                type: 'GET',
-                url: Routing.generate('fetch_create_legal_form'),
-                success: response => {
-                    $('#legal-form-container').append(response);
-                    this.isLegalMentionsLoaded = true;
-                },
-                error: err => {
-                    addAlert(err.responseJSON);
-                }
+            $.get(Routing.generate('fetch_create_legal_form'), response => {
+                $('#legal-form-container').append(response);
+                this.isLegalMentionsLoaded = true;
+            }).fail(err => {
+                addAlert(err.responseJSON);
             });
 
             $(document).on('submit', 'form[name="appbundle_legal"]', this.handleLegalFormSubmission);
