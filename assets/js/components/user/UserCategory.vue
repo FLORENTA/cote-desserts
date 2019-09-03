@@ -115,34 +115,29 @@
                 });
             }
 
-            $.ajax({
-                type: 'GET',
-                url: Routing.generate('fetch_category_form'),
-                success: response => {
-                    $('#category-form-container').append(response);
-                    $('#appbundle_category_category').selectize({
-                        plugins: ['remove_button'],
-                        sortField: [{field: 'text'}],
-                        onItemAdd: function(value, $item) {
-                            let $parent = $item.parent();
-                            let $children = $parent.children();
-                            let alphabeticallyOrderedDivs = $children.sort((a, b) => {
-                                if ($(a).text() !== "" && $(b).text() !== "") {
-                                    return $(a).text() > $(b).text();
-                                }
-                            });
+            $.get(Routing.generate('fetch_category_form'), response => {
+                $('#category-form-container').append(response);
+                $('#appbundle_category_category').selectize({
+                    plugins: ['remove_button'],
+                    sortField: [{field: 'text'}],
+                    // Sort alphabetically each time a new category is added to the form
+                    onItemAdd: function (value, $item) {
+                        let $parent = $item.parent();
+                        let $children = $parent.children();
+                        let alphabeticallyOrderedDivs = $children.sort((a, b) => {
+                            if ($(a).text() !== "" && $(b).text() !== "") {
+                                return $(a).text() > $(b).text();
+                            }
+                        });
 
-                            $parent.html(alphabeticallyOrderedDivs);
-                        }
-                    });
-                    this.isCategoryFormLoaded = true;
-                },
-                error: err => {
-                    addAlert(err.responseJSON);
-                },
-                complete: () => {
-                    this.cancelSpinnerAnimation();
-                }
+                        $parent.html(alphabeticallyOrderedDivs);
+                    }
+                });
+                this.isCategoryFormLoaded = true;
+            }).fail(err => {
+                addAlert(err.responseJSON);
+            }).always(() => {
+                this.cancelSpinnerAnimation();
             });
 
             this.$root.$on('fetch_article_by_category_result', e => {

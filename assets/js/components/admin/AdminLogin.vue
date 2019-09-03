@@ -35,13 +35,9 @@
         mixins: [Mixins],
 
         mounted() {
-            $.ajax({
-                type: 'GET',
-                url: Routing.generate('fetch_login_form'),
-                success: response => {
-                    $('#login-container').append(response);
-                    this.isLoginFormLoaded = true;
-                }
+            $.get(Routing.generate('fetch_login_form'), response => {
+                $('#login-container').append(response);
+                this.isLoginFormLoaded = true;
             });
 
             $(document).on('submit', 'form[name="appbundle_login"]', e => {
