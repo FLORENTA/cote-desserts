@@ -57,12 +57,11 @@
         },
 
         mounted() {
-            const el = this;
             this.launchSpinnerAnimation();
 
             $.get(Routing.generate('fetch_contact_form'), response => {
                 $('#contact-form-container').append(response);
-                el.cancelSpinnerAnimation();
+                this.cancelSpinnerAnimation();
                 this.loaded = true;
             });
 

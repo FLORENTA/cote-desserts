@@ -28,14 +28,12 @@ new Vue({
                     contentType: false,
                     processData: false,
                     success: response => {
-                        console.log(response)
                         if (typeof response === 'object') {
                             window.dispatchEvent(new CustomEvent('router-push', {
                                 detail: response.slug
                             }));
                         } else {
                             let $searchResultsModal = $('#results-modal');
-                            console.log($searchResultsModal.find('#results'))
                             $searchResultsModal.find('#results').empty().append(response);
                             $("#results").find('li').click(e => {
                                 window.dispatchEvent(new CustomEvent('hide-results-modal'));

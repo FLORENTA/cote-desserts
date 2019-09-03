@@ -78,13 +78,6 @@ const Mixins = {
         capitalize(val) {
             return val.charAt(0).toUpperCase() + val.slice(1);
         }
-    },
-
-    mounted() {
-        $(document).on('click', '#remove-pdf', e => {
-            e.preventDefault();
-            this.$root.$emit('deletePdf', { detail: $(e.currentTarget).data('pdf') });
-        });
     }
 };
 
