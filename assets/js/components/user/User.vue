@@ -40,12 +40,13 @@
 </template>
 
 <script>
-    import Mixins from '../../mixins';
-    import MenuMixin from '../../mixins/menuMixin';
     import {mapState} from 'vuex';
-    import ServerMessage from "../ServerMessage";
+    import ServerMessage from "./../ServerMessage";
     import {Routing} from './../../js/routing';
-    import {addAlert} from "../../js/alert";
+    import {addAlert} from "./../../js/alert";
+    import {UserMixin} from "./../../mixins/userMixin";
+    import {menu} from "../../mixins/menu";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user',
@@ -70,25 +71,13 @@
             })
         },
 
-        mixins: [Mixins, MenuMixin],
+        mixins: [menu, UserMixin, Spinner],
 
         components: {
             ServerMessage
         },
 
         methods: {
-            addButtonLoader($button) {
-                if (!$button.hasClass('fa-spinner')) {
-                    $button.append(
-                        $("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>")
-                    );
-                }
-            },
-
-            removeButtonLoader($button) {
-                $button.find('span').remove();
-            },
-
             handleNewsletterFormSubmission(e) {
                 e.preventDefault();
                 let formData = new FormData($(e.target)[0]);
@@ -164,6 +153,10 @@
             $(document).on('contextmenu', 'img', () => {
                 return false;
             });
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', '.newsletter-form', this.handleNewsletterFormSubmission);
         }
     }
 </script>

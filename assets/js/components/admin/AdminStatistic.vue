@@ -37,7 +37,6 @@
 </template>
 
 <script>
-    import Mixins from './../../mixins/index';
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
 
@@ -67,6 +66,7 @@
             },
 
             handleStatisticsFormSubmission(e) {
+                e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
 
@@ -95,18 +95,17 @@
             }
         },
 
-        mixins: [Mixins],
-
         mounted() {
             $.get(Routing.generate('fetch_statistic_form'), response => {
                 $('#statistic-form-container').append(response);
                 this.isStatisticFormLoaded = true;
             });
 
-            $(document).on('submit', 'form[name="appbundle_statistic"]', e => {
-                e.preventDefault();
-                this.handleStatisticsFormSubmission(e);
-            });
+            $(document).on('submit', 'form[name="appbundle_statistic"]', this.handleStatisticsFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', 'form[name="appbundle_statistic"]', this.handleStatisticsFormSubmission);
         }
     }
 </script>

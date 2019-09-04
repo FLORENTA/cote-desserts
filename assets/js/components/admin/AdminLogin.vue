@@ -8,11 +8,11 @@
 </template>
 
 <script>
-    import Mixins from '../../mixins';
     import { mapState } from 'vuex';
     import ServerMessage from "../ServerMessage";
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'admin-login',
@@ -32,18 +32,16 @@
             }),
         },
 
-        mixins: [Mixins],
+        mixins: [Spinner],
 
-        mounted() {
-            $.get(Routing.generate('fetch_login_form'), response => {
-                $('#login-container').append(response);
-                this.isLoginFormLoaded = true;
-            });
-
-            $(document).on('submit', 'form[name="appbundle_login"]', e => {
+        methods: {
+            handleLoginFormSubmission(e) {
                 e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
+                let $submitButton = $('#appbundle_login_submit');
+
+                this.addButtonLoader($submitButton);
 
                 $.ajax({
                     type: 'POST',
@@ -65,9 +63,25 @@
                     },
                     error: err => {
                         addAlert(err.responseJSON);
+                    },
+                    complete: () => {
+                        this.removeButtonLoader($submitButton);
                     }
                 });
+            }
+        },
+
+        mounted() {
+            $.get(Routing.generate('fetch_login_form'), response => {
+                $('#login-container').append(response);
+                this.isLoginFormLoaded = true;
             });
+
+            $(document).on('submit', 'form[name="appbundle_login"]', this.handleLoginFormSubmission);
+        },
+
+        beforeDestroy() {
+            $(document).off('submit', 'form[name="appbundle_login"]', this.handleLoginFormSubmission);
         }
     }
 </script>

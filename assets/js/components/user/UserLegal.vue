@@ -8,10 +8,10 @@
 </template>
 
 <script>
-    import Mixins from '../../mixins';
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-legal',
@@ -22,7 +22,7 @@
             }
         },
 
-        mixins: [Mixins],
+        mixins: [Spinner],
 
         created() {
             this.$store.dispatch('newStatistic', {

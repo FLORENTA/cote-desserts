@@ -8,7 +8,7 @@
 
 <script>
     import {Routing} from './../../js/routing';
-    import Mixins from "../../mixins";
+    import {AdminMixin} from "../../mixins/adminMixin";
 
     export default {
         name: 'admin-create-article',
@@ -19,7 +19,7 @@
             }
         },
 
-        mixins: [Mixins],
+        mixins: [AdminMixin],
 
         mounted() {
             $.get(Routing.generate('fetch_create_article_form'), response => {

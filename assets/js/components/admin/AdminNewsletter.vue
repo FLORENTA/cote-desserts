@@ -44,8 +44,8 @@
 
 <script>
     import {Routing} from './../../js/routing';
-    import Mixins from './../../mixins';
-    import {addAlert, hideMessage} from "../../js/alert";
+    import {addAlert, hideMessage} from "./../../js/alert";
+    import {AdminMixin} from "./../../mixins/adminMixin";
 
     export default {
         name: 'admin-newsletter',
@@ -57,7 +57,7 @@
             }
         },
 
-        mixins: [Mixins],
+        mixins: [AdminMixin],
 
         methods: {
             getNewsletters() {
