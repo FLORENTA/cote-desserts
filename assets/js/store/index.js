@@ -86,21 +86,16 @@ export const store = new Vuex.Store({
             let id = this.state.lastId;
             return new Promise((resolve, reject) => {
                 if (this.state.lastId !== 0) {
-                    $.ajax({
-                        type: 'GET',
-                        url: Routing.generate('fetch_articles_by_id', { id: id }),
-                        success: response => {
-                            context.commit('hideMessage');
-                            if (response.length > 0) {
-                                context.commit('addArticles', {
-                                    response: response, add: add
-                                });
-                            }
-                            resolve();
-                        },
-                        error: err => {
-                            reject(err.responseJSON);
+                    $.get(Routing.generate('fetch_articles_by_id', { id: id }), response => {
+                        context.commit('hideMessage');
+                        if (response.length > 0) {
+                            context.commit('addArticles', {
+                                response: response, add: add
+                            });
                         }
+                        resolve();
+                    }).fail(err => {
+                        reject(err.responseJSON);
                     });
                 } else {
                     reject(Translator.trans('query.no_article'));
@@ -109,15 +104,10 @@ export const store = new Vuex.Store({
         },
 
         getNumberOfArticles(context) {
-            $.ajax({
-                type: 'GET',
-                url: Routing.generate('articles_count'),
-                success: response => {
-                    context.commit('setNumberOfArticles', response);
-                },
-                error: err => {
-                    context.commit('setNumberOfArticles', 0);
-                }
+            $.get(Routing.generate('articles_count'), response => {
+                context.commit('setNumberOfArticles', response);
+            }).fail(() => {
+                context.commit('setNumberOfArticles', 0);
             });
         },
 

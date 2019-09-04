@@ -74,7 +74,14 @@
                     contentType: false,
                     data: formData,
                     success: response => {
-                        this.$root.$emit('fetch_article_by_category_result', { detail: response} );
+                        if ('articles' in response) {
+                            this.articles = response.articles;
+                            this.isArticlesLoaded = true;
+                        }
+
+                        if ('categories' in response) {
+                            this.updateCategories(response.categories);
+                        }
                     },
                     error: err => {
                         addAlert(err.responseJSON);
@@ -98,20 +105,14 @@
         mounted() {
             /* If coming from an article */
             if (this.$route.name === "category") {
-                $.ajax({
-                    type: 'GET',
-                    url: Routing.generate('fetch_article_for_category', { category: this.$route.params.category }),
-                    success: response => {
-                        this.articles = response;
-                        this.isArticlesLoaded = true;
-                        this.displayedCategory = this.$route.params.category;
-                    },
-                    error: err => {
-                        addAlert(err.responseJSON);
-                    },
-                    complete: () => {
-                        this.cancelSpinnerAnimation();
-                    }
+                $.get(Routing.generate('fetch_article_for_category', { category: this.$route.params.category }), response => {
+                    this.articles = response;
+                    this.isArticlesLoaded = true;
+                    this.displayedCategory = this.$route.params.category;
+                }).fail(err => {
+                    addAlert(err.responseJSON);
+                }).always(() => {
+                    this.cancelSpinnerAnimation();
                 });
             }
 
@@ -138,18 +139,6 @@
                 addAlert(err.responseJSON);
             }).always(() => {
                 this.cancelSpinnerAnimation();
-            });
-
-            this.$root.$on('fetch_article_by_category_result', e => {
-                let response = e.detail;
-                if ('articles' in response) {
-                    this.articles = response.articles;
-                    this.isArticlesLoaded = true;
-                }
-
-                if ('categories' in response) {
-                    this.updateCategories(response.categories);
-                }
             });
 
             $(document).on('submit', 'form[name="appbundle_category"]', this.handleCategoryFormSubmission);
