@@ -34,10 +34,10 @@
 </template>
 
 <script>
-    import Mixin from './../../mixins';
     import { mapState } from 'vuex';
     import {Routing} from './../../js/routing';
     import {addAlert} from "./../../js/alert";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'admin-homepage',
@@ -54,7 +54,7 @@
             articlesCount : state => state.articlesCount,
         }),
 
-        mixins: [Mixin],
+        mixins: [Spinner],
 
         methods: {
             fetchArticleComments(articleId) {

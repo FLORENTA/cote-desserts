@@ -28,9 +28,9 @@
 
 <script>
     import { mapState } from 'vuex';
-    import Mixin from '../../mixins';
     import {addAlert} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-homepage',
@@ -43,7 +43,7 @@
             })
         },
 
-        mixins: [Mixin],
+        mixins: [Spinner],
 
         methods: {
             getArticles(add = false) {

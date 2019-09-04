@@ -4,9 +4,9 @@
 
 <script>
     import {Routing} from './../../js/routing';
-    import Mixins from '../../mixins';
     import {NAVIGATION_TYPE} from "../../js/variables";
     import {addAlert} from "../../js/alert";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-contact',
@@ -17,7 +17,7 @@
             }
         },
 
-        mixins: [Mixins],
+        mixins: [Spinner],
 
         created() {
             this.$store.dispatch('newStatistic', {

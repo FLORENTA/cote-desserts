@@ -9,7 +9,7 @@
 <script>
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
-    import Mixins from "../../mixins";
+    import {AdminMixin} from "../../mixins/adminMixin";
 
     export default {
         name: 'admin-edit-article',
@@ -37,7 +37,7 @@
             }
         },
 
-        mixins: [Mixins],
+        mixins: [AdminMixin],
 
         mounted() {
             $.get(Routing.generate('fetch_edit_article_form', { token : this.$route.params.token }), response => {

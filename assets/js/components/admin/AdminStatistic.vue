@@ -37,7 +37,6 @@
 </template>
 
 <script>
-    import Mixins from './../../mixins/index';
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
 
@@ -95,8 +94,6 @@
                 return newObj;
             }
         },
-
-        mixins: [Mixins],
 
         mounted() {
             $.get(Routing.generate('fetch_statistic_form'), response => {

@@ -22,12 +22,12 @@
 </template>
 
 <script>
-    import MenuMixins from './../../mixins/menuMixin';
     import { mapState } from 'vuex';
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import faBars from '@fortawesome/fontawesome-free-solid/faBars';
     import ServerMessage from "./../ServerMessage";
     import {Routing} from './../../js/routing';
+    import {menu} from "../../mixins/menu";
 
     export default {
         name: 'admin',
@@ -39,7 +39,7 @@
             }
         },
 
-        mixins: [MenuMixins],
+        mixins: [menu],
 
         computed: mapState(['displayMessage', 'message']),
 

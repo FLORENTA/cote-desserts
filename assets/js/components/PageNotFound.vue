@@ -6,13 +6,13 @@
 </template>
 
 <script>
-    import Mixin from '../mixins';
     import {NAVIGATION_TYPE} from "../js/variables";
+    import {Spinner} from "../mixins/spinner";
 
     export default {
         name: 'PageNotFound',
 
-        mixins: [Mixin],
+        mixins: [Spinner],
 
         created() {
             this.$store.dispatch('newStatistic', {

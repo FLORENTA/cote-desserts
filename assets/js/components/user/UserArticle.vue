@@ -48,10 +48,11 @@
 </template>
 
 <script>
-    import Mixins from '../../mixins';
     import {Routing} from './../../js/routing';
     import {addAlert, hideMessage} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
+    import {UserMixin} from "../../mixins/userMixin";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-article',
@@ -66,7 +67,7 @@
             }
         },
 
-        mixins: [Mixins],
+        mixins: [UserMixin, Spinner],
 
         computed: {
             pdfStyle() {
@@ -109,13 +110,13 @@
                     contentType: false,
                     data: formData,
                     success: response => {
+                        $form.reset();
                         addAlert(response);
                     },
                     error: err => {
                         addAlert(err.responseJSON);
                     },
                     complete: () => {
-                        this.showCommentModal = false;
                         this.removeButtonLoader($submitButton);
                     }
                 });

@@ -27,11 +27,11 @@
     </div>
 </template>
 <script>
-    import Mixin from '../../mixins';
     import {Routing} from '../../js/routing';
     import 'selectize';
     import {addAlert} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-category',
@@ -46,7 +46,7 @@
             }
         },
 
-        mixins: [Mixin],
+        mixins: [Spinner],
 
         methods: {
             updateCategories(newVal) {

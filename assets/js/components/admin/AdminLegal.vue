@@ -5,7 +5,6 @@
 </template>
 
 <script>
-    import Mixins from '../../mixins';
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
 
@@ -41,8 +40,6 @@
                 });
             }
         },
-
-        mixins: [Mixins],
 
         mounted() {
             // Fetch legal mentions form
