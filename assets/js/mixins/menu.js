@@ -1,4 +1,4 @@
-export default {
+export const menu = {
     data() {
         return {
             smallDevice: undefined,
@@ -30,4 +30,4 @@ export default {
     created() {
         this.smallDevice = window.innerWidth < 1024;
     },
-}
+};

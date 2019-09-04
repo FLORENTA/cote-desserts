@@ -34,10 +34,10 @@
 </template>
 
 <script>
-    import Mixin from './../../mixins';
     import { mapState } from 'vuex';
     import {Routing} from './../../js/routing';
     import {addAlert} from "./../../js/alert";
+    import {Spinner} from "../../mixins/spinner";
 
     export default {
         name: 'admin-homepage',
@@ -54,7 +54,7 @@
             articlesCount : state => state.articlesCount,
         }),
 
-        mixins: [Mixin],
+        mixins: [Spinner],
 
         methods: {
             fetchArticleComments(articleId) {
@@ -88,27 +88,9 @@
                 }).finally(() => {
                     this.cancelSpinnerAnimation();
                 });
-            }
-        },
+            },
 
-        mounted() {
-            let maxId = $('.js-app').data('max-id');
-            this.$store.commit('storeMaxArticleId', maxId);
-            this.$store.commit('displayWaitingForData');
-
-            this.$store.dispatch('getArticles').catch(err => {
-                addAlert(err);
-            }).finally(() => {
-                this.cancelSpinnerAnimation();
-            });
-
-            this.$store.dispatch('getNumberOfArticles');
-
-            $(document).on('click', '.close-button', () => {
-                this.displayResultModal = false;
-            });
-
-            $(document).on('click', '.delete-comment', e => {
+            deleteComment(e) {
                 let $target = $(e.target);
                 let $token = $target.data('token');
                 let $articleToken = $target.data('article-token');
@@ -129,14 +111,12 @@
                         addAlert(err.responseJSON);
                     }
                 });
-            });
+            },
 
-            $(document).on('click', '.update-comment-status', e => {
+            updateCommentStatus(e) {
                 let $target = $(e.target);
                 let $token = $target.data('token');
-                console.log($target.data('publish'));
                 let $publish = !$target.data('publish');
-                console.log($publish);
 
                 $.ajax({
                     type: 'PUT',
@@ -153,7 +133,33 @@
                         addAlert(err.responseJSON);
                     }
                 });
+            }
+        },
+
+        mounted() {
+            let maxId = $('.js-app').data('max-id');
+            this.$store.commit('storeMaxArticleId', maxId);
+            this.$store.commit('displayWaitingForData');
+
+            this.$store.dispatch('getArticles').catch(err => {
+                addAlert(err);
+            }).finally(() => {
+                this.cancelSpinnerAnimation();
             });
+
+            this.$store.dispatch('getNumberOfArticles');
+
+            $(document).on('click', '.close-button', () => {
+                this.displayResultModal = false;
+            });
+
+            $(document).on('click', '.delete-comment', this.deleteComment);
+            $(document).on('click', '.update-comment-status', this.updateCommentStatus);
+        },
+
+        beforeDestroy() {
+            $(document).off('click', '.delete-comment', this.deleteComment);
+            $(document).off('click', '.update-comment-status', this.updateCommentStatus);
         }
     }
 </script>

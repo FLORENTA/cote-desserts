@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import Mixins from './../../mixins/';
     import {Routing} from './../../js/routing';
-    import {addAlert} from "../../js/alert";
+    import {addAlert} from "./../../js/alert";
+    import {AdminMixin} from "./../../mixins/adminMixin";
 
     export default {
         name: 'admin-comment',
@@ -34,7 +34,7 @@
             }
         },
 
-        mixins: [Mixins],
+        mixins: [AdminMixin],
 
         computed: {
             style() {
