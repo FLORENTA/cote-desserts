@@ -86,7 +86,7 @@
                     error: err => {
                         addAlert(err.responseJSON);
                     },
-                    complete() {
+                    complete: () => {
                         this.removeButtonLoader($submitButton);
                     }
                 });

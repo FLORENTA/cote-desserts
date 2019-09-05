@@ -25,6 +25,8 @@
         mixins: [Spinner],
 
         created() {
+            this.launchSpinnerAnimation();
+
             this.$store.dispatch('newStatistic', {
                 data: this.$route.fullPath,
                 type: NAVIGATION_TYPE
