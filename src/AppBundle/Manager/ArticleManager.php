@@ -77,21 +77,11 @@ class ArticleManager
     }
 
     /**
-     * @param string $id
      * @return array
      */
-    public function getArticlesById($id): array
+    public function getArticles(): array
     {
-        return $this->articleRepository->getArticles($id);
-    }
-
-    /**
-     * @return int
-     * @throws NonUniqueResultException
-     */
-    public function getNumberOfArticles(): int
-    {
-        return $this->articleRepository->getNumberOfArticles();
+        return $this->articleRepository->getArticles();
     }
 
     /**

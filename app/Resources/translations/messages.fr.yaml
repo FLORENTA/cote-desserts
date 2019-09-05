@@ -102,8 +102,6 @@ generic.form.invalid: 'Le formulaire est invalide.'
 generic.form.submit: 'Envoyer'
 generic.request.invalid: 'La requête est invalide.'
 
-homepage.more_articles: "Plus d'article"
-
 html.head.description: 'Blog dédié à la pâtisserie'
 html.head.keywords: 'recette, dessert, pâtisserie'
 html.head.title: 'Côté Desserts'

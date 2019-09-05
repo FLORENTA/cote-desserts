@@ -31,9 +31,6 @@ class HomepageController extends Controller
         LoggerInterface $logger
     ): Response
     {
-        /** @var int $maxId */
-        $maxId = $articleManager->getMaxArticleId();
-
         $statisticEvent = new StatisticEvent('/', Statistic::NAVIGATION_TYPE);
 
         $eventDispatcher->dispatch(
@@ -51,8 +48,6 @@ class HomepageController extends Controller
             ]);
         }
 
-        return $this->render('homepage/index.html.twig', [
-            'max_id' => $maxId,
-        ]);
+        return $this->render('homepage/index.html.twig');
     }
 }

@@ -17,12 +17,6 @@
                 </router-link>
             </div>
         </transition-group>
-
-        <div v-if="articles.length > 0" style="margin-bottom: 50px;">
-            <button v-if="articlesCount > nbArticles" v-on:click="addArticles" class="button-submit">
-                {{ t('homepage.more_articles') }}
-            </button>
-        </div>
     </div>
 </template>
 
@@ -37,28 +31,11 @@
 
         computed : {
             ...mapState({
-                articles: state => state.articles,
-                nbArticles: state => state.articles.length,
-                articlesCount: state => state.articlesCount,
+                articles: state => state.articles
             })
         },
 
         mixins: [Spinner],
-
-        methods: {
-            getArticles(add = false) {
-                this.launchSpinnerAnimation();
-                this.$store.dispatch('getArticles', add).catch(err => {
-                    addAlert(err);
-                }).finally(() => {
-                    this.cancelSpinnerAnimation();
-                });
-            },
-
-            addArticles() {
-                this.getArticles(true);
-            },
-        },
 
         created() {
             this.$store.dispatch('newStatistic', {
@@ -68,10 +45,11 @@
         },
 
         mounted() {
-            let maxId = $('.js-app').data('max-id');
-            this.$store.commit('storeMaxArticleId', maxId);
-            this.getArticles();
-            this.$store.dispatch('getNumberOfArticles');
+            this.$store.dispatch('getArticles').catch(err => {
+                addAlert(err);
+            }).finally(() => {
+                this.cancelSpinnerAnimation();
+            });
         }
     }
 </script>

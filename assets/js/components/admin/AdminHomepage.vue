@@ -28,8 +28,6 @@
                 <i class="fa fa-times close-button"></i>
             </div>
         </transition>
-
-        <button v-if="articlesCount > nbArticles && nbArticles !== 0" v-on:click="addArticles" class="button-default m10"><i class="fa fa-plus-circle"></i> {{ t('admin.homepage.button.more_articles')}}</button>
     </div>
 </template>
 
@@ -51,7 +49,6 @@
         computed : mapState({
             articles : state => state.articles,
             nbArticles : state => state.articles.length,
-            articlesCount : state => state.articlesCount,
         }),
 
         mixins: [Spinner],
@@ -80,14 +77,6 @@
                         }
                     });
                 }
-            },
-
-            addArticles() {
-                this.$store.dispatch('getArticles').catch(err => {
-                    addAlert(err);
-                }).finally(() => {
-                    this.cancelSpinnerAnimation();
-                });
             },
 
             deleteComment(e) {
@@ -136,9 +125,11 @@
             }
         },
 
+        created() {
+            this.launchSpinnerAnimation();
+        },
+
         mounted() {
-            let maxId = $('.js-app').data('max-id');
-            this.$store.commit('storeMaxArticleId', maxId);
             this.$store.commit('displayWaitingForData');
 
             this.$store.dispatch('getArticles').catch(err => {
@@ -146,8 +137,6 @@
             }).finally(() => {
                 this.cancelSpinnerAnimation();
             });
-
-            this.$store.dispatch('getNumberOfArticles');
 
             $(document).on('click', '.close-button', () => {
                 this.displayResultModal = false;

@@ -260,59 +260,25 @@ class ArticleController extends Controller
     }
 
     /**
-     * Function to return the number of articles in db
-     *
-     * @Route("/articles-count", name="articles_count", methods={"GET"})
-     * @param ArticleManager $articleManager
-     * @param LoggerInterface $logger
-     * @param TranslatorInterface $translator
-     * @return JsonResponse
-     */
-    public function getNbArticles(
-        ArticleManager $articleManager,
-        LoggerInterface $logger,
-        TranslatorInterface $translator
-    ): JsonResponse
-    {
-        try {
-            /** @var int $numberOfArticles */
-            $numberOfArticles = $articleManager->getNumberOfArticles();
-            return new JsonResponse($numberOfArticles, Response::HTTP_OK);
-        } catch (NonUniqueResultException|Exception $exception) {
-            $logger->error($exception->getMessage(), ['_method' => __METHOD__]);
-
-            return new JsonResponse(
-                $translator->trans('query.article.number.failure'),
-                JsonResponse::HTTP_BAD_REQUEST
-            );
-        }
-    }
-
-    /**
      * Function to fetch articles in db by slices of 9 or less (last request)
      *
-     * @Route("/articles/{id}", name="fetch_articles_by_id", methods={"GET"})
+     * @Route("/articles/fetch", name="fetch_articles", methods={"GET"})
      * @param ArticleManager $articleManager
      * @param LoggerInterface $logger
      * @param TranslatorInterface $translator
-     * @param $id
      * @return JsonResponse|Response
      */
     public function getArticles(
         ArticleManager $articleManager,
         LoggerInterface $logger,
-        TranslatorInterface $translator,
-        $id
+        TranslatorInterface $translator
     ): Response
     {
         /** @var array $articles */
-        $articles = $articleManager->getArticlesById($id);
+        $articles = $articleManager->getArticles();
 
         if (empty($articles)) {
-            $logger->error(
-                sprintf('No article found for id %s', $id),
-                ['_method' => __METHOD__]
-            );
+            $logger->error(sprintf('No article found'), ['_method' => __METHOD__]);
 
             return new JsonResponse(
                 $translator->trans('query.no_article'),
