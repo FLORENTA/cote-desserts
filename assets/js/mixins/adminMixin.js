@@ -1,9 +1,17 @@
-import {addAlert} from "../js/alert";
+import {addAlert} from "./../js/alert";
+import {Routing} from './../js/routing'
 
 export const AdminMixin = {
+    data() {
+        return {
+            categories: undefined
+        }
+    },
+
     methods: {
         handleInputCategory(e) {
             let $target = $(e.target);
+            // Clear already proposed categories
             $target.next('.category-suggestion').remove();
 
             if ($target.val().length === 0) {
@@ -60,5 +68,11 @@ export const AdminMixin = {
         formatShortDate(date) {
             return new Date(date).toLocaleDateString();
         },
+    },
+
+    created() {
+        $.get(Routing.generate('fetch_categories'), response => {
+            this.categories = response;
+        });
     }
 };

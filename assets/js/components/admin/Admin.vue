@@ -34,8 +34,7 @@
 
         data() {
             return {
-                barsIcon: faBars,
-                categories: undefined
+                barsIcon: faBars
             }
         },
 
@@ -55,12 +54,6 @@
             } else {
                 next();
             }
-        },
-
-        created() {
-            $.get(Routing.generate('fetch_categories'), response => {
-                this.categories = response;
-            });
         }
     }
 </script>
