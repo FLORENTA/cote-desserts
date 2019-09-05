@@ -33,8 +33,7 @@ new Vue({
                                 detail: response.slug
                             }));
                         } else {
-                            let $searchResultsModal = $('#results-modal');
-                            $searchResultsModal.find('#results').empty().append(response);
+                            $('#results-modal').find('#results').empty().append(response);
                             $("#results").find('li').click(e => {
                                 window.dispatchEvent(new CustomEvent('hide-results-modal'));
                                 window.dispatchEvent(new CustomEvent('router-push', {

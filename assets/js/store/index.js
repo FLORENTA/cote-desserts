@@ -112,10 +112,11 @@ export const store = new Vuex.Store({
         },
 
         newStatistic(context, data) {
-            $.post(Routing.generate('statistic_new'), {
-               data: data.data,
-               type: data.type
-            });
+            let formData = new FormData();
+            formData.append('data', data.data);
+            formData.append('type', data.type);
+
+            navigator.sendBeacon(Routing.generate('statistic_new'), formData);
         },
     }
 });
