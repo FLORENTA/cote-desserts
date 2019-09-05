@@ -31,14 +31,6 @@ class ArticleRepositoryTest extends KernelTestCase
         $this->assertEquals(20, $maxId);
     }
 
-    // Getting the number of article in db
-    public function testGetNumberOfArticles(): void
-    {
-        /** @var string $numberOfArticles */
-        $numberOfArticles = $this->articleRepository->getNumberOfArticles();
-        $this->assertEquals('20', $numberOfArticles);
-    }
-
     // Getting article by slug
     public function testGetArticlesBySlug(): void
     {

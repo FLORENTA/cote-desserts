@@ -29,23 +29,9 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
-     * @return int
-     * @throws NonUniqueResultException
-     */
-    public function getNumberOfArticles(): int
-    {
-        /** @var QueryBuilder $qb */
-        $qb = $this->createQueryBuilder('article')
-            ->select('COUNT(article.id)');
-
-        return (int) $qb->getQuery()->getSingleScalarResult();
-    }
-
-    /**
-     * @param int $id
      * @return array
      */
-    public function getArticles(int $id): array
+    public function getArticles(): array
     {
         /** @var Connection $connection */
         $connection = $this->_em->getConnection();
@@ -54,7 +40,6 @@ class ArticleRepository extends EntityRepository
                   (SELECT i.src FROM image i WHERE i.article_id = a.id ORDER BY i.id LIMIT 1) as image_src,
                   (SELECT COUNT(c.id) FROM comment c WHERE c.article_id = a.id) as number_comments
                  FROM article a
-                 WHERE a.id <= '$id'
                  ORDER BY a.id DESC
                  LIMIT 9
         ";
