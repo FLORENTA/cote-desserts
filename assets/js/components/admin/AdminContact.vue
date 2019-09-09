@@ -6,7 +6,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <b>Date: {{ contact.date|formatDate }}</b>
+                                <b>Date: {{ contact.date|formatShortDate }}</b>
                             </td>
                         </tr>
                         <tr>
@@ -28,6 +28,7 @@
 <script>
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
+    import {date} from "../../mixins/date";
 
     export default {
         name: 'admin-contact',
@@ -38,11 +39,7 @@
             }
         },
 
-        filters: {
-            formatDate(date) {
-                return new Date(date).toLocaleDateString();
-            }
-        },
+        mixins: [date],
 
         methods: {
             deleteContact(token, key) {

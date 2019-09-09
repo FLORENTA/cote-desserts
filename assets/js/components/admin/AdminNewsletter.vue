@@ -45,7 +45,7 @@
 <script>
     import {Routing} from './../../js/routing';
     import {addAlert, hideMessage} from "./../../js/alert";
-    import {AdminMixin} from "./../../mixins/adminMixin";
+    import {date} from "../../mixins/date";
 
     export default {
         name: 'admin-newsletter',
@@ -57,7 +57,7 @@
             }
         },
 
-        mixins: [AdminMixin],
+        mixins: [date],
 
         methods: {
             getNewsletters() {

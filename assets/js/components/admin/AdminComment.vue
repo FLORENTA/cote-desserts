@@ -23,7 +23,7 @@
 <script>
     import {Routing} from './../../js/routing';
     import {addAlert} from "./../../js/alert";
-    import {AdminMixin} from "./../../mixins/adminMixin";
+    import {date} from "../../mixins/date";
 
     export default {
         name: 'admin-comment',
@@ -34,7 +34,7 @@
             }
         },
 
-        mixins: [AdminMixin],
+        mixins: [date],
 
         computed: {
             style() {
