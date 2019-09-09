@@ -44,9 +44,8 @@
     import ServerMessage from "./../ServerMessage";
     import {Routing} from './../../js/routing';
     import {addAlert} from "./../../js/alert";
-    import {UserMixin} from "./../../mixins/userMixin";
     import {menu} from "../../mixins/menu";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user',
@@ -71,7 +70,7 @@
             })
         },
 
-        mixins: [menu, UserMixin, Spinner],
+        mixins: [menu, spinner],
 
         components: {
             ServerMessage

@@ -7,12 +7,12 @@
 
 <script>
     import {NAVIGATION_TYPE} from "../js/variables";
-    import {Spinner} from "../mixins/spinner";
+    import {spinner} from "../mixins/spinner";
 
     export default {
         name: 'PageNotFound',
 
-        mixins: [Spinner],
+        mixins: [spinner],
 
         created() {
             this.$store.dispatch('newStatistic', {

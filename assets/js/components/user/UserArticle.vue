@@ -51,8 +51,9 @@
     import {Routing} from './../../js/routing';
     import {addAlert, hideMessage} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
-    import {UserMixin} from "../../mixins/userMixin";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
+    import {date} from "../../mixins/date";
+    import {text} from "../../mixins/text";
 
     export default {
         name: 'user-article',
@@ -67,7 +68,7 @@
             }
         },
 
-        mixins: [UserMixin, Spinner],
+        mixins: [spinner, date, text],
 
         computed: {
             pdfStyle() {

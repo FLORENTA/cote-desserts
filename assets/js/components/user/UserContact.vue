@@ -6,7 +6,7 @@
     import {Routing} from './../../js/routing';
     import {NAVIGATION_TYPE} from "../../js/variables";
     import {addAlert} from "../../js/alert";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-contact',
@@ -17,7 +17,7 @@
             }
         },
 
-        mixins: [Spinner],
+        mixins: [spinner],
 
         created() {
             this.$store.dispatch('newStatistic', {
