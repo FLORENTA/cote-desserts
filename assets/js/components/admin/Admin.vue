@@ -26,7 +26,6 @@
     import FontAwesomeIcon from '@fortawesome/vue-fontawesome';
     import faBars from '@fortawesome/fontawesome-free-solid/faBars';
     import ServerMessage from "./../ServerMessage";
-    import {Routing} from './../../js/routing';
     import {menu} from "../../mixins/menu";
 
     export default {
