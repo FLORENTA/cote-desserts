@@ -6,14 +6,14 @@
                     <tbody>
                         <tr>
                             <td>
-                                <b>Date: {{ contact.date|formatShortDate }}</b>
+                                <b>{{ t('admin.contact.table.thead.date') }} {{ contact.date|formatShortDate }}</b>
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Email: </b>{{ contact.email }}</td>
+                            <td><b>{{ t('admin.contact.table.thead.email') }} </b>{{ contact.email }}</td>
                         </tr>
                         <tr>
-                            <td><b>Message: </b><br><br>{{ contact.message }}</td>
+                            <td><b>{{ t('admin.contact.table.thead.message') }} </b><br><br>{{ contact.message }}</td>
                         </tr>
                     </tbody>
                 </table>
