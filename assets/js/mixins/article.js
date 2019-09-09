@@ -1,7 +1,7 @@
 import {addAlert} from "./../js/alert";
 import {Routing} from './../js/routing'
 
-export const AdminMixin = {
+export const article = {
     data() {
         return {
             categories: undefined
@@ -62,12 +62,6 @@ export const AdminMixin = {
                 }
             });
         }
-    },
-
-    filters: {
-        formatShortDate(date) {
-            return new Date(date).toLocaleDateString();
-        },
     },
 
     created() {
