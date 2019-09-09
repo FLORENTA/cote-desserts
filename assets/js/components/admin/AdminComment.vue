@@ -3,10 +3,10 @@
         <h2 v-if="comments">{{ comments.length }} {{ t('comment.title') }}</h2>
         <div class="container w40 w95sm" v-if="comments">
             <div class="tile" v-for="(comment, key) in comments">
-                <p v-bind:style="style">{{ comment.username }}, le {{ comment.date|formatShortDate }}</p>
+                <p v-bind:style="style">{{ comment.username }}, {{ t('admin.comment.date') }} {{ comment.date|formatShortDate }}</p>
                 <p>{{ comment.email }}</p>
                 <p>{{ comment.comment }}</p>
-                <p v-if="null !== comment.article" v-bind:style="style">Article: {{ comment.article.title }}</p>
+                <p v-if="null !== comment.article" v-bind:style="style">{{ t('comment.article.article') }}</p>
                 <div class="button-group">
                     <button v-if="comment.published" v-on:click='updateStatus(false, comment.token, key)' class="button-delete">{{ t('comment.status.hide')}}</button>
                     <button v-else v-on:click='updateStatus(true, comment.token, key)' class="button-default">{{ t('comment.status.publish') }}</button>
