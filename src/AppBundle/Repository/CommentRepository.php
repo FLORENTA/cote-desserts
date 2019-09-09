@@ -35,7 +35,7 @@ class CommentRepository extends EntityRepository
     {
         /** @var QueryBuilder $qb */
         $qb = $this->createQueryBuilder('comment')
-            ->select('comment.id', 'comment.comment', 'comment.published', 'comment.token', 'article.token as article_token')
+            ->select('comment.id', 'comment.email', 'comment.comment', 'comment.published', 'comment.token', 'article.token as article_token')
             ->join('comment.article', 'article')
             ->where('comment.article = :article')
             ->setParameter('article', $article->getId())

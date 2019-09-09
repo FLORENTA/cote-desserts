@@ -21,6 +21,7 @@ admin.homepage.button.delete: 'Supprimer'
 admin.homepage.button.edit: 'Éditer'
 admin.homepage.button.more_articles: "Plus d'articles"
 admin.homepage.comments: "commentaire(s)"
+admin.homepage.comments.email: 'Email :'
 admin.homepage.no_article: 'Aucun article'
 admin.newsletter.button.delete : 'Supprimer'
 admin.newsletter.sent_newsletters: 'Newsletter(s) envoyée(s) :'
