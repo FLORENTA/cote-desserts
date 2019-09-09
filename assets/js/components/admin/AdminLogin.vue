@@ -12,7 +12,7 @@
     import ServerMessage from "../ServerMessage";
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'admin-login',
@@ -32,7 +32,7 @@
             }),
         },
 
-        mixins: [Spinner],
+        mixins: [spinner],
 
         methods: {
             handleLoginFormSubmission(e) {

@@ -1,4 +1,4 @@
-export const Spinner = {
+export const spinner = {
     methods: {
         launchSpinnerAnimation() {
             this.$parent.loading = true;

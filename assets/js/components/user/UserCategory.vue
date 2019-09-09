@@ -31,7 +31,7 @@
     import 'selectize';
     import {addAlert} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-category',
@@ -46,7 +46,7 @@
             }
         },
 
-        mixins: [Spinner],
+        mixins: [spinner],
 
         methods: {
             updateCategories(newVal) {

@@ -11,7 +11,7 @@
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-legal',
@@ -22,7 +22,7 @@
             }
         },
 
-        mixins: [Spinner],
+        mixins: [spinner],
 
         created() {
             this.launchSpinnerAnimation();
@@ -39,7 +39,7 @@
             }).fail(err => {
                 addAlert(err.responseJSON);
             }).always(() => {
-                this.cancelSpinnerAnimation();
+                this.cancelspinnerAnimation();
             });
         }
     }

@@ -6,7 +6,7 @@
 <script>
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'admin-password',
@@ -52,7 +52,7 @@
             }
         },
 
-        mixins: [Spinner],
+        mixins: [spinner],
 
         mounted() {
             $(document).on('submit', 'form[name="appbundle_password"]', this.sendPasswordForm);

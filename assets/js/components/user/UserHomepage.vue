@@ -24,7 +24,7 @@
     import { mapState } from 'vuex';
     import {addAlert} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-homepage',
@@ -35,7 +35,7 @@
             })
         },
 
-        mixins: [Spinner],
+        mixins: [spinner],
 
         created() {
             this.$store.dispatch('newStatistic', {

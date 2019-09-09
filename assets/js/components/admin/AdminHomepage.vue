@@ -35,7 +35,7 @@
     import { mapState } from 'vuex';
     import {Routing} from './../../js/routing';
     import {addAlert} from "./../../js/alert";
-    import {Spinner} from "../../mixins/spinner";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'admin-homepage',
@@ -51,7 +51,7 @@
             nbArticles : state => state.articles.length,
         }),
 
-        mixins: [Spinner],
+        mixins: [spinner],
 
         methods: {
             fetchArticleComments(articleId) {
