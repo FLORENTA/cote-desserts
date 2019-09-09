@@ -3,6 +3,7 @@
         <p><span id="number-of-comments">{{ comments | length }}</span> {{ 'admin.homepage.comments' | trans }}</p>
         {% for comment in comments %}
             <section class="article-comment comment">
+                {{ 'admin.homepage.comments.email' | trans }} {{ comment.email }} <br>
                 {{ comment.comment }}
                 <div class="button-group">
                     <button class="{{ comment.published ? 'button-delete' : 'button-default' }} update-comment-status" data-publish="{{ comment.published ? 'true' : 'false' }}" data-token="{{ comment.token }}">
