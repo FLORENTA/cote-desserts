@@ -6,7 +6,7 @@
                 <p v-bind:style="style">{{ comment.username }}, {{ t('admin.comment.date') }} {{ comment.date|formatShortDate }}</p>
                 <p>{{ comment.email }}</p>
                 <p>{{ comment.comment }}</p>
-                <p v-if="null !== comment.article" v-bind:style="style">{{ t('comment.article.article') }}</p>
+                <p v-if="null !== comment.article" v-bind:style="style">{{ t('admin.comment.article') }} {{ comment.article.title }}</p>
                 <div class="button-group">
                     <button v-if="comment.published" v-on:click='updateStatus(false, comment.token, key)' class="button-delete">{{ t('comment.status.hide')}}</button>
                     <button v-else v-on:click='updateStatus(true, comment.token, key)' class="button-default">{{ t('comment.status.publish') }}</button>

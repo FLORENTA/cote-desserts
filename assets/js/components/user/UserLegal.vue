@@ -39,7 +39,7 @@
             }).fail(err => {
                 addAlert(err.responseJSON);
             }).always(() => {
-                this.cancelspinnerAnimation();
+                this.cancelSpinnerAnimation();
             });
         }
     }

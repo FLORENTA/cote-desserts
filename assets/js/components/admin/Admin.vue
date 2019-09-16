@@ -5,14 +5,14 @@
                 <font-awesome-icon style="color: #fff;" v-bind:icon="barsIcon" size="lg"/>
             </div>
             <ul id="menu" v-on:click="resetMenu()"> <!-- menu not used in css but in javascript -->
-                <router-link v-bind:to="{name: 'createArticle'}" tag="li">{{ t('admin.menu.article.create') }}</router-link>
-                <router-link v-bind:to="{name: 'homepageAdmin'}" tag="li">{{ t('admin.menu.article.list') }}</router-link>
-                <router-link v-bind:to="{name: 'comments'}" tag="li">{{ t('admin.menu.comments') }}</router-link>
-                <router-link v-bind:to="{name: 'newsletter'}" tag="li">{{ t('admin.menu.newsletter') }}</router-link>
-                <router-link v-bind:to="{name: 'password'}" tag="li">{{ t('admin.menu.password') }}</router-link>
-                <router-link v-bind:to="{name: 'statistic'}" tag="li">{{ t('admin.menu.statistics') }}</router-link>
-                <router-link v-bind:to="{name: 'contacts'}" tag="li">{{ t('admin.menu.contacts') }}</router-link>
-                <router-link v-bind:to="{name: 'admin-legal'}" tag="li">{{ t('admin.menu.legal') }}</router-link>
+                <router-link v-bind:to="{name: 'adminCreateArticle'}" tag="li">{{ t('admin.menu.article.create') }}</router-link>
+                <router-link v-bind:to="{name: 'adminArticles'}" tag="li">{{ t('admin.menu.article.list') }}</router-link>
+                <router-link v-bind:to="{name: 'adminComments'}" tag="li">{{ t('admin.menu.comments') }}</router-link>
+                <router-link v-bind:to="{name: 'adminNewsletter'}" tag="li">{{ t('admin.menu.newsletter') }}</router-link>
+                <router-link v-bind:to="{name: 'adminPassword'}" tag="li">{{ t('admin.menu.password') }}</router-link>
+                <router-link v-bind:to="{name: 'adminStatistics'}" tag="li">{{ t('admin.menu.statistics') }}</router-link>
+                <router-link v-bind:to="{name: 'adminContacts'}" tag="li">{{ t('admin.menu.contacts') }}</router-link>
+                <router-link v-bind:to="{name: 'adminLegal'}" tag="li">{{ t('admin.menu.legal') }}</router-link>
                 <router-link v-bind:to="{name: 'logout'}" tag="li">{{ t('admin.menu.logout') }}</router-link>
             </ul>
         </nav>
@@ -27,6 +27,7 @@
     import faBars from '@fortawesome/fontawesome-free-solid/faBars';
     import ServerMessage from "./../ServerMessage";
     import {menu} from "../../mixins/menu";
+    import {path} from "../../js/path";
 
     export default {
         name: 'admin',
@@ -49,7 +50,7 @@
         beforeRouteUpdate(to, from, next) {
             if (to.name === 'logout') {
                 localStorage.removeItem('token');
-                next('/login')
+                next(path.login)
             } else {
                 next();
             }
