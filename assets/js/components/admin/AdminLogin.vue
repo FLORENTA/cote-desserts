@@ -58,7 +58,7 @@
                         } else {
                             localStorage.setItem('token', data.token);
                             addAlert(Translator.trans('login.authentication.success'));
-                            this.$router.push({name: 'home_admin'});
+                            this.$router.push({name: 'admin'});
                         }
                     },
                     error: err => {

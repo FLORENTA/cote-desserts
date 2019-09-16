@@ -38,7 +38,7 @@
     import {spinner} from "../../mixins/spinner";
 
     export default {
-        name: 'admin-homepage',
+        name: 'admin-articles',
 
         data() {
             return {

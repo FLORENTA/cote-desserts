@@ -8,7 +8,7 @@ import AdminComment from '../components/admin/AdminComment';
 import AdminContact from '../components/admin/AdminContact';
 import AdminCreateArticle from '../components/admin/AdminCreateArticle';
 import AdminEditArticle from '../components/admin/AdminEditArticle';
-import AdminHomepage from '../components/admin/AdminHomepage';
+import AdminArticles from '../components/admin/AdminArticles';
 import AdminLegal from '../components/admin/AdminLegal';
 import AdminLogin from '../components/admin/AdminLogin';
 import AdminNewsletter from '../components/admin/AdminNewsletter';
@@ -21,65 +21,66 @@ import UserCategory from '../components/user/UserCategory';
 import UserContact from '../components/user/UserContact';
 import UserHomepage from '../components/user/UserHomepage';
 import UserLegal from '../components/user/UserLegal';
+import {path} from "../js/path";
 
 Vue.use(VueRouter);
 
 let routes = [
     {
-        path: '/admin',
-        name: 'home_admin',
+        path: path.admin,
+        name: 'admin',
         component: Admin,
         children: [
             {
-                path: 'articles',
-                name: 'homepageAdmin',
-                component: AdminHomepage,
+                path: path.adminArticles,
+                name: 'adminArticles',
+                component: AdminArticles,
                 props: true
             },
             {
-                path: 'articles/edit/:token',
-                name: 'editArticle',
+                path: path.adminComments,
+                name: 'adminComments',
+                component: AdminComment
+            },
+            {
+                path: path.adminCreateArticle,
+                name: 'adminCreateArticle',
+                component: AdminCreateArticle,
+            },
+            {
+                path: path.adminContacts,
+                name: 'adminContacts',
+                component: AdminContact
+            },
+            {
+                path: path.adminEditArticle,
+                name: 'adminEditArticle',
                 component: AdminEditArticle,
                 props: true
             },
             {
-                path: 'comments',
-                name: 'comments',
-                component: AdminComment
-            },
-            {
-                path: 'contacts',
-                name: 'contacts',
-                component: AdminContact
-            },
-            {
-                path: 'create',
-                name: 'createArticle',
-                component: AdminCreateArticle,
-            },
-            {
-                path: 'legal',
-                name: 'admin-legal',
+                path: path.adminLegal,
+                name: 'adminLegal',
                 component: AdminLegal
             },
             {
-                path: 'logout',
-                name: 'logout'
-            },
-            {
-                path: 'password',
-                name: 'password',
-                component: AdminPassword
-            },
-            {
-                path: 'newsletter',
-                name: 'newsletter',
+                path: path.adminNewsletter,
+                name: 'adminNewsletter',
                 component: AdminNewsletter
             },
             {
-                path: 'statistic',
-                name: 'statistic',
+                path: path.adminPassword,
+                name: 'adminPassword',
+                component: AdminPassword
+            },
+            {
+                path: path.adminStatistics,
+                name: 'adminStatistics',
                 component: AdminStatistic
+            },
+            {
+                path: path.logout,
+                name: 'logout'
             }
         ],
         // all routes above requires authentication
@@ -88,45 +89,45 @@ let routes = [
         }
     },
     {
-        path: '/login',
+        path: path.login,
         name: 'login',
         component: AdminLogin,
     },
     {
-        path: '/',
+        path: path.root,
         component: User,
         children: [
             {
-                path: '',
-                name: 'home_user',
+                path: path.homeUser,
+                name: 'homeUser',
                 component: UserHomepage,
                 props: {default: true}
             },
             {
-                path: '/article/:slug',
+                path: path.article,
                 name: 'article',
                 component: UserArticle,
                 props: true
             },
             {
-                path: '/category',
+                path: path.categories,
                 name: 'categories',
                 component: UserCategory,
                 props: true
             },
             {
-                path: '/category/:category',
+                path: path.category,
                 name: 'category',
                 component: UserCategory,
                 props: true
             },
             {
-                path: 'contact',
+                path: path.contact,
                 name: 'contact',
                 component: UserContact
             },
             {
-                path: '/mentions-legales',
+                path: path.legal,
                 name: 'user-legal',
                 component: UserLegal
             },
@@ -155,7 +156,7 @@ Router.beforeEach((to, from, next) => {
         userAuthenticated().then(data => {
             next();
         }).catch(err => {
-            next('/login');
+            next(path.login);
         });
     } else {
         next();

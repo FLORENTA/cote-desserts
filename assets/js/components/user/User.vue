@@ -6,7 +6,7 @@
                 <i class="fa fa-remove fa-lg" v-if="isMenuDisplayed"></i>
             </div>
             <ul id="menu" v-on:click="resetMenu()">
-                <router-link v-bind:to="{name: 'home_user'}" tag="li" >{{ t('menu.home') }}</router-link>
+                <router-link v-bind:to="{name: 'homeUser'}" tag="li" >{{ t('menu.home') }}</router-link>
                 <router-link v-bind:to="{name: 'categories'}" tag="li" >{{ t('menu.categories') }}</router-link>
                 <router-link v-bind:to="{name: 'contact'}" tag="li">{{ t('menu.contact') }}</router-link>
             </ul>
