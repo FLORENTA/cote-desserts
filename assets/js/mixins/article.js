@@ -1,5 +1,6 @@
 import {addAlert} from "./../js/alert";
 import {Routing} from './../js/routing'
+import {spinner} from "./spinner";
 
 export const article = {
     data() {
@@ -7,6 +8,8 @@ export const article = {
             categories: undefined
         }
     },
+
+    mixins: [spinner],
 
     methods: {
         handleInputCategory(e) {
@@ -43,7 +46,8 @@ export const article = {
             e.preventDefault();
             let $form = $(e.target)[0];
             let $submitButton = $('#appbundle_article_submit');
-            $submitButton.append($("<span>&nbsp;<i class='fa fa-spinner fa-spin'></i><span>"));
+
+            this.addButtonLoader($submitButton);
 
             $.ajax({
                 type: 'POST',
@@ -57,8 +61,8 @@ export const article = {
                 error: err => {
                     addAlert(err.responseJSON);
                 },
-                complete() {
-                    $submitButton.find('span').remove();
+                complete: () => {
+                    this.removeButtonLoader($submitButton);
                 }
             });
         }
