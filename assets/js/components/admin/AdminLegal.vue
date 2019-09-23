@@ -7,6 +7,7 @@
 <script>
     import {Routing} from './../../js/routing';
     import {addAlert} from "../../js/alert";
+    import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'admin-legal',
@@ -19,11 +20,15 @@
             }
         },
 
+        mixins: [spinner],
+
         methods: {
             handleLegalFormSubmission(e) {
                 e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
+                let $submitButton = $('#appbundle_legal_submit');
+                this.addButtonLoader($submitButton);
 
                 $.ajax({
                     type: 'POST',
@@ -36,6 +41,9 @@
                     },
                     error: err => {
                         addAlert(err.responseJSON);
+                    },
+                    complete: () => {
+                        this.removeButtonLoader($submitButton);
                     }
                 });
             }

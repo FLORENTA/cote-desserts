@@ -31,7 +31,6 @@
                 e.preventDefault();
                 let $form = $(e.target)[0];
                 let formData = new FormData($form);
-
                 let $submitButton = $('#appbundle_contact_submit');
 
                 this.addButtonLoader($submitButton);
