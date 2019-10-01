@@ -15,7 +15,7 @@
                     v-if="article.categories.length > 0"
                     v-for='(category, key) in article.categories'
                     v-bind:key="key"
-                    v-bind:to="{name: 'category', params: {category: category.category} }">
+                    v-bind:to="{name: 'category', params: {category: lowerCaseCategory(category) }}">
                     <button class="button-default">
                         {{ category.category|capitalize }} <i class="fa fa-chevron-right"></i>
                     </button>
@@ -85,6 +85,10 @@
         },
 
         methods: {
+            lowerCaseCategory(category) {
+                return category.category.charAt(0).toLowerCase() + category.category.slice(1);
+            },
+
             /* Function to open or close the modal */
             /* Also called in the mixin when the user submits their message */
             showForm() {

@@ -8,9 +8,11 @@ use AppBundle\Manager\ArticleManager;
 use AppBundle\Manager\StatisticManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class DefaultController
@@ -20,15 +22,17 @@ class HomepageController extends Controller
 {
     /**
      * @Route("/", name="homepage", methods={"GET"})
+     * @param TranslatorInterface $translator
      * @param EventDispatcherInterface $eventDispatcher
-     * @param ArticleManager $articleManager
      * @param LoggerInterface $logger
+     * @param ArticleManager $articleManager
      * @return Response
      */
     public function index(
+        TranslatorInterface $translator,
         EventDispatcherInterface $eventDispatcher,
-        ArticleManager $articleManager,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        ArticleManager $articleManager
     ): Response
     {
         $statisticEvent = new StatisticEvent('/', Statistic::NAVIGATION_TYPE);
@@ -48,6 +52,20 @@ class HomepageController extends Controller
             ]);
         }
 
-        return $this->render('homepage/index.html.twig');
+        /** @var array $articles */
+        $articles = $articleManager->getArticles();
+
+        if (empty($articles)) {
+            $logger->error(sprintf('No article found'), ['_method' => __METHOD__]);
+
+            return new JsonResponse(
+                $translator->trans('query.no_article'),
+                JsonResponse::HTTP_BAD_REQUEST
+            );
+        }
+
+        return $this->render('homepage/index.html.twig', [
+            'articles' => $articles
+        ]);
     }
 }

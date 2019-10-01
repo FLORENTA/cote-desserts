@@ -260,36 +260,6 @@ class ArticleController extends Controller
     }
 
     /**
-     * Function to fetch articles in db by slices of 9 or less (last request)
-     *
-     * @Route("/articles/fetch", name="fetch_articles", methods={"GET"})
-     * @param ArticleManager $articleManager
-     * @param LoggerInterface $logger
-     * @param TranslatorInterface $translator
-     * @return JsonResponse|Response
-     */
-    public function getArticles(
-        ArticleManager $articleManager,
-        LoggerInterface $logger,
-        TranslatorInterface $translator
-    ): Response
-    {
-        /** @var array $articles */
-        $articles = $articleManager->getArticles();
-
-        if (empty($articles)) {
-            $logger->error(sprintf('No article found'), ['_method' => __METHOD__]);
-
-            return new JsonResponse(
-                $translator->trans('query.no_article'),
-                JsonResponse::HTTP_BAD_REQUEST
-            );
-        }
-
-        return new JsonResponse($articles, JsonResponse::HTTP_OK);
-    }
-
-    /**
      * Function to find articles linked to categories sent in form
      *
      * @Route("/article/category", name="fetch_articles_by_category", methods={"POST"})

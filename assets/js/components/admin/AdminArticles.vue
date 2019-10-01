@@ -8,7 +8,7 @@
                 <img class='image' v-bind:src="'./images/' + article.image_src"/>
                 <i class="fa fa-comment number-comments" v-bind:id="'number-of-comments-'.concat(article.token)" v-on:click="fetchArticleComments(article.id)"> {{ article.number_comments }}</i>
                 <div class="button-group">
-                    <router-link v-bind:to="{name: 'editArticle', params: {token: article.token}}">
+                    <router-link v-bind:to="{name: 'adminEditArticle', params: {token: article.token}}">
                         <button class="button-default">
                             <i class="fa fa-edit"></i>&nbsp;&nbsp;
                             {{ t('admin.homepage.button.edit') }}
@@ -42,14 +42,16 @@
 
         data() {
             return {
-                displayResultModal: false
+                displayResultModal: false,
+                articles: this.$root.$data.articles
             }
         },
 
-        computed : mapState({
-            articles : state => state.articles,
-            nbArticles : state => state.articles.length,
-        }),
+        computed : {
+            nbArticles() {
+                return this.articles.length;
+            }
+        },
 
         mixins: [spinner],
 
@@ -130,14 +132,6 @@
         },
 
         mounted() {
-            this.$store.commit('displayWaitingForData');
-
-            this.$store.dispatch('getArticles').catch(err => {
-                addAlert(err);
-            }).finally(() => {
-                this.cancelSpinnerAnimation();
-            });
-
             $(document).on('click', '.close-button', () => {
                 this.displayResultModal = false;
             });

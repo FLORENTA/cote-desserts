@@ -40,8 +40,7 @@ class ArticleRepository extends EntityRepository
                   (SELECT i.src FROM image i WHERE i.article_id = a.id ORDER BY i.id LIMIT 1) as image_src,
                   (SELECT COUNT(c.id) FROM comment c WHERE c.article_id = a.id) as number_comments
                  FROM article a
-                 ORDER BY a.id DESC
-                 LIMIT 9
+                 ORDER BY a.title
         ";
 
         return $connection->fetchAll($query);

@@ -21,18 +21,15 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    import {addAlert} from "../../js/alert";
     import {NAVIGATION_TYPE} from "../../js/variables";
     import {spinner} from "../../mixins/spinner";
 
     export default {
         name: 'user-homepage',
-
-        computed : {
-            ...mapState({
-                articles: state => state.articles
-            })
+        data() {
+            return {
+                articles: this.$root.$data.articles
+            }
         },
 
         mixins: [spinner],
@@ -41,14 +38,6 @@
             this.$store.dispatch('newStatistic', {
                 data: this.$route.fullPath,
                 type: NAVIGATION_TYPE
-            });
-        },
-
-        mounted() {
-            this.$store.dispatch('getArticles').catch(err => {
-                addAlert(err);
-            }).finally(() => {
-                this.cancelSpinnerAnimation();
             });
         }
     }

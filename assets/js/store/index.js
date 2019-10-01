@@ -6,7 +6,6 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        articles: [],
         displayMessage: false,
         message: undefined,
         timer: undefined
@@ -43,18 +42,6 @@ export const store = new Vuex.Store({
     },
 
     actions: {
-        getArticles(context) {
-            return new Promise((resolve, reject) => {
-                $.get(Routing.generate('fetch_articles'), response => {
-                    context.commit('hideMessage');
-                    context.commit('setArticles', response);
-                    resolve();
-                }).fail(err => {
-                    reject(err.responseJSON);
-                });
-            });
-        },
-
         newStatistic(context, data) {
             let formData = new FormData();
             formData.append('data', data.data);

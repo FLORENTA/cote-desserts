@@ -11,6 +11,9 @@ Vue.use(VueTranslate);
 $(document).ready(() => {
     new Vue({
         el: "#app",
+        data: {
+            articles: $(".js-app").data('articles'),
+        },
         router: Router,
         store: store,
         locales: {

@@ -3,6 +3,9 @@
 {% block body %}
     <div class="js-app"
          data-search-timeout="{{ search_timeout }}"
+        {% if articles is defined and articles is not empty  %}
+            data-articles="{{ articles | json_encode }}"
+        {% endif %}
     ></div>
     <router-view></router-view>
 {% endblock %}
