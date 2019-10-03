@@ -33,7 +33,10 @@ class CommentManager
      * @param EntityManagerInterface $entityManager
      * @param LoggerInterface $logger
      */
-    public function __construct(EntityManagerInterface $entityManager, LoggerInterface $logger)
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger
+    )
     {
         $this->em = $entityManager;
         $this->commentRepository = $entityManager->getRepository(Comment::class);

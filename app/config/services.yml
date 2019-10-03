@@ -28,6 +28,10 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\EventListener\CommentListener:
+        tags:
+            - { name: kernel.event_listener, event: 'app_bundle.comment.new', method: notify}
+
     AppBundle\EventListener\EntityListener:
         tags:
             - { name: doctrine.event_listener, event: prePersist, method: prePersist, lazy: true }
@@ -53,6 +57,16 @@ services:
         arguments:
             $searchMaxResults: '%search_max_results%'
 
+    AppBundle\Service\CommentService:
+        arguments:
+            $mailerUser: '%mailer_user%'
+            $emailToInform: '%email_to_inform%'
+
+    AppBundle\Service\ContactService:
+        arguments:
+            $mailerUser: '%mailer_user%'
+            $emailToInform: '%email_to_inform%'
+
     AppBundle\Service\FileService:
         arguments:
             $imagesDir: '%images_directory%'
@@ -61,3 +75,4 @@ services:
         arguments:
             $mailerUser: '%mailer_user%'
             $imagesDirectory: '%images_directory%'
+            $emailToInform: '%email_to_inform%'
