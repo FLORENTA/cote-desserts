@@ -5,81 +5,15 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Newsletter;
-use AppBundle\Manager\NewsletterManager;
-use Psr\Log\LoggerInterface;
-use Swift_Image;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use Swift_Message;
-use Swift_Mailer;
 
 /**
  * Class NewsletterService
  * @package AppBundle\Service
  */
-class NewsletterService
+class NewsletterService extends AbstractMailService
 {
-    const NO_ERROR = 0;
-    const ERROR = 1;
-
-    /** @var \Swift_Mailer $mailer */
-    private $mailer;
-
-    /** @var EngineInterface $templating */
-    private $templating;
-
-    /** @var RouterInterface $router */
-    private $router;
-
-    /** @var LoggerInterface $logger */
-    private $logger;
-
-    /** @var string $mailerUser */
-    private $mailerUser;
-
-    /** @var string $imagesDirectory */
-    private $imagesDirectory;
-
-    /** @var TranslatorInterface $translator */
-    private $translator;
-
-    /** @var NewsletterManager $newsletterManager */
-    private $newsletterManager;
-
-    /**
-     * MailSender constructor.
-     * @param Swift_Mailer $mailer
-     * @param EngineInterface $engine
-     * @param RouterInterface $router
-     * @param LoggerInterface $logger
-     * @param TranslatorInterface $translator
-     * @param NewsletterManager $newsletterManager
-     * @param string $mailerUser
-     * @param string $imagesDirectory
-     */
-    public function __construct(
-        Swift_Mailer $mailer,
-        EngineInterface $engine,
-        RouterInterface $router,
-        LoggerInterface $logger,
-        TranslatorInterface $translator,
-        NewsletterManager $newsletterManager,
-        $mailerUser,
-        $imagesDirectory
-    )
-    {
-        $this->mailer = $mailer;
-        $this->templating = $engine;
-        $this->router = $router;
-        $this->logger = $logger;
-        $this->mailerUser = $mailerUser;
-        $this->imagesDirectory = $imagesDirectory;
-        $this->translator = $translator;
-        $this->newsletterManager = $newsletterManager;
-    }
-
     /**
      * @param Article|null $article
      * @return int
@@ -107,33 +41,28 @@ class NewsletterService
                 'token' => $subscriber->getToken()
             ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-            /** @var Swift_Message $message */
-            $message = new Swift_Message();
-
-            /** @var Image $image */
+            /** @var Image|null $image */
             $image = $article->getImages()->get(0);
+
+            $src = null;
 
             if (null !== $image) {
                 /** @var string $src */
-                $src = $message->embed(Swift_Image::fromPath(
-                    $this->imagesDirectory . '/' . $image->getSrc())
-                );
+                $src = $this->imagesDirectory . '/' . $image->getSrc();
             }
 
-            $message->setSubject($this->translator->trans('newsletter.subject') . $article->getTitle())
-                ->setTo($subscriber->getEmail())
-                ->setFrom($this->mailerUser)
-                ->setBody(
-                    $this->templating->render('newsletter/newsletter.html.twig', [
-                        'article' => $article,
-                        'content' => $image->getContent(),
-                        'src' => $src ?? null,
-                        'title' => $image->getTitle(),
-                        'articleUrl' => $articleUrl,
-                        'unsubscribeUrl' => $unsubscribeUrl
-                    ]), 'text/html', 'UTF-8');
+            $subject = $this->translator->trans('newsletter.subject') . $article->getTitle();
+            $to = $subscriber->getEmail();
+            $body = $this->templating->render('newsletter/newsletter.html.twig', [
+                'article' => $article,
+                'content' => $image->getContent(),
+                'src' => $src,
+                'title' => $image->getTitle(),
+                'articleUrl' => $articleUrl,
+                'unsubscribeUrl' => $unsubscribeUrl
+            ]);
 
-            $this->mailer->send($message);
+            $this->sendMessage($subject, $to, $body, $src);
         }
 
         $this->logger->info(
@@ -162,19 +91,19 @@ class NewsletterService
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
-        /** @var Swift_Message $message */
-        $message = new Swift_Message();
+        $subject = $this->translator->trans('subscription.title');
+        $body = $this->templating->render("newsletter/confirm_subscription.html.twig", [
+            'unsubscribeUrl' => $unsubscribeUrl
+        ]);
 
-        $message->setSubject($this->translator->trans('subscription.title'))
-            ->setTo($email)
-            ->setFrom($this->mailerUser)
-            ->setBody(
-                $this->templating->render("newsletter/confirm_subscription.html.twig", ['unsubscribeUrl' => $unsubscribeUrl]),
-                'text/html',
-                'UTF-8'
-            );
-
-        $this->mailer->send($message);
+        $this->sendMessage($subject, $email, $body);
+        $this->sendMessage(
+            $subject,
+            $this->emailToInform,
+            $this->translator->trans('subscription.notification', [
+                '%email%' => $email
+            ])
+        );
 
         $this->logger->info(sprintf('Sending subscription confirmation to %s.', $email), [
             '_method' => __METHOD__
@@ -193,19 +122,17 @@ class NewsletterService
             return self::ERROR;
         }
 
-        /** @var Swift_Message $message */
-        $message = new Swift_Message();
+        $subject = $this->translator->trans('unsubscription.title');
+        $body = $this->templating->render('newsletter/confirm_unsubscription.html.twig');
 
-        $message->setSubject($this->translator->trans('unsubscription.title'))
-            ->setTo($email)
-            ->setFrom($this->mailerUser)
-            ->setBody(
-                $this->templating->render('newsletter/confirm_unsubscription.html.twig'),
-                'text/html',
-                'UTF-8'
-            );
-
-        $this->mailer->send($message);
+        $this->sendMessage($subject, $email, $body);
+        $this->sendMessage(
+            $subject,
+            $this->emailToInform,
+            $this->translator->trans('unsubscription.notification', [
+                '%email%' => $email
+            ])
+        );
 
         $this->logger->info(sprintf('Sending unsubscription confirmation to %s.', $email), [
             '_method' => __METHOD__

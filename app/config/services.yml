@@ -28,6 +28,14 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\EventListener\ContactListener:
+        tags:
+            - { name: kernel.event_listener, event: 'app_bundle.contact.new', method: notify }
+
+    AppBundle\EventListener\CommentListener:
+        tags:
+            - { name: kernel.event_listener, event: 'app_bundle.comment.new', method: notify }
+
     AppBundle\EventListener\EntityListener:
         tags:
             - { name: doctrine.event_listener, event: prePersist, method: prePersist, lazy: true }
@@ -53,11 +61,31 @@ services:
         arguments:
             $searchMaxResults: '%search_max_results%'
 
+    AppBundle\Service\AbstractMailService:
+        abstract: true
+        arguments:
+            $mailerUser: '%mailer_user%'
+            $emailToInform: '%email_to_inform%'
+            $imagesDirectory: '%images_directory%'
+
+    AppBundle\Service\CommentService:
+        parent: AppBundle\Service\AbstractMailService
+        autowire: true
+        autoconfigure: false
+        public: true
+
+    AppBundle\Service\ContactService:
+        parent: AppBundle\Service\AbstractMailService
+        autowire: true
+        autoconfigure: false
+        public: true
+
     AppBundle\Service\FileService:
         arguments:
             $imagesDir: '%images_directory%'
 
     AppBundle\Service\NewsletterService:
-        arguments:
-            $mailerUser: '%mailer_user%'
-            $imagesDirectory: '%images_directory%'
+        parent: AppBundle\Service\AbstractMailService
+        autowire: true
+        autoconfigure: false
+        public: true

@@ -3,10 +3,16 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Comment;
+use AppBundle\Entity\Contact;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Newsletter;
+use AppBundle\Event\CommentEvent;
+use AppBundle\Event\ContactEvent;
 use AppBundle\Event\NewsletterEvent;
 use AppBundle\Service\AppTools;
+use AppBundle\Service\CommentService;
+use AppBundle\Service\ContactService;
 use AppBundle\Service\FileService;
 use AppBundle\Service\NewsletterService;
 use DateTime;
@@ -137,6 +143,30 @@ class EntityListener
                 if ($newsletterEvent->getStatus() === NewsletterService::ERROR) {
                     $this->logger->error(
                         sprintf('An error occurred when trying to send subscription confirmation to %s', $email), [
+                        '_method' => __METHOD__
+                    ]);
+                }
+            }
+
+            if ($entity instanceof Comment) {
+                $commentEvent = new CommentEvent($entity);
+                $this->eventDispatcher->dispatch(CommentEvent::APP_BUNDLE_NEW_COMMENT, $commentEvent);
+
+                if ($commentEvent->getStatus() === CommentService::ERROR) {
+                    $this->logger->error(
+                        sprintf('An error occurred when trying to send unsubscription confirmation to %s.', $email), [
+                        '_method' => __METHOD__
+                    ]);
+                }
+            }
+
+            if ($entity instanceof Contact) {
+                $contactEvent = new ContactEvent($entity);
+                $this->eventDispatcher->dispatch(ContactEvent::APP_BUNDLE_NEW_CONTACT, $contactEvent);
+
+                if ($contactEvent->getStatus() === ContactService::ERROR) {
+                    $this->logger->error(
+                        sprintf('An error occurred when trying to send unsubscription confirmation to %s.', $email), [
                         '_method' => __METHOD__
                     ]);
                 }

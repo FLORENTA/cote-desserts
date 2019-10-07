@@ -84,6 +84,7 @@ comment.form.email.placeholder: 'Veuillez saisir votre adresse email'
 comment.form.comment.label: 'Commentaire'
 comment.form.comment.placeholder: 'Veuillez saisir votre commentaire'
 comment.not_found: "Le commentaire n'existe pas"
+comment.notification.subject: 'Nouveau commentaire de %username% (%email%)'
 comment.publish.success: "Le commentaire %token% a été publié"
 comment.reception.logger: "Nouveau commentaire reçu de : %name%"
 comment.sent.failure: "Une erreur est survenue lors de l'envoi de votre commentaire."
@@ -98,6 +99,7 @@ contact.deletion.success.logger: 'Contact with token %token% - %email% - deleted
 contact.email.placeholder: 'Veuillez saisir votre email'
 contact.message.placeholder: 'Veuillez saisir votre message'
 contact.not_found: "Le contact n'existe pas"
+contact.notification.subject: 'Nouveau message reçu de %email%'
 contact.sent.failure: "Une erreur est survenue lors de l'envoi de votre demande."
 contact.sent.success: 'Votre message a bien été envoyé.'
 contact.title: 'Formulaire de contact'
@@ -191,7 +193,9 @@ store.request.sending: 'Envoi en cours.'
 store.request.receiving: 'Réception en cours.'
 
 # subscription
+subscription.notification: 'Souscription à la newsletter de %email%'
 subscription.title: 'Souscription à la newsletter'
 
 # unsubscribe
+unsubscription.notification: 'Désabonnement à la newsletter de %email%'
 unsubscription.title: 'Désabonnement à la newsletter'
