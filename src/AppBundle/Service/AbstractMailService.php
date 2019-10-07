@@ -96,14 +96,15 @@ abstract class AbstractMailService
     )
     {
         $message = new Swift_Message();
-        $message->setSubject($subject)
-            ->setTo($to)
-            ->setFrom($this->mailerUser)
-            ->setBody($body, 'text/html', 'UTF-8');
 
         if (null !== $src) {
             $message->embed(Swift_Image::fromPath($src));
         }
+
+        $message->setSubject($subject)
+            ->setTo($to)
+            ->setFrom($this->mailerUser)
+            ->setBody($body, 'text/html', 'UTF-8');
 
         $this->mailer->send($message);
     }

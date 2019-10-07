@@ -16,6 +16,10 @@ class CommentService extends AbstractMailService
      */
     public function notify(Comment $comment): int
     {
+        if (null === $comment->getComment()) {
+            return self::ERROR;
+        }
+
         $this->sendMessage(
             $this->translator->trans('comment.notification.subject', [
                 '%username%' => $comment->getUsername(),

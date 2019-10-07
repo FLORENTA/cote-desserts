@@ -16,6 +16,10 @@ class ContactService extends AbstractMailService
      */
     public function notify(Contact $contact): int
     {
+        if (null === $contact->getMessage()) {
+            return self::ERROR;
+        }
+
         $this->sendMessage(
             $this->translator->trans('contact.notification.subject', [
                 '%email%' => $contact->getEmail()

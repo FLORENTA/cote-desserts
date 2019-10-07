@@ -6,7 +6,6 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Newsletter;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Swift_Message;
 
 /**
  * Class NewsletterService
@@ -32,8 +31,9 @@ class NewsletterService extends AbstractMailService
         ], UrlGeneratorInterface::ABSOLUTE_PATH);
 
         $articleUrl = substr($articleUrl, 1); // to remove "/"
-
         $articleUrl = $_SERVER['HTTP_REFERER'] . $articleUrl;
+
+        $subject = $this->translator->trans('newsletter.subject') . $article->getTitle();
 
         foreach ($subscribers as $subscriber) {
             /** @var string $unsubscribeUrl */
@@ -51,18 +51,19 @@ class NewsletterService extends AbstractMailService
                 $src = $this->imagesDirectory . '/' . $image->getSrc();
             }
 
-            $subject = $this->translator->trans('newsletter.subject') . $article->getTitle();
-            $to = $subscriber->getEmail();
-            $body = $this->templating->render('newsletter/newsletter.html.twig', [
-                'article' => $article,
-                'content' => $image->getContent(),
-                'src' => $src,
-                'title' => $image->getTitle(),
-                'articleUrl' => $articleUrl,
-                'unsubscribeUrl' => $unsubscribeUrl
-            ]);
-
-            $this->sendMessage($subject, $to, $body, $src);
+            $this->sendMessage(
+                $subject,
+                $subscriber->getEmail(),
+                $this->templating->render('newsletter/newsletter.html.twig', [
+                    'article' => $article,
+                    'content' => $image->getContent(),
+                    'src' => $src,
+                    'title' => $image->getTitle(),
+                    'articleUrl' => $articleUrl,
+                    'unsubscribeUrl' => $unsubscribeUrl
+                ]),
+                $src
+            );
         }
 
         $this->logger->info(
@@ -92,11 +93,14 @@ class NewsletterService extends AbstractMailService
         );
 
         $subject = $this->translator->trans('subscription.title');
-        $body = $this->templating->render("newsletter/confirm_subscription.html.twig", [
-            'unsubscribeUrl' => $unsubscribeUrl
-        ]);
 
-        $this->sendMessage($subject, $email, $body);
+        $this->sendMessage(
+            $subject,
+            $email,
+            $this->templating->render("newsletter/confirm_subscription.html.twig", [
+            'unsubscribeUrl' => $unsubscribeUrl
+        ]));
+
         $this->sendMessage(
             $subject,
             $this->emailToInform,
@@ -123,9 +127,13 @@ class NewsletterService extends AbstractMailService
         }
 
         $subject = $this->translator->trans('unsubscription.title');
-        $body = $this->templating->render('newsletter/confirm_unsubscription.html.twig');
 
-        $this->sendMessage($subject, $email, $body);
+        $this->sendMessage(
+            $subject,
+            $email,
+            $this->templating->render('newsletter/confirm_unsubscription.html.twig')
+        );
+
         $this->sendMessage(
             $subject,
             $this->emailToInform,
