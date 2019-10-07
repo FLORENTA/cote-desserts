@@ -91,7 +91,7 @@ class CommentController extends Controller
         $form->handleRequest($request);
 
         /** @var Article|null $article */
-        $article = $entityManager->getPartialReference(Article::class, $id);
+        $article = $entityManager->getRepository(Article::class)->find($id);
 
         if (null === $article) {
             $logger->warning(sprintf('Unknown article for id %s', $id), [

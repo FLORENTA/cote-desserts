@@ -5,15 +5,8 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Newsletter;
-use AppBundle\Manager\NewsletterManager;
-use Psr\Log\LoggerInterface;
-use Swift_Image;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use Swift_Message;
-use Swift_Mailer;
 
 /**
  * Class NewsletterService
@@ -21,62 +14,6 @@ use Swift_Mailer;
  */
 class NewsletterService extends AbstractMailService
 {
-    /** @var EngineInterface $templating */
-    private $templating;
-
-    /** @var RouterInterface $router */
-    private $router;
-
-    /** @var LoggerInterface $logger */
-    private $logger;
-
-    /** @var TranslatorInterface $translator */
-    private $translator;
-
-    /** @var string $imagesDirectory */
-    private $imagesDirectory;
-
-    /** @var NewsletterManager $newsletterManager */
-    private $newsletterManager;
-
-    /** @var string $emailToInform */
-    private $emailToInform;
-
-    /**
-     * MailSender constructor.
-     * @param Swift_Mailer $mailer
-     * @param EngineInterface $engine
-     * @param RouterInterface $router
-     * @param LoggerInterface $logger
-     * @param TranslatorInterface $translator
-     * @param NewsletterManager $newsletterManager
-     * @param string $mailerUser
-     * @param string $imagesDirectory
-     * @param string $emailToInform
-     */
-    public function __construct(
-        Swift_Mailer $mailer,
-        EngineInterface $engine,
-        RouterInterface $router,
-        LoggerInterface $logger,
-        TranslatorInterface $translator,
-        NewsletterManager $newsletterManager,
-        string $mailerUser,
-        string $imagesDirectory,
-        string $emailToInform
-    )
-    {
-        $this->templating = $engine;
-        $this->router = $router;
-        $this->logger = $logger;
-        $this->translator = $translator;
-        $this->imagesDirectory = $imagesDirectory;
-        $this->newsletterManager = $newsletterManager;
-        $this->emailToInform = $emailToInform;
-
-        parent::__construct($mailer, $mailerUser);
-    }
-
     /**
      * @param Article|null $article
      * @return int
@@ -104,17 +41,14 @@ class NewsletterService extends AbstractMailService
                 'token' => $subscriber->getToken()
             ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-            /** @var Swift_Message $message */
-            $message = new Swift_Message();
-
-            /** @var Image $image */
+            /** @var Image|null $image */
             $image = $article->getImages()->get(0);
+
+            $src = null;
 
             if (null !== $image) {
                 /** @var string $src */
-                $src = $message->embed(Swift_Image::fromPath(
-                    $this->imagesDirectory . '/' . $image->getSrc())
-                );
+                $src = $this->imagesDirectory . '/' . $image->getSrc();
             }
 
             $subject = $this->translator->trans('newsletter.subject') . $article->getTitle();
@@ -122,13 +56,13 @@ class NewsletterService extends AbstractMailService
             $body = $this->templating->render('newsletter/newsletter.html.twig', [
                 'article' => $article,
                 'content' => $image->getContent(),
-                'src' => $src ?? null,
+                'src' => $src,
                 'title' => $image->getTitle(),
                 'articleUrl' => $articleUrl,
                 'unsubscribeUrl' => $unsubscribeUrl
             ]);
 
-            $this->sendMessage($subject, $to, $body);
+            $this->sendMessage($subject, $to, $body, $src);
         }
 
         $this->logger->info(
