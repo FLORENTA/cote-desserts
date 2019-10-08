@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\Event;
  * Class NewsletterEvent
  * @package AppBundle\Event
  */
-class NewsletterEvent extends Event
+final class NewsletterEvent extends Event
 {
     const APP_BUNDLE_NEWSLETTER_CONFIRM_SUBSCRIPTION = 'app_bundle.newsletter.confirm_subscription';
     const APP_BUNDLE_NEWSLETTER_CONFIRM_UNSUBSCRIPTION = 'app_bundle.newsletter.confirm_unsubscription';

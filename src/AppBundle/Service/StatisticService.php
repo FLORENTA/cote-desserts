@@ -41,7 +41,7 @@ class StatisticService
      */
     public function processAdminStatistics($statistics): void
     {
-        array_walk($statistics, [$this, "treat"]);
+        array_walk($statistics, [$this, 'treat']);
     }
 
     /**

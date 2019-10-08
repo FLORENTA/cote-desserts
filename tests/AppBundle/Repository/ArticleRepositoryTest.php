@@ -22,15 +22,6 @@ class ArticleRepositoryTest extends KernelTestCase
         $this->articleRepository = $container->get('doctrine.orm.entity_manager')->getRepository(Article::class);
     }
 
-    // Getting max article id in db
-    // Max id in db = 20
-    public function testGetMaxArticleId(): void
-    {
-        $maxId = $this->articleRepository->getMaxArticleId();
-        $this->assertNotEquals(19, $maxId);
-        $this->assertEquals(20, $maxId);
-    }
-
     // Getting article by slug
     public function testGetArticlesBySlug(): void
     {

@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentType;
-use AppBundle\Manager\ArticleManager;
 use AppBundle\Manager\CommentManager;
 use AppBundle\Service\Serializor;
 use Doctrine\ORM\EntityManagerInterface;

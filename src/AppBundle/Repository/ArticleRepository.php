@@ -17,18 +17,6 @@ use Doctrine\ORM\QueryBuilder;
 class ArticleRepository extends EntityRepository
 {
     /**
-     * @return int
-     * @throws NonUniqueResultException
-     */
-    public function getMaxArticleId(): int
-    {
-        $qb = $this->createQueryBuilder('article')
-            ->select('MAX(article.id) as max_id');
-
-        return (int) $qb->getQuery()->getSingleScalarResult();
-    }
-
-    /**
      * @return array
      */
     public function getArticles(): array

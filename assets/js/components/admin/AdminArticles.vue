@@ -32,7 +32,6 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
     import {Routing} from './../../js/routing';
     import {addAlert} from "./../../js/alert";
     import {spinner} from "../../mixins/spinner";

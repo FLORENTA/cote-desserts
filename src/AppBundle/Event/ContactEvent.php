@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\Event;
  * Class ContactEvent
  * @package AppBundle\Event
  */
-class ContactEvent extends Event
+final class ContactEvent extends Event
 {
     const APP_BUNDLE_NEW_CONTACT = 'app_bundle.contact.new';
 
@@ -50,7 +50,7 @@ class ContactEvent extends Event
     /**
      * @return int
      */
-    public function getStatus()
+    public function getStatus(): int
     {
         return $this->status;
     }

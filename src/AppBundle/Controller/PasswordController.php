@@ -14,6 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
+/**
+ * Class PasswordController
+ * @package AppBundle\Controller
+ */
 class PasswordController extends Controller
 {
     /**

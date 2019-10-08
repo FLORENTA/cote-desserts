@@ -93,7 +93,7 @@ abstract class AbstractMailService
         string $to,
         string $body,
         string $src = null
-    )
+    ): void
     {
         $message = new Swift_Message();
 

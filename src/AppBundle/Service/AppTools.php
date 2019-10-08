@@ -67,7 +67,7 @@ class AppTools
             $val = intval($slugs['count_same_slug']);
         }
 
-        if ($val > 0) {
+        if ($val) {
             $val++;
             return $slug . '-' . $val;
         }

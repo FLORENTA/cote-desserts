@@ -10,7 +10,6 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Exception;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class ArticleManager
@@ -70,7 +69,7 @@ class ArticleManager
 
     /**
      * @param $token
-     * @return Article
+     * @return Article|null
      */
     public function getArticleByToken($token): ?Article
     {
@@ -79,7 +78,7 @@ class ArticleManager
 
     /**
      * @param string $pdf
-     * @return Article
+     * @return Article|null
      */
     public function getArticleByPdf(string $pdf): ?Article
     {
@@ -88,7 +87,7 @@ class ArticleManager
 
     /**
      * @param string $slug
-     * @return Article|JsonResponse
+     * @return Article|null
      */
     public function getArticleBySlug(string $slug): ?Article
     {

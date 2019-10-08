@@ -51,40 +51,6 @@ class StatisticRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * @return int
-     * @throws NonUniqueResultException
-     */
-    public function getNumberOfUniqueVisitors(): int
-    {
-        /** @var QueryBuilder $qb */
-        $qb = $this->createQueryBuilder('statistic')
-            ->select('COUNT(DISTINCT(statistic.sessionId))')
-            ->where('statistic.bot = false')
-            ->andWhere("statistic.sessionId != ''");
-
-        return (int) $qb->getQuery()->getSingleScalarResult();
-    }
-
-    /**
-     * @return int
-     * @throws NonUniqueResultException
-     */
-    public function getNumberOfVisitedPages(): int
-    {
-        /** @var QueryBuilder $qb */
-        $qb = $this->createQueryBuilder('statistic')
-            ->select('COUNT(statistic.data)')
-            ->where('statistic.type = :type')
-            ->andWhere('statistic.bot = :bot')
-            ->setParameters([
-                'type' => 'navigation',
-                'bot' => false
-            ]);
-
-        return (int) $qb->getQuery()->getSingleScalarResult();
-    }
-
     public function deleteStatistics(): void
     {
         $this->createQueryBuilder('statistic')->delete()->getQuery()->execute();

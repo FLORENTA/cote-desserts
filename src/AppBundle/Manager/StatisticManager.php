@@ -9,7 +9,6 @@ use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\StatisticRepository;
 use AppBundle\Service\StatisticService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
 use Psr\Log\LoggerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;

@@ -37,10 +37,7 @@ class HomepageController extends Controller
     {
         $statisticEvent = new StatisticEvent('/', Statistic::NAVIGATION_TYPE);
 
-        $eventDispatcher->dispatch(
-            StatisticEvent::APP_BUNDLE_STATISTICS_NEW,
-            $statisticEvent
-        );
+        $eventDispatcher->dispatch(StatisticEvent::APP_BUNDLE_STATISTICS_NEW, $statisticEvent);
 
         /** @var int $status */
         $status = $statisticEvent->getStatus();

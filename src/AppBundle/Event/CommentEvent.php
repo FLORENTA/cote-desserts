@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\Event;
  * Class CommentEvent
  * @package AppBundle\Event
  */
-class CommentEvent extends Event
+final class CommentEvent extends Event
 {
     const APP_BUNDLE_NEW_COMMENT = 'app_bundle.comment.new';
 
@@ -31,7 +31,7 @@ class CommentEvent extends Event
     /**
      * @return Comment
      */
-    public function getComment()
+    public function getComment(): Comment
     {
         return $this->comment;
     }
