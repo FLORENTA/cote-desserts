@@ -7,11 +7,9 @@ use AppBundle\Entity\Statistic;
 use AppBundle\Entity\StatisticType;
 use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\StatisticRepository;
-use AppBundle\Repository\StatisticTypeRepository;
 use AppBundle\Service\StatisticService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Psr\Log\LoggerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -87,33 +85,6 @@ class StatisticManager
     ): array
     {
         return $this->statisticRepository->getStats($statisticType, $bot, $startTime, $endTime);
-    }
-
-    /**
-     * @return int
-     */
-    public function getNumberOfUniqueVisitors(): int
-    {
-        try {
-            return $this->statisticRepository->getNumberOfUniqueVisitors();
-        } catch (NonUniqueResultException|Exception $exception) {
-            $this->logger->error($exception->getMessage(), ['_method' => __METHOD__]);
-            return 0;
-        }
-    }
-
-    /**
-     * @return int
-     */
-    public function getNumberOfVisitedPages(): int
-    {
-        try {
-            return $this->statisticRepository->getNumberOfVisitedPages();
-        } catch (NonUniqueResultException|Exception $exception) {
-            $this->logger->error($exception->getMessage(), ['_method' => __METHOD__]);
-
-            return 0;
-        }
     }
 
     /**

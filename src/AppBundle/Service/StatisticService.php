@@ -45,24 +45,6 @@ class StatisticService
     }
 
     /**
-     * @param $stats
-     * @param array $nbOfVisitors
-     * @param string|null $nbOfVisitedPages
-     * @param string|int $nbOfArticles
-     */
-    public function processUserStatistics(
-        &$stats,
-        $nbOfVisitors,
-        $nbOfVisitedPages,
-        $nbOfArticles
-    ): void
-    {
-        $stats['nbOfUniqueVisitors'] = $nbOfVisitors;
-        $stats['nbOfVisitedPages'] = $nbOfVisitedPages;
-        $stats['nbOfArticles'] = $nbOfArticles;
-    }
-
-    /**
      * @return array
      */
     public function gets(): array

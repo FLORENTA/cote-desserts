@@ -7,7 +7,7 @@
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         height: '225px',
-                        backgroundImage: 'url('+'./images/' + article.image_src +')'
+                        backgroundImage: 'url(' + getImage(article.image_src) + ')'
                      }" v-bind:alt="article.slug">
                     </div>
                 </router-link>
@@ -29,6 +29,12 @@
         data() {
             return {
                 articles: this.$root.$data.articles
+            }
+        },
+
+        methods: {
+            getImage(src) {
+               return window.location.origin + './images/' + src;
             }
         },
 

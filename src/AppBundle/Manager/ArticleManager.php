@@ -52,22 +52,6 @@ class ArticleManager
     }
 
     /**
-     * @return int
-     */
-    public function getMaxArticleId(): int
-    {
-        try {
-            /** @var int $maxId */
-            $maxId = $this->articleRepository->getMaxArticleId() ?? 0;
-        } catch (NonUniqueResultException|Exception $exception) {
-            $this->logger->error($exception->getMessage(), ['_method' => __METHOD__]);
-            $maxId = 0;
-        }
-
-        return $maxId;
-    }
-
-    /**
      * @param string $title
      * @return Article|null
      */

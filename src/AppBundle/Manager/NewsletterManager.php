@@ -31,15 +31,6 @@ class NewsletterManager
     }
 
     /**
-     * @param string $id
-     * @return Newsletter|null
-     */
-    public function getSubscriberById(string $id): ?Newsletter
-    {
-        return $this->newsletterRepository->find($id);
-    }
-
-    /**
      * @return array
      */
     public function getSubscribers(): array

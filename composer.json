@@ -47,6 +47,16 @@
         ],
         "post-update-cmd": [
             "@symfony-scripts"
+        ],
+        "build": [
+            "php bin/console bazinga:js-translation:dump --env=prod --format=json",
+            "php bin/console fos:js-routing:dump --env=prod --format=json",
+            "yarn run encore production"
+        ],
+        "build-dev": [
+            "php bin/console bazinga:js-translation:dump --env=dev --format=json",
+            "php bin/console fos:js-routing:dump --env=dev --format=json",
+            "yarn run encore dev"
         ]
     },
     "config": {
