@@ -13,7 +13,7 @@
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 height: '225px',
-                                backgroundImage: 'url('+'./images/' + article.image_src +')'
+                                backgroundImage:  'url(' + getImage(article.image_src) + ')'
                              }" v-bind:alt="article.title">
                         </div>
                     </router-link>
@@ -89,6 +89,10 @@
                         this.removeButtonLoader($submitButton);
                     }
                 });
+            },
+
+            getImage(src) {
+                return window.location.origin + './images/' + src;
             }
         },
 

@@ -5,7 +5,15 @@
         <div class="container_flex">
             <div class="tile" style='margin: 30px 0;' v-for="(article, key) in articles">
                 <h3 class="text_centered">{{ article.title }}</h3>
-                <img class='image' v-bind:src="'./images/' + article.image_src"/>
+                <router-link v-bind:to="{name: 'adminEditArticle', params: {token: article.token} }">
+                    <div class='image' v-bind:style="{
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        height: '225px',
+                        backgroundImage: 'url(' + getImage(article.image_src) + ')'
+                     }" v-bind:alt="article.slug">
+                    </div>
+                </router-link>
                 <i class="fa fa-comment number-comments" v-bind:id="'number-of-comments-'.concat(article.token)" v-on:click="fetchArticleComments(article.id)"> {{ article.number_comments }}</i>
                 <div class="button-group">
                     <router-link v-bind:to="{name: 'adminEditArticle', params: {token: article.token}}">
@@ -123,6 +131,10 @@
                         addAlert(err.responseJSON);
                     }
                 });
+            },
+
+            getImage(src) {
+                return window.location.origin + './images/' + src;
             }
         },
 
