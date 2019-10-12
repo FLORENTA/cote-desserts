@@ -6,6 +6,7 @@ export const path = {
     adminCreateArticle: 'create',
     adminEditArticle: 'articles/edit/:token',
     adminLegal: 'legal',
+    adminLink: 'link',
     adminNewsletter: 'newsletter',
     adminPassword: 'password',
     adminStatistics: 'statistics',

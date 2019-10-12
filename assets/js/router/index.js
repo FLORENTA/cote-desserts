@@ -10,6 +10,7 @@ import AdminCreateArticle from '../components/admin/AdminCreateArticle';
 import AdminEditArticle from '../components/admin/AdminEditArticle';
 import AdminArticles from '../components/admin/AdminArticles';
 import AdminLegal from '../components/admin/AdminLegal';
+import AdminLink from "../components/admin/AdminLink";
 import AdminLogin from '../components/admin/AdminLogin';
 import AdminNewsletter from '../components/admin/AdminNewsletter';
 import AdminPassword from "../components/admin/AdminPassword";
@@ -62,6 +63,11 @@ let routes = [
                 path: path.adminLegal,
                 name: 'adminLegal',
                 component: AdminLegal
+            },
+            {
+                path: path.adminLink,
+                name: 'adminLink',
+                component: AdminLink
             },
             {
                 path: path.adminNewsletter,

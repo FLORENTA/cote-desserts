@@ -160,7 +160,7 @@ class Article
      *
      * @return Article
      */
-    public function setDate(?DateTime $date)
+    public function setDate(?DateTime $date): Article
     {
         $this->date = $date;
 
@@ -259,7 +259,7 @@ class Article
      *
      * @return Article
      */
-    public function addCategory(Category $category)
+    public function addCategory(Category $category): Article
     {
         if (!$this->categories->contains($category)) {
             $this->categories[] = $category;
@@ -402,7 +402,7 @@ class Article
      *
      * @return DateTime
      */
-    public function getUpdateAt()
+    public function getUpdateAt(): DateTime
     {
         return $this->updateAt;
     }

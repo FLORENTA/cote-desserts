@@ -1,0 +1,20 @@
+AppBundle\Entity\Link:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\LinkRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: string
+            length: 255
+            unique: true
+        token:
+            type: string
+            lenght: 255
+            unique: true
+    lifecycleCallbacks: {  }

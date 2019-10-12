@@ -34,6 +34,7 @@ admin.menu.article.list: Liste des articles
 admin.menu.comments: Commentaires
 admin.menu.contacts: Contacts
 admin.menu.legal: Mentions légales
+admin.menu.link: Liens
 admin.menu.logout: Déconnexion
 admin.menu.newsletter: Newsletter
 admin.menu.password: Mot de passe
@@ -120,6 +121,12 @@ legal.title: 'Mentions légales'
 legal.content.label: 'Mentions légales'
 legal.creation.success: 'Les mentions légales ont bien été créées'
 legal.update.success: 'Les mentions légales ont bien été mises à jour'
+
+link.creation.success: "Le lien a bien été créé."
+link.deletion.success: "Le lien a bien été supprimé."
+link.form.label: "Lien"
+link.title: "Liens externes"
+link.update.success: "Le lien a bien été mis à jour."
 
 login.authentication.success: 'Authentification réussie.'
 login.form.unknown_user: "L'utilisateur n'existe pas"

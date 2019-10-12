@@ -12,6 +12,7 @@
                 <router-link v-bind:to="{name: 'adminPassword'}" tag="li">{{ t('admin.menu.password') }}</router-link>
                 <router-link v-bind:to="{name: 'adminStatistics'}" tag="li">{{ t('admin.menu.statistics') }}</router-link>
                 <router-link v-bind:to="{name: 'adminContacts'}" tag="li">{{ t('admin.menu.contacts') }}</router-link>
+                <router-link v-bind:to="{name: 'adminLink'}" tag="li">{{ t('admin.menu.link') }}</router-link>
                 <router-link v-bind:to="{name: 'adminLegal'}" tag="li">{{ t('admin.menu.legal') }}</router-link>
                 <router-link v-bind:to="{name: 'logout'}" tag="li">{{ t('admin.menu.logout') }}</router-link>
             </ul>
