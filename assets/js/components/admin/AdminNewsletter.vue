@@ -61,7 +61,7 @@
 
         methods: {
             getNewsletters() {
-                $.get(Routing.generate('admin_newsletters'), response => {
+                $.get(Routing.generate('get_newsletters'), response => {
                     this.newsletters = response;
                     hideMessage();
                 }).fail(err => {
@@ -70,17 +70,21 @@
             },
 
             getArticlesWithNewsletter() {
-                $.get(Routing.generate('fetch_articles_with_newsletter'), response => {
+                $.get(Routing.generate('get_articles_newsletter'), response => {
                     this.articlesWithNewsletter = response;
                 });
             },
 
             unsubscribe(e) {
-                $.post(Routing.generate('admin_unsubscribe', { token: $(e.target).data('token') }), response => {
-                    addAlert(response);
-                    $(e.target).parents('tr').remove();
-                }).fail(err => {
-                    addAlert(err.responseJSON);
+                $.ajax({
+                    url: Routing.generate('delete_newsletter', { token: $(e.target).data('token') }),
+                    success: response => {
+                        addAlert(response);
+                        $(e.target).parents('tr').remove();
+                    },
+                    error: err => {
+                        addAlert(err.responseJSON);
+                    }
                 });
             }
         },

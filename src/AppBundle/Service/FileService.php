@@ -31,29 +31,19 @@ class FileService
     {
         /** @var string $filename */
         $filename = md5(uniqid()) . '.' . $file->guessExtension();
-
         $file->move($this->imagesDirectory, $filename);
 
         return $filename;
     }
 
     /**
-     * @param $file
+     * @param string $file
      * @throws Exception
      */
-    public function removeFile($file): void
+    public function removeFile(string $file): void
     {
-        if (is_file($file = $this->imagesDirectory . '/' . $file)) {
-            $status = unlink($file);
-            if (!$status) {
-                throw new Exception(sprintf("File %s could not been deleted.", $file));
-            }
-
-            return;
+        if (is_file($file = $this->imagesDirectory . '/' . $file) && !unlink($file)) {
+            throw new Exception(sprintf("File %s could not been deleted.", $file));
         }
-
-        throw new Exception(
-            sprintf('File %s does not exist.', $file)
-        );
     }
 }

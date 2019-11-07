@@ -1,6 +1,7 @@
 import {addAlert} from "./../js/alert";
 import {Routing} from './../js/routing'
 import {spinner} from "./spinner";
+import {path} from "../js/path";
 
 export const article = {
     data() {
@@ -46,7 +47,6 @@ export const article = {
             e.preventDefault();
             let $form = $(e.target)[0];
             let $submitButton = $('#appbundle_article_submit');
-
             this.addButtonLoader($submitButton);
 
             $.ajax({
@@ -56,7 +56,24 @@ export const article = {
                 contentType: false,
                 data: new FormData($form),
                 success: response => {
-                    addAlert(response);
+                    if (typeof response === 'object') {
+                        if ('alert' in response) {
+                            addAlert(response['alert']);
+                        }
+
+                        if ('delete_pdf_url' in response) {
+                            $('#appbundle_article_pdf_file').parents('.form_row').after($('<p>' + Translator.trans('article.pdf.delete') + '</p>' +
+                                '<button class="button-delete" id="remove-pdf" data-delete-pdf-url="' + response['delete_pdf_url'] + '">' +
+                                '<i class="fa fa-trash"></i> ' + Translator.trans('admin.article.form.button.remove') + '</button>')
+                            );
+                        }
+                    } else {
+                        addAlert(response);
+                    }
+
+                    if (this.$router.currentRoute.name === 'adminCreateArticle') {
+                        this.$router.push(path.admin);
+                    }
                 },
                 error: err => {
                     addAlert(err.responseJSON);
@@ -69,7 +86,7 @@ export const article = {
     },
 
     created() {
-        $.get(Routing.generate('fetch_categories'), response => {
+        $.get(Routing.generate('get_categories'), response => {
             this.categories = response;
         });
     }

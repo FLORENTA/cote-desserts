@@ -2,6 +2,7 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\Pdf;
 use AppBundle\Event\PdfEvent;
 use AppBundle\Service\PdfService;
 
@@ -28,8 +29,8 @@ class PdfListener
      */
     public function remove(PdfEvent $pdfEvent): void
     {
-        /** @var string $pdf */
-        $pdf = $pdfEvent->getFilename();
+        /** @var Pdf $pdf */
+        $pdf = $pdfEvent->getPdf();
 
         /** @var int $status */
         $status = $this->pdfService->remove($pdf);

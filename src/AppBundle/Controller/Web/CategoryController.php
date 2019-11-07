@@ -1,10 +1,9 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Web;
 
 use AppBundle\Entity\Category;
 use AppBundle\Form\CategoryType;
-use AppBundle\Manager\CategoryManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,34 +16,20 @@ use Symfony\Component\Routing\RouterInterface;
 class CategoryController extends Controller
 {
     /**
-     * @Route("/category/fetch-form", name="fetch_category_form", methods={"GET"})
+     * @Route("/categories/form", name="get_categories_form", methods={"GET"})
      * @param RouterInterface $router
      * @return JsonResponse
      */
-    public function fetchCategoryForm(RouterInterface $router): JsonResponse
+    public function getCategoryForm(RouterInterface $router): JsonResponse
     {
         $category = new Category();
 
         $form = $this->createForm(CategoryType::class, $category, [
-            'action' => $router->generate('fetch_articles_by_category')
+            'action' => $router->generate('get_articles_by_categories')
         ]);
 
         return new JsonResponse($this->renderView('form/category_form.html.twig', [
             'form' => $form->createView()
         ]), JsonResponse::HTTP_OK);
-    }
-
-    /**
-     * @Route("/category/fetch", name="fetch_categories", methods={"GET"})
-     * @param CategoryManager $categoryManager
-     * @return JsonResponse
-     */
-    public function fetchCategories(CategoryManager $categoryManager): JsonResponse
-    {
-        return new JsonResponse(
-            array_map(function($category) {
-                return $category['category'];
-            }, $categoryManager->getAll()
-        ), JsonResponse::HTTP_OK);
     }
 }

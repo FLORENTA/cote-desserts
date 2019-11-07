@@ -32,7 +32,24 @@
         <transition name="fade">
             <div id="results-modal" v-show="displayResultModal">
                 <h3 class="text-centered">{{ t('comment.title') }}</h3>
-                <p class="lead" id="results"></p>
+                <div class="lead" id="results">
+                    <div class="container" v-if="undefined !== articleComments && articleComments.length > 0">
+                        <p><span id="number-of-comments">{{ articleComments.length }}</span> {{ t('admin.homepage.comments') }}</p>
+                        <section class="article-comment comment" v-for="comment in articleComments">
+                            {{ t('admin.homepage.comments.email') }} {{ comment.email }} <br>
+                            {{ comment.comment }}
+                            <div class="button-group">
+                                <button :class="'update-comment-status '.concat(getClass(comment.published))" :data-publish="comment.published ? 'true' : 'false'" :data-token="comment.token">
+                                    {{ comment.published ? t('comment.status.hide') : t('comment.status.publish') }}
+                                </button>
+                                <button class="button-delete delete-comment" :data-token="comment.token" :data-article-token="comment.article_token">{{ t('comment.button.delete') }}</button>
+                            </div>
+                        </section>
+                    </div>
+                    <div v-else>
+                        {{ t('query.no_comment') }}
+                    </div>
+                </div>
                 <i class="fa fa-times close-button"></i>
             </div>
         </transition>
@@ -50,7 +67,8 @@
         data() {
             return {
                 displayResultModal: false,
-                articles: this.$root.$data.articles
+                articles: this.$root.$data.articles,
+                articleComments: undefined
             }
         },
 
@@ -63,9 +81,13 @@
         mixins: [spinner],
 
         methods: {
+            getClass(published) {
+                return published ? 'button-delete' : 'button-default';
+            },
+
             fetchArticleComments(articleId) {
-                $.get(Routing.generate('fetch_comments_by_article', { id: articleId }), response => {
-                    $('#results').empty().append(response);
+                $.get(Routing.generate('get_article_comments', { id: articleId }), response => {
+                    this.articleComments = response;
                     this.displayResultModal = true;
                 }).fail(err => {
                     addAlert(err.responseJSON);

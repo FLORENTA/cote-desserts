@@ -64,7 +64,7 @@ article.creation.failure: "La création de l'article a échoué"
 article.creation.success: "L'article %title% a bien été créé."
 article.deletion.failure: "La suppression de l'article a échoué."
 article.deletion.success: "L'article %title% a bien été supprimé."
-article.not_found: "L'article n'existe pas"
+article.not_found: "L'article n'existe pas."
 article.pdf.delete: 'Supprimer le fichier pdf'
 article.pdf.download: 'Télécharger la recette en PDF'
 article.update.failure: "La mise à jour de l'article %title% a échoué."
@@ -119,8 +119,8 @@ html.footer.legal_mentions: 'Mentions légales'
 
 legal.title: 'Mentions légales'
 legal.content.label: 'Mentions légales'
-legal.creation.success: 'Les mentions légales ont bien été créées'
-legal.update.success: 'Les mentions légales ont bien été mises à jour'
+legal.creation.success: 'Les mentions légales ont bien été créées.'
+legal.update.success: 'Les mentions légales ont bien été mises à jour.'
 
 link.creation.success: "Le lien a bien été créé."
 link.deletion.success: "Le lien a bien été supprimé."
@@ -164,6 +164,7 @@ not_found.title: "Oops, page non trouvée !"
 
 pdf.deletion.failure: "La suppression du fichier pdf %pdf% a échoué."
 pdf.deletion.success: "Le fichier pdf %pdf% a bien été supprimé."
+pdf.token.not_found: "Le fichier pdf n'existe pas."
 
 # query
 query.article.number.failure: "La récupération du nombre d'articles a échoué."
@@ -175,7 +176,7 @@ query.no_contact: 'Aucun message.'
 query.no_legal_mentions: 'Pas de mentions légales.'
 query.no_stats: 'Aucun résultat.'
 query.no_subscriber: 'Aucun abonné.'
-query.no_suggestion: 'Aucune suggestion'
+query.no_suggestion: 'Aucune suggestion.'
 
 # search
 search.label: 'Veuillez saisir un mot'

@@ -20,9 +20,6 @@ AppBundle\Entity\Article:
         newsletter:
             type: boolean
             nullable: true
-        pdf:
-            type: string
-            nullable: true
         token:
             type: string
             length: 255
@@ -30,6 +27,14 @@ AppBundle\Entity\Article:
         updateAt:
             type: datetime
             nullable: true
+
+    oneToOne:
+        pdf:
+            targetEntity: AppBundle\Entity\Pdf
+            mappedBy: article
+            cascade: ['persist', 'remove']
+            orphanRemoval: true
+
     oneToMany:
         images:
             targetEntity: AppBundle\Entity\Image

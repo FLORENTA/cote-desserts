@@ -1,6 +1,13 @@
-app:
-    resource: '@AppBundle/Controller/'
+app_controllers:
+    resource: '@AppBundle/Controller/Web'
     type: annotation
+    options:
+        expose: true
+
+rest_controllers:
+    resource: '@AppBundle/Controller/Rest'
+    type: rest
+    prefix: /api
     options:
         expose: true
 

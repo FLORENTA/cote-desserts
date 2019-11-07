@@ -28,19 +28,14 @@ new Vue({
                     contentType: false,
                     processData: false,
                     success: response => {
-                        if (typeof response === 'object') {
+                        if ('article' in response) {
                             window.dispatchEvent(new CustomEvent('router-push', {
-                                detail: response.slug
+                                detail: response['article'].slug
                             }));
-                        } else {
-                            $('#results-modal').find('#results').empty().append(response);
-                            $("#results").find('li').click(e => {
-                                window.dispatchEvent(new CustomEvent('hide-results-modal'));
-                                window.dispatchEvent(new CustomEvent('router-push', {
-                                    detail: $(e.target).data('slug')
-                                }));
-                            });
-                            window.dispatchEvent(new CustomEvent('display-results-modal'));
+                        } else if ('titles' in response) {
+                            window.dispatchEvent(new CustomEvent('titles', {
+                                detail: response['titles']
+                            }));
                         }
                     }
                 });

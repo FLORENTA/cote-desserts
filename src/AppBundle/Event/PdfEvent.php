@@ -2,6 +2,7 @@
 
 namespace AppBundle\Event;
 
+use AppBundle\Entity\Pdf;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -12,27 +13,27 @@ final class PdfEvent extends Event
 {
     const APP_BUNDLE_PDF_REMOVE = 'app_bundle.pdf.remove';
 
-    /** @var string $filename */
-    private $filename;
+    /** @var Pdf $pdf */
+    private $pdf;
 
     /** @var int $status */
     private $status;
 
     /**
      * PdfEvent constructor.
-     * @param string|null $filename
+     * @param Pdf|null $pdf
      */
-    public function __construct(string $filename = null)
+    public function __construct(?Pdf $pdf)
     {
-        $this->filename = $filename;
+        $this->pdf = $pdf;
     }
 
     /**
-     * @return string
+     * @return Pdf
      */
-    public function getFilename(): string
+    public function getPdf(): Pdf
     {
-        return $this->filename;
+        return $this->pdf;
     }
 
     /**

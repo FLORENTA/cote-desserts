@@ -15,10 +15,10 @@
             </button>
         </div>
         {{ form_row(form.newsletter) }}
-        {{ form_row(form.file) }}
-        {% if pdf is defined and pdf is not null %}
+        {{ form_row(form.pdf.file) }}
+        {% if delete_pdf_url is defined and delete_pdf_url is not null %}
            <p>{{ 'article.pdf.delete' | trans }}</p>
-            <button class="button-delete" id="remove-pdf" data-pdf="{{ pdf }}"><i class="fa fa-trash"></i> {{ 'admin.article.form.button.remove' | trans }}</button>
+            <button class="button-delete" id="remove-pdf" data-delete-pdf-url="{{ delete_pdf_url }}"><i class="fa fa-trash"></i> {{ 'admin.article.form.button.remove' | trans }}</button>
         {% endif %}
     {{ form_end(form) }}
 </div>

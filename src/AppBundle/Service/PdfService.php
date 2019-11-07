@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Pdf;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -43,15 +44,17 @@ class PdfService
     }
 
     /**
-     * @param string $pdf
+     * @param Pdf $pdf
      * @return int
      */
-    public function remove(string $pdf): int
+    public function remove(Pdf $pdf): int
     {
         try {
-            $this->fileService->removeFile($pdf);
+            /** @var string $src */
+            $src = $pdf->getSrc();
+            $this->fileService->removeFile($src);
             $this->logger->info(
-                sprintf('The pdf %s has been successfully removed.', $pdf),
+                sprintf('The pdf %s has been successfully removed.', $src),
                 ['_method' => __METHOD__]
             );
 

@@ -58,7 +58,7 @@
         mounted() {
             this.launchSpinnerAnimation();
 
-            $.get(Routing.generate('fetch_contact_form'), response => {
+            $.get(Routing.generate('get_contact_form'), response => {
                 $('#contact-form-container').append(response);
                 this.cancelSpinnerAnimation();
                 this.loaded = true;

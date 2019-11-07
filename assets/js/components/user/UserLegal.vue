@@ -34,7 +34,7 @@
         },
 
         mounted() {
-            $.get(Routing.generate('fetch_legal_mentions'), response => {
+            $.get(Routing.generate('get_legal'), response => {
                 this.content = response;
             }).fail(err => {
                 addAlert(err.responseJSON);

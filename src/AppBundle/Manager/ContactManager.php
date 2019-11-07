@@ -12,6 +12,9 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class ContactManager
 {
+    /** @var EntityManagerInterface $em */
+    private $em;
+
     /** @var ContactRepository $contactRepository */
     private $contactRepository;
 
@@ -21,6 +24,7 @@ class ContactManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->em = $entityManager;
         $this->contactRepository = $entityManager->getRepository(Contact::class);
     }
 
@@ -39,5 +43,23 @@ class ContactManager
     public function getContactByToken(string $token): ?Contact
     {
         return $this->contactRepository->findOneBy(['token' => $token]);
+    }
+
+    /**
+     * @param Contact $contact
+     */
+    public function createContact(Contact $contact): void
+    {
+        $this->em->persist($contact);
+        $this->em->flush();
+    }
+
+    /**
+     * @param Contact $contact
+     */
+    public function removeContact(Contact $contact): void
+    {
+        $this->em->remove($contact);
+        $this->em->flush();
     }
 }

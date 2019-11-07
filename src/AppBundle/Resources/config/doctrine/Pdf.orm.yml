@@ -1,0 +1,25 @@
+AppBundle\Entity\Pdf:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\PdfRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        src:
+            type: string
+            length: 255
+            unique: true
+            nullable: true
+
+        updateAt:
+            type: datetime
+            nullable: true
+
+    oneToOne:
+        article:
+            targetEntity: AppBundle\Entity\Article
+            inversedBy: pdf

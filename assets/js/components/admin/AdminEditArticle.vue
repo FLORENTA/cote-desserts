@@ -23,12 +23,15 @@
 
         methods: {
             deletePDF(e) {
+                e.preventDefault();
+                let $button = $(e.target);
                 $.ajax({
                     type: 'DELETE',
-                    url: Routing.generate('delete_pdf', { pdf: $(e.target).data('pdf') }),
+                    url: $button.data('delete-pdf-url'),
                     success: response => {
                         addAlert(response);
-                        this.pdf = undefined;
+                        $button.prev('p').remove();
+                        $button.remove();
                     },
                     error : err => {
                         addAlert(err.responseJSON);
@@ -40,7 +43,7 @@
         mixins: [article],
 
         mounted() {
-            $.get(Routing.generate('fetch_edit_article_form', { token : this.$route.params.token }), response => {
+            $.get(Routing.generate('get_article_edit_form', { token : this.$route.params.token }), response => {
                 $('#edit-article-form-container').append(response);
                 this.isEditArticleFormLoaded = true;
             });

@@ -51,7 +51,7 @@
 
         mounted() {
             // Fetch legal mentions form
-            $.get(Routing.generate('fetch_create_legal_form'), response => {
+            $.get(Routing.generate('get_legal_create_form'), response => {
                 $('#legal-form-container').append(response);
                 this.isLegalMentionsLoaded = true;
             }).fail(err => {

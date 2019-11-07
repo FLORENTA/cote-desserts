@@ -26,7 +26,7 @@ class NewsletterService extends AbstractMailService
         /** @var Newsletter[] $subscribers */
         $subscribers = $this->newsletterManager->getSubscribers();
 
-        $articleUrl = $this->router->generate('pull_in', [
+        $articleUrl = $this->router->generate('consult_article', [
             'slug' => $article->getSlug()
         ], UrlGeneratorInterface::ABSOLUTE_PATH);
 
@@ -37,7 +37,7 @@ class NewsletterService extends AbstractMailService
 
         foreach ($subscribers as $subscriber) {
             /** @var string $unsubscribeUrl */
-            $unsubscribeUrl = $this->router->generate('user_unsubscribe', [
+            $unsubscribeUrl = $this->router->generate('delete_newsletter', [
                 'token' => $subscriber->getToken()
             ], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -87,7 +87,7 @@ class NewsletterService extends AbstractMailService
 
         /** @var string $unsubscribeUrl */
         $unsubscribeUrl = $this->router->generate(
-            'user_unsubscribe',
+            'delete_newsletter',
             ['token' => $token],
             UrlGeneratorInterface::ABSOLUTE_URL
         );

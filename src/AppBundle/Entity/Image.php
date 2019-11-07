@@ -65,11 +65,11 @@ class Image
     /**
      * Set src
      *
-     * @param string $src
+     * @param string|null $src
      *
      * @return Image
      */
-    public function setSrc($src)
+    public function setSrc(?string $src)
     {
         $this->src = $src;
 

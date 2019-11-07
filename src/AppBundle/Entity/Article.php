@@ -64,7 +64,7 @@ class Article
 
     /**
      * @Groups("article")
-     * @var UploadedFile|string $pdf
+     * @var Pdf $pdf
      */
     private $pdf;
 
@@ -78,12 +78,6 @@ class Article
      * @var boolean|null $newsletter
      */
     private $newsletter;
-
-    /**
-     * @var UploadedFile|null
-     */
-    private $file;
-
 
     /**
      * Article constructor.
@@ -314,31 +308,7 @@ class Article
     {
         return $this->newsletter;
     }
-
-    /**
-     * Set pdf
-     *
-     * @param string|null $pdf
-     *
-     * @return Article
-     */
-    public function setPdf(?string $pdf): Article
-    {
-        $this->pdf = $pdf;
-
-        return $this;
-    }
-
-    /**
-     * Get pdf
-     *
-     * @return string|null
-     */
-    public function getPdf(): ?string
-    {
-        return $this->pdf;
-    }
-
+    
     /**
      * Set token
      *
@@ -364,26 +334,6 @@ class Article
     }
 
     /**
-     * @param UploadedFile|null $uploadedFile
-     * @return Article
-     * @throws Exception
-     */
-    public function setFile(?UploadedFile $uploadedFile): Article
-    {
-        $this->file = $uploadedFile;
-
-        return $this;
-    }
-
-    /**
-     * @return UploadedFile|null
-     */
-    public function getFile(): ?UploadedFile
-    {
-        return $this->file;
-    }
-
-    /**
      * Set updateAt
      *
      * @param DateTime $updateAt
@@ -405,5 +355,30 @@ class Article
     public function getUpdateAt(): DateTime
     {
         return $this->updateAt;
+    }
+
+    /**
+     * Set pdf.
+     *
+     * @param Pdf|null $pdf
+     *
+     * @return Article
+     */
+    public function setPdf(?Pdf $pdf): Article
+    {
+        $this->pdf = $pdf;
+        $pdf->setArticle($this);
+
+        return $this;
+    }
+
+    /**
+     * Get pdf.
+     *
+     * @return Pdf|null
+     */
+    public function getPdf(): ?Pdf
+    {
+        return $this->pdf;
     }
 }

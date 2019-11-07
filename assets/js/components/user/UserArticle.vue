@@ -110,7 +110,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: $form.action,
+                    url: Routing.generate('create_comment', { articleToken: this.article.token}),
                     processData: false,
                     contentType: false,
                     data: formData,
@@ -138,7 +138,7 @@
                 type: NAVIGATION_TYPE
             });
 
-            $.get(Routing.generate('article_fetch', { slug: this.$route.params.slug} ), response => {
+            $.get(Routing.generate('get_article', { slug: this.$route.params.slug} ), response => {
                 this.article = response;
 
                 if (this.article.comments.length !== 0) {
@@ -149,7 +149,7 @@
 
                 hideMessage();
 
-                $.get(Routing.generate('fetch_comment_form', { id : this.article.id }), response => {
+                $.get(Routing.generate('get_comment_form'), response => {
                     $('#comment_form_container').append(response);
                 });
             }).fail(err => {

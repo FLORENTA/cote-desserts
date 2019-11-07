@@ -22,7 +22,7 @@
         mixins: [article],
 
         mounted() {
-            $.get(Routing.generate('fetch_create_article_form'), response => {
+            $.get(Routing.generate('get_article_create_form'), response => {
                 $('#create-article-form-container').append(response);
                 this.isCreateArticleFormLoaded = true;
             });

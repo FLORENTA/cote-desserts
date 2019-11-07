@@ -108,7 +108,7 @@
         mounted() {
             /* If coming from an article */
             if (this.$route.name === "category") {
-                $.get(Routing.generate('fetch_article_for_category', { category: this.$route.params.category }), response => {
+                $.get(Routing.generate('get_article_by_category', { category: this.$route.params.category }), response => {
                     this.articles = response;
                     this.isArticlesLoaded = true;
                     this.displayedCategory = this.$route.params.category;
@@ -119,7 +119,7 @@
                 });
             }
 
-            $.get(Routing.generate('fetch_category_form'), response => {
+            $.get(Routing.generate('get_categories_form'), response => {
                 $('#category-form-container').append(response);
                 $('#appbundle_category_category').selectize({
                     plugins: ['remove_button'],

@@ -18,7 +18,12 @@
         <transition name="fade">
             <div id="results-modal" v-show="displayResultModal">
                 <h3 class="text-centered">{{ t('search.suggestions') }}</h3>
-                <p class="lead" id="results"></p>
+                <ul id="search-results" class="lead">
+                    <li v-for='result in searchResults' :data-slug="result.slug">
+                        {{ result.title }}
+                        <i class="fa fa-chevron-right"></i>
+                    </li>
+                </ul>
                 <i class="fa fa-times close-button"></i>
             </div>
         </transition>
@@ -59,7 +64,8 @@
                 newsletter: undefined,
                 newsletterFormValid: false,
                 loading: false,
-                displayResultModal: false
+                displayResultModal: false,
+                searchResults: []
             }
         },
 
@@ -79,14 +85,15 @@
         methods: {
             handleNewsletterFormSubmission(e) {
                 e.preventDefault();
-                let formData = new FormData($(e.target)[0]);
+                let $form = $(e.target)[0];
+                let formData = new FormData($form);
                 let $submitButton = $('#appbundle_newsletter_submit');
 
                 this.addButtonLoader($submitButton);
 
                 $.ajax({
                     type: 'POST',
-                    url: Routing.generate('newsletter_new'),
+                    url: $form.action,
                     contentType: false,
                     processData: false,
                     data: formData,
@@ -105,13 +112,13 @@
 
         mounted() {
             // Get the search form
-            $.get(Routing.generate('fetch_search_form'), response => {
+            $.get(Routing.generate('get_search_form'), response => {
                 $('#search-form-container').append(response);
                 this.isSearchFormLoaded = true;
             });
 
             // Get the newsletter form
-            $.get(Routing.generate('fetch_newsletter_form'), response => {
+            $.get(Routing.generate('get_newsletter_form'), response => {
                 $('#newsletter-form-container').append(response);
                 this.isNewsletterFormLoaded = true;
             });
@@ -130,12 +137,15 @@
                 this.$router.go(0);
             });
 
-            $(window).on('display-results-modal', () => {
+            $(window).on('titles', e => {
+                this.searchResults = e.detail;
                 this.displayResultModal = true;
-            });
-
-            $(window).on('hide-results-modal', () => {
-                this.displayResultModal = false;
+                $("#search-results").find('li').click(e => {
+                    this.displayResultModal = false;
+                    window.dispatchEvent(new CustomEvent('router-push', {
+                        detail: $(e.target).data('slug')
+                    }));
+                });
             });
 
             $(document).on('click', '.close-button', () => {

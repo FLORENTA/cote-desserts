@@ -48,15 +48,7 @@ class ArticleType extends AbstractType
                 'required' => false,
                 'label' => 'admin.article.form.newsletter.label'
             ])
-            ->add('file', FileType::class, [
-                'label' => 'admin.article.form.pdf.label',
-                'required' => false,
-                'attr' => [
-                    'accept' => 'application/pdf'
-                ],
-                // Avoid conflict with string and instance of Uploaded File for edition
-                'data_class' => null
-            ])
+            ->add('pdf', PdfType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'generic.form.submit',
                 'attr' => [

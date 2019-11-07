@@ -12,6 +12,9 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class LegalManager
 {
+    /** @var EntityManagerInterface $em */
+    private $em;
+
     /** @var LegalRepository $legalRepository */
     private $legalRepository;
 
@@ -21,6 +24,7 @@ class LegalManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->em = $entityManager;
         $this->legalRepository = $entityManager->getRepository(Legal::class);
     }
 
@@ -30,5 +34,14 @@ class LegalManager
     public function getLegalMentions(): ?Legal
     {
         return $this->legalRepository->findOneBy([]);
+    }
+
+    /**
+     * @param Legal $legal
+     */
+    public function createLegalMentions(Legal $legal)
+    {
+        $this->em->persist($legal);
+        $this->em->flush();
     }
 }

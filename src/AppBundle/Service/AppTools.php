@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Manager\ArticleManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class AppTools
@@ -11,6 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class AppTools
 {
+    private $container;
+
     /** @var EntityManagerInterface $em */
     private $em;
 
@@ -23,12 +26,10 @@ class AppTools
      * @param ArticleManager $articleManager
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
-        ArticleManager $articleManager
+        ContainerInterface $container
     )
     {
-        $this->em = $entityManager;
-        $this->articleManager = $articleManager;
+        $this->container = $container;
     }
 
     /**
@@ -36,7 +37,7 @@ class AppTools
      * @param string $slug
      * @return string
      */
-    public function slugify($slug): string
+    public function slugify(string $slug): string
     {
         $slug = htmlspecialchars(trim($slug));
         $slug = str_replace(["à", "â", "ä"], 'a', $slug);

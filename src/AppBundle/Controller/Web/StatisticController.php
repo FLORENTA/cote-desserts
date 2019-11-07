@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Web;
 
 use AppBundle\Entity\Statistic;
 use AppBundle\Entity\StatisticType as StatisticTypeEntity;

@@ -46,7 +46,7 @@
 
         methods: {
             getComments() {
-                $.get(Routing.generate('fetch_comments'), response => {
+                $.get(Routing.generate('get_comments'), response => {
                     this.$store.commit('hideMessage');
                     this.comments = response;
                 }).fail(err => {
@@ -56,8 +56,8 @@
 
             updateStatus(bool, token, key) {
                 $.ajax({
-                    type: 'PUT',
-                    url: Routing.generate('change_comment_status', {status: '' + bool + '', token: token}),
+                    type: 'PATCH',
+                    url: Routing.generate('update_comment', { token: token, status: '' + bool }),
                     success: response => {
                         this.comments[key].published = bool;
                         addAlert(response);

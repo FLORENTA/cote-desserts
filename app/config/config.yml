@@ -34,6 +34,8 @@ framework:
         log: true
     templating:
         engines: twig
+    serializer: # added
+        enabled: true
 
 # Twig Configuration
 twig:
@@ -74,3 +76,31 @@ swiftmailer:
 
 fos_js_routing:
     request_context_base_url: ''
+
+# added
+
+sensio_framework_extra:
+    view: { annotations: true }
+
+fos_rest:
+    body_converter:
+        enabled: true
+    view:
+        formats: { html: true, json: true, xml: false, rss: false }
+        # The view response listener makes it possible to simply
+        # return a View instance from action controllers
+        view_response_listener:
+            enabled: true
+    serializer:
+        serialize_null: true
+    routing_loader:
+        include_format: json
+    format_listener:
+        enabled: true
+        rules:
+            - {path: '^/api', fallback_format: 'json' }
+            - {path: '/', stop: true }
+
+
+
+

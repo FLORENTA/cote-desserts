@@ -7,6 +7,7 @@ use AppBundle\Entity\Comment;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\Image;
 use AppBundle\Entity\Newsletter;
+use AppBundle\Entity\Pdf;
 use AppBundle\Event\CommentEvent;
 use AppBundle\Event\ContactEvent;
 use AppBundle\Event\NewsletterEvent;
@@ -78,13 +79,18 @@ class EntityListener
             /** @var string $slug */
             $slug = $this->appTools->slugify($entity->getTitle());
 
-            /** @var UploadedFile|null $file */
-            $file = $entity->getFile();
+            /** @var Pdf|null $pdf */
+            $pdf = $entity->getPdf();
 
-            if ($file instanceof UploadedFile) {
-                /** @var string $filename */
-                $filename = $this->fileService->uploadFile($file);
-                $entity->setPdf($filename);
+            if (null !== $pdf) {
+                /** @var UploadedFile|null $file */
+                $file = $pdf->getFile();
+
+                if ($file instanceof UploadedFile) {
+                    /** @var string $src */
+                    $src = $this->fileService->uploadFile($file);
+                    $pdf->setSrc($src);
+                }
             }
 
             try {
@@ -112,6 +118,61 @@ class EntityListener
                 $entity->setTitle($entity->getArticle()->getTitle());
             } catch (Exception $exception) {
                 $this->logger->error($exception->getMessage(), [
+                    '_method' => __METHOD__
+                ]);
+            }
+        }
+    }
+
+    /**
+     * @param PreUpdateEventArgs $preUpdateEventArgs
+     */
+    public function preUpdate(PreUpdateEventArgs $preUpdateEventArgs)
+    {
+        /** @var object $entity */
+        $entity = $preUpdateEventArgs->getEntity();
+
+        if ($entity instanceof Image || $entity instanceof Pdf) {
+            /** @var UploadedFile|null $file */
+            $file = $entity->getFile();
+
+            if ($file instanceof UploadedFile) {
+                $this->removeFile($entity->getSrc());
+
+                /** @var string $filename */
+                $filename = $this->uploadFile($file);
+                $entity->setSrc($filename);
+            }
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $lifecycleEventArgs
+     */
+    public function preRemove(LifecycleEventArgs $lifecycleEventArgs): void
+    {
+        /** @var object $entity */
+        $entity = $lifecycleEventArgs->getEntity();
+
+        if ($entity instanceof Image || $entity instanceof Pdf) {
+            /** @var string|null $file */
+            $file = $entity->getSrc();
+            $this->removeFile($file);
+        }
+
+        if ($entity instanceof Newsletter) {
+            /** @var string $email */
+            $email = $entity->getEmail();
+            $newsletterEvent = new NewsletterEvent(null, $email);
+
+            $this->eventDispatcher->dispatch(
+                NewsletterEvent::APP_BUNDLE_NEWSLETTER_CONFIRM_UNSUBSCRIPTION,
+                $newsletterEvent
+            );
+
+            if ($newsletterEvent->getStatus() === NewsletterService::ERROR) {
+                $this->logger->error(
+                    sprintf('An error occurred when trying to send unsubscription confirmation to %s.', $email), [
                     '_method' => __METHOD__
                 ]);
             }
@@ -170,76 +231,6 @@ class EntityListener
                         '_method' => __METHOD__
                     ]);
                 }
-            }
-        }
-    }
-
-    /**
-     * @param PreUpdateEventArgs $preUpdateEventArgs
-     */
-    public function preUpdate(PreUpdateEventArgs $preUpdateEventArgs)
-    {
-        /** @var object $entity */
-        $entity = $preUpdateEventArgs->getEntity();
-
-        if ($entity instanceof Article) {
-            /** @var UploadedFile|null $pdf */
-            $file = $entity->getFile();
-
-            if ($file instanceof UploadedFile) {
-                /** @var string $filename */
-                $filename = $this->uploadFile($file);
-                $this->removeFile($entity->getPdf());
-                $entity->setPdf($filename);
-            }
-        }
-
-        if ($entity instanceof Image) {
-            if (null !== $entity->getFile()) {
-                $this->removeFile($entity->getSrc());
-
-                /** @var string $filename */
-                $filename = $this->uploadFile($entity->getFile());
-                $entity->setSrc($filename);
-            }
-        }
-    }
-
-    /**
-     * @param LifecycleEventArgs $lifecycleEventArgs
-     */
-    public function preRemove(LifecycleEventArgs $lifecycleEventArgs): void
-    {
-        /** @var object $entity */
-        $entity = $lifecycleEventArgs->getEntity();
-
-        if ($entity instanceof Article) {
-            /** @var string|null $file */
-            $file = $entity->getPdf();
-            $this->removeFile($file);
-        }
-
-        if ($entity instanceof Image) {
-            /** @var string|null $file */
-            $file = $entity->getSrc();
-            $this->removeFile($file);
-        }
-
-        if ($entity instanceof Newsletter) {
-            /** @var string $email */
-            $email = $entity->getEmail();
-            $newsletterEvent = new NewsletterEvent(null, $email);
-
-            $this->eventDispatcher->dispatch(
-                NewsletterEvent::APP_BUNDLE_NEWSLETTER_CONFIRM_UNSUBSCRIPTION,
-                $newsletterEvent
-            );
-
-            if ($newsletterEvent->getStatus() === NewsletterService::ERROR) {
-                $this->logger->error(
-                    sprintf('An error occurred when trying to send unsubscription confirmation to %s.', $email), [
-                    '_method' => __METHOD__
-                ]);
             }
         }
     }

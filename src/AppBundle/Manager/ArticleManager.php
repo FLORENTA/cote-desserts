@@ -164,15 +164,6 @@ class ArticleManager
     }
 
     /**
-     * @param Article $article
-     */
-    public function unsetPdf(Article $article): void
-    {
-        $article->setPdf(null);
-        $this->em->flush();
-    }
-
-    /**
      * @return array
      */
     public function getArticlesWithNewsletter(): array
